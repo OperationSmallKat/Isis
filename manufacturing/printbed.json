@@ -1,0 +1,1085 @@
+{
+  "locations": {
+    "BodyCover": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "ShoulderCoverRightRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "GearLinkHead": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "KneeCoverLeftRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "ShoulderCoverLeftFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "ShoulderCoverRightFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "Head_Head": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "Resin Horn 0 DummyRightRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "Resin Horn 2 RightRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "ShoulderCoverLeftRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "ServoCoverTopRightBack": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "DriveLink 0 LeftRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "PassiveLinkLeftRear2": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "PassiveLinkLeftRear1": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "PassiveLinkLeftRear0": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "Resin Horn 1 RightFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "DriveGearDummyLeftRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "DriveLink 2 RightRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "DriveLink 2 LeftFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "FootLeftRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "ServoCoverTopRightFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "Resin Horn 0 RightFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "ServoCoverBottomRightBack": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "Resin Horn 2 LeftFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "DriveLink 1 RightRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "DriveGearDummyLeftFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "DriveLink 1 LeftFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "DriveLink 1 LeftRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "ServoCoverBottomLeftBack": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "DriveGearDummyRightRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "Tail_Tail": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "DriveLink 0 RightFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "WristCenterTail": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "DriveLink 2 LeftRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "KneeCoverRightRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "KneeCoverLeftFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "FootLeftFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "ServoCoverTopLeftBack": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "Resin Horn 2 RightFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "Resin Horn 1 LeftFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "FootRightRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "FootRightFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "PassiveLinkHead": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "ServoCoverTopLeftFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "ShoulderLeftRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "Resin Horn 0 LeftRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "Resin Horn 1 RightRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "ShoulderLeftFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "DriveLink 0 RightRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "PassiveLinkRightRear0": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "ShoulderRightRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "PassiveLinkRightRear2": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "PassiveLinkRightRear1": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "Body": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "KneeLeftRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "Resin Horn 0 DummyLeftRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "PassiveLinkLeftFront2": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "PassiveLinkLeftFront1": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "KneeRightFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "Resin Horn 0 LeftFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "PassiveLinkTail": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "Resin Horn 1 LeftRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "DriveGearDummyRightFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "DriveLink 0 LeftFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "ServoCoverBottomLeftFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "ServoCoverBottomRightFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "DriveLink 2 RightFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "KneeRightRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "WristCenterHead": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "GearLinkTail": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "KneeCoverRightFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "KneeLeftFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "Resin Horn 0 DummyRightFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "ShoulderRightFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "DriveLink 1 RightFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "PassiveLinkRightFront2": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "Resin Horn 0 DummyLeftFront": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "PassiveLinkRightFront1": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "PassiveLinkRightFront0": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "CalibrationJig": {
+      "x": 147.90750467390077,
+      "y": -190.7114043021898,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "Resin Horn 2 LeftRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "Resin Horn 0 RightRear": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    },
+    "PassiveLinkLeftFront0": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "rotation": {
+        "storage": {
+          "q0": 1.0,
+          "q1": 0.0,
+          "q2": 0.0,
+          "q3": 0.0
+        }
+      }
+    }
+  },
+  "bedX": 250.0,
+  "bedY": 250.0
+}
