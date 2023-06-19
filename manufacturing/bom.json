@@ -361,6 +361,600 @@
           }
         }
       }
+    },
+    {
+      "name": "RightLinkScrewTail:1",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkScrewLeftRear:0",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkScrewLeftRear:0",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkScrewLeftRear:1",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkScrewLeftRear:1",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkScrewLeftRear:2",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkScrewLeftRear:2",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkScrewRightFront:0",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkScrewRightFront:0",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkScrewRightFront:1",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkScrewRightFront:1",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkScrewRightFront:2",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkScrewRightFront:2",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkScrewLeftFront:0",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkScrewLeftFront:0",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkScrewLeftFront:1",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkScrewLeftFront:1",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkScrewLeftFront:2",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkScrewLeftFront:2",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkScrewRightRear:0",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkScrewRightRear:0",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkScrewRightRear:1",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkScrewRightRear:1",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkScrewRightRear:2",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkScrewRightRear:2",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkScrewDummyLeftRear:0",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkScrewDummyLeftRear:0",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkScrewDummyRightFront:0",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkScrewDummyRightFront:0",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkScrewDummyLeftFront:0",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkScrewDummyLeftFront:0",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkScrewDummyRightRear:0",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkScrewDummyRightRear:0",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
     }
   ],
   "PhillipsRoundedHeadThreadFormingScrews:M2x8": [
@@ -2527,7 +3121,7 @@
       }
     },
     {
-      "name": "MountNutHead:1",
+      "name": "MountNutHead:0",
       "type": "squareNut",
       "size": "M3",
       "pose": {
@@ -2581,7 +3175,7 @@
       }
     },
     {
-      "name": "MountNutTail:1",
+      "name": "MountNutTail:0",
       "type": "squareNut",
       "size": "M3",
       "pose": {
@@ -2618,42 +3212,6 @@
     },
     {
       "name": "RightLinkNutTail:1",
-      "type": "squareNut",
-      "size": "M3",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "MountNutHead:0",
-      "type": "squareNut",
-      "size": "M3",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "MountNutTail:0",
       "type": "squareNut",
       "size": "M3",
       "pose": {
@@ -2747,583 +3305,7 @@
   ],
   "capScrew:M3x16": [
     {
-      "name": "LeftLinkScrewLeftRear:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "RightLinkScrewLeftRear:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "LeftLinkScrewLeftRear:1",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "RightLinkScrewLeftRear:1",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "LeftLinkScrewLeftRear:2",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "RightLinkScrewLeftRear:2",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "LeftLinkScrewRightFront:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "RightLinkScrewRightFront:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "LeftLinkScrewRightFront:1",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "RightLinkScrewRightFront:1",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "LeftLinkScrewRightFront:2",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "RightLinkScrewRightFront:2",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "LeftLinkScrewLeftFront:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "RightLinkScrewLeftFront:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "LeftLinkScrewLeftFront:1",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "RightLinkScrewLeftFront:1",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "LeftLinkScrewLeftFront:2",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "RightLinkScrewLeftFront:2",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "LeftLinkScrewRightRear:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "RightLinkScrewRightRear:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "LeftLinkScrewRightRear:1",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "RightLinkScrewRightRear:1",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "LeftLinkScrewRightRear:2",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "RightLinkScrewRightRear:2",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "LeftLinkScrewDummyLeftRear:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "RightLinkScrewDummyLeftRear:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "LeftLinkScrewDummyRightFront:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "RightLinkScrewDummyRightFront:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "LeftLinkScrewDummyLeftFront:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "RightLinkScrewDummyLeftFront:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "LeftLinkScrewDummyRightRear:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "RightLinkScrewDummyRightRear:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "MountScrewHead:1",
+      "name": "MountScrewHead:0",
       "type": "capScrew",
       "size": "M3x16",
       "pose": {
@@ -3359,25 +3341,7 @@
       }
     },
     {
-      "name": "RightLinkScrewHead:1",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "MountScrewTail:1",
+      "name": "MountScrewTail:0",
       "type": "capScrew",
       "size": "M3x16",
       "pose": {
@@ -3396,60 +3360,6 @@
     },
     {
       "name": "LeftLinkScrewTail:1",
-      "type": "capScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "RightLinkScrewTail:1",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "MountScrewHead:0",
-      "type": "capScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "MountScrewTail:0",
       "type": "capScrew",
       "size": "M3x16",
       "pose": {
