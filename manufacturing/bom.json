@@ -582,7 +582,7 @@
     },
     {
       "name": "LeftMotorDoorScrewRightRear:0",
-      "type": "PhillipsRoundedHeadThreadFormingScrews.groovy",
+      "type": "PhillipsRoundedHeadThreadFormingScrews",
       "size": "M2x8",
       "pose": {
         "x": 0.0,
