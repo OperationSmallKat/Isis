@@ -363,7 +363,7 @@
       }
     }
   ],
-  "PhillipsRoundedHeadThreadFormingScrews.groovy:M2x8": [
+  "PhillipsRoundedHeadThreadFormingScrews:M2x8": [
     {
       "name": "LeftMotorDoorScrewLeftRear:0",
       "type": "PhillipsRoundedHeadThreadFormingScrews",
