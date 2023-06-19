@@ -1060,7 +1060,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 						.movez(-wristCenterOffset-1)
 						.movex(6.6)
 				headtail.setManufacturing({ incoming ->
-					return incoming.toZMin().toXMin().toYMin()
+					return incoming.roty(90).toZMin().toXMin().toYMin()
 				})
 			}
 			if(name.contentEquals("Tail")) {
