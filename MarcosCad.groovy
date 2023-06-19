@@ -977,8 +977,8 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 	CSG getNeckLink() {
 		double neckLenFudge = 4.5
 		double parametric = numbers.LinkLength-endOfPassiveLinkToBolt
-
-		return passiveLink(parametric+neckLenFudge)
+		CSG boltl = bom.get("RightLinkScrewTail:1")
+		return passiveLink(parametric+neckLenFudge,boltl)
 				.rotx(180)
 				.movez(-15.1)
 	}
@@ -1021,11 +1021,10 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 			wrist.getStorage().set("bedType", "ff-One")
 			wrist.setPrintBedNumber(1)
 			back.add(wrist)
-		}
-		if(linkIndex==1) {
-			
 			bom.set(MountScrewKey,"capScrew","M3x16",new TransformNR())
 			bom.set(MountNutKey,"squareNut","M3",new TransformNR())
+		}
+		if(linkIndex==1) {
 			bom.set(leftLinkScrewKey,"capScrew","M3x16",new TransformNR())
 			bom.set(rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR())
 			bom.set(leftLinkNutKey,"squareNut","M3",new TransformNR())
