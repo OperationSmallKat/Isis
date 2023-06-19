@@ -473,16 +473,49 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		double link1Rotz=-90
 		double MototRetractDist =15
 		String motorKey = "Motor"+d.getScriptingName()+":"+linkIndex
+		
 		String leftMotorScrewKey = "LeftMotorScrew"+d.getScriptingName()+":"+linkIndex
 		String rightMotorScrewKey = "RightMotorScrew"+d.getScriptingName()+":"+linkIndex
 		String leftLinkScrewKey = "LeftLinkScrew"+d.getScriptingName()+":"+linkIndex
 		String rightLinkScrewKey = "RightLinkScrew"+d.getScriptingName()+":"+linkIndex
 		String leftLinkNutKey = "LeftLinkNut"+d.getScriptingName()+":"+linkIndex
 		String rightLinkNutKey = "RightLinkNut"+d.getScriptingName()+":"+linkIndex
+		String leftCalibrationNutKey = "LeftCalibrationNut"+d.getScriptingName()+":"+linkIndex
+		String rightCalibrationNutKey = "RightCalibrationNut"+d.getScriptingName()+":"+linkIndex
+		
+		String leftCalibrationScrewKey = "LeftCalibrationScrew"+d.getScriptingName()+":"+linkIndex
+		String rightCalibrationScrewKey = "RightCalibrationScrew"+d.getScriptingName()+":"+linkIndex
+		
+		String motorDoorScrewKey = "MotorDoorScrew"+d.getScriptingName()+":"+linkIndex
+		String leftmotorDoorScrewKey = "LeftMotorDoorScrew"+d.getScriptingName()+":"+linkIndex
+		String rightmotorDoorScrewKey = "RightMotorDoorScrew"+d.getScriptingName()+":"+linkIndex
+		
 		
 		bom.set(motorKey,conf.getElectroMechanicalType(),conf.getElectroMechanicalSize(),new TransformNR())
 		
+		bom.set(leftMotorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR())
+		bom.set(rightMotorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR())
+		
+		bom.set(leftLinkScrewKey,"capScrew","M3x16",new TransformNR())
+		bom.set(rightLinkScrewKey,"capScrew","M3x16",new TransformNR())
+		
+		bom.set(leftLinkNutKey,"squareNut","M3",new TransformNR())
+		bom.set(rightLinkNutKey,"squareNut","M3",new TransformNR())
+		
+		bom.set(leftCalibrationNutKey,"squareNut","M3",new TransformNR())
+		bom.set(rightCalibrationNutKey,"squareNut","M3",new TransformNR())
+		
+		
+		bom.set(leftCalibrationScrewKey,"conePointSetScrew","M3x6",new TransformNR())
+		bom.set(rightCalibrationScrewKey,"conePointSetScrew","M3x6",new TransformNR())
+		
+		
+		
 		if(linkIndex==0) {
+			
+			bom.set(leftmotorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews.groovy","M2x8",new TransformNR())
+			bom.set(rightmotorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews.groovy","M2x8",new TransformNR())
+			
 			motor=motor.rotz(left?180:0)
 			motor=motor.roty(front?180:0)
 			// the first link motor is located in the body
@@ -490,6 +523,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 			// pull the limb servos out the top
 			motor.addAssemblyStep(4, new Transform().movex(isDummyGearWrist?-30:MototRetractDist))
 		}else {
+			bom.set(motorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews.groovy","M2x8",new TransformNR())
 			motor=motor.roty(left?180:0)
 			motor=motor.rotz(linkIndex==2?90:90+link1Rotz)
 			// the rest of the motors are located in the preior link's kinematic frame
