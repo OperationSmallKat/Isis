@@ -1,7 +1,7 @@
 name,qty,source
 hobbyServo:mg92b,16,https://www.aliexpress.us/item/3256801883704529.html?spm=a2g0o.detail.1000014.1.7a771b29SLCuHw
-conePointSetScrew:M3x6,8,null
-PhillipsRoundedHeadThreadFormingScrews.groovy:M2x8,6,null
-PhillipsRoundedHeadThreadFormingScrews:M2x8,8,https://www.mcmaster.com/90380A327/
-squareNut:M3,16,https://www.mcmaster.com/97259A101/
-capScrew:M3x16,8,https://www.mcmaster.com/91290A120/
+conePointSetScrew:M3x6,10,null
+PhillipsRoundedHeadThreadFormingScrews.groovy:M2x8,7,null
+PhillipsRoundedHeadThreadFormingScrews:M2x8,10,https://www.mcmaster.com/90380A327/
+squareNut:M3,20,https://www.mcmaster.com/97259A101/
+capScrew:M3x16,10,https://www.mcmaster.com/91290A120/
