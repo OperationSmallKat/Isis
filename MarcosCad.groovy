@@ -474,6 +474,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		double MototRetractDist =15
 		String motorKey = "Motor"+d.getScriptingName()+":"+linkIndex
 		bom.set(motorKey,conf.getElectroMechanicalType(),conf.getElectroMechanicalSize(),new TransformNR())
+		
 		if(linkIndex==0) {
 			motor=motor.rotz(left?180:0)
 			motor=motor.roty(front?180:0)
