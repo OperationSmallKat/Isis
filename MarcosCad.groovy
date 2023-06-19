@@ -797,6 +797,16 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 			back.add(wrist)
 		}
 		if(linkIndex==1) {
+			
+			bom.set(MountScrewKey,"capScrew","M3x16",new TransformNR())
+			bom.set(MountNutKey,"squareNut","M3",new TransformNR())
+			
+			bom.set(leftLinkScrewKey,"capScrew","M3x16",new TransformNR())
+			bom.set(rightLinkScrewKey,"capScrew","M3x16",new TransformNR())
+			
+			bom.set(leftLinkNutKey,"squareNut","M3",new TransformNR())
+			bom.set(rightLinkNutKey,"squareNut","M3",new TransformNR())
+			
 			String name= d.getScriptingName();
 			CSG link = getNeckLink()
 
@@ -1064,23 +1074,4 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 
 		back.addAll([spars])
 
-		for(CSG c:back) {
-			c.setManipulator(arg0.getRootListener())
-		}
-		//		for(DHParameterKinematics kin:arg0.getAllDHChains()) {
-		//			CSG limbRoot =new Cube(1).toCSG()
-		//			limbRoot.setManipulator(kin.getRootListener())
-		//			back.add(limbRoot)
-		//		}
-		cache.addAll(back)
-		return back;
-	}
-
-
-}
-def gen= new cadGenMarcos(resinPrintServoMount,numbers)
-
-//return [gen.calibrationLink(32-4.5)]
-
-return gen
-
+		for(CSG c:ba
