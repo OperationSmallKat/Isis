@@ -800,10 +800,8 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 			
 			bom.set(MountScrewKey,"capScrew","M3x16",new TransformNR())
 			bom.set(MountNutKey,"squareNut","M3",new TransformNR())
-			
 			bom.set(leftLinkScrewKey,"capScrew","M3x16",new TransformNR())
 			bom.set(rightLinkScrewKey,"capScrew","M3x16",new TransformNR())
-			
 			bom.set(leftLinkNutKey,"squareNut","M3",new TransformNR())
 			bom.set(rightLinkNutKey,"squareNut","M3",new TransformNR())
 			
