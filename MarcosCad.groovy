@@ -1074,4 +1074,23 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 
 		back.addAll([spars])
 
-		for(CSG c:ba
+		for(CSG c:back) {
+			c.setManipulator(arg0.getRootListener())
+		}
+		//		for(DHParameterKinematics kin:arg0.getAllDHChains()) {
+		//			CSG limbRoot =new Cube(1).toCSG()
+		//			limbRoot.setManipulator(kin.getRootListener())
+		//			back.add(limbRoot)
+		//		}
+		cache.addAll(back)
+		return back;
+	}
+
+
+}
+def gen= new cadGenMarcos(resinPrintServoMount,numbers)
+
+//return [gen.calibrationLink(32-4.5)]
+
+return gen
+
