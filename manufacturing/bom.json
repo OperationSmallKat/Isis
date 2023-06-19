@@ -757,6 +757,114 @@
           }
         }
       }
+    },
+    {
+      "name": "LeftCalibrationScrewDummyRightFront:0",
+      "type": "conePointSetScrew",
+      "size": "M3x6",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightCalibrationScrewDummyRightFront:0",
+      "type": "conePointSetScrew",
+      "size": "M3x6",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftCalibrationScrewDummyLeftFront:0",
+      "type": "conePointSetScrew",
+      "size": "M3x6",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightCalibrationScrewDummyLeftFront:0",
+      "type": "conePointSetScrew",
+      "size": "M3x6",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftCalibrationScrewDummyRightRear:0",
+      "type": "conePointSetScrew",
+      "size": "M3x6",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightCalibrationScrewDummyRightRear:0",
+      "type": "conePointSetScrew",
+      "size": "M3x6",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
     }
   ],
   "PhillipsRoundedHeadThreadFormingScrews.groovy:M2x8": [
@@ -1068,6 +1176,114 @@
     },
     {
       "name": "RightMotorDoorScrewDummyLeftRear:0",
+      "type": "PhillipsRoundedHeadThreadFormingScrews.groovy",
+      "size": "M2x8",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftMotorDoorScrewDummyRightFront:0",
+      "type": "PhillipsRoundedHeadThreadFormingScrews.groovy",
+      "size": "M2x8",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightMotorDoorScrewDummyRightFront:0",
+      "type": "PhillipsRoundedHeadThreadFormingScrews.groovy",
+      "size": "M2x8",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftMotorDoorScrewDummyLeftFront:0",
+      "type": "PhillipsRoundedHeadThreadFormingScrews.groovy",
+      "size": "M2x8",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightMotorDoorScrewDummyLeftFront:0",
+      "type": "PhillipsRoundedHeadThreadFormingScrews.groovy",
+      "size": "M2x8",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftMotorDoorScrewDummyRightRear:0",
+      "type": "PhillipsRoundedHeadThreadFormingScrews.groovy",
+      "size": "M2x8",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightMotorDoorScrewDummyRightRear:0",
       "type": "PhillipsRoundedHeadThreadFormingScrews.groovy",
       "size": "M2x8",
       "pose": {
@@ -1538,6 +1754,114 @@
     },
     {
       "name": "RightMotorScrewDummyLeftRear:0",
+      "type": "PhillipsRoundedHeadThreadFormingScrews",
+      "size": "M2x8",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftMotorScrewDummyRightFront:0",
+      "type": "PhillipsRoundedHeadThreadFormingScrews",
+      "size": "M2x8",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightMotorScrewDummyRightFront:0",
+      "type": "PhillipsRoundedHeadThreadFormingScrews",
+      "size": "M2x8",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftMotorScrewDummyLeftFront:0",
+      "type": "PhillipsRoundedHeadThreadFormingScrews",
+      "size": "M2x8",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightMotorScrewDummyLeftFront:0",
+      "type": "PhillipsRoundedHeadThreadFormingScrews",
+      "size": "M2x8",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftMotorScrewDummyRightRear:0",
+      "type": "PhillipsRoundedHeadThreadFormingScrews",
+      "size": "M2x8",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightMotorScrewDummyRightRear:0",
       "type": "PhillipsRoundedHeadThreadFormingScrews",
       "size": "M2x8",
       "pose": {
@@ -2491,6 +2815,222 @@
           }
         }
       }
+    },
+    {
+      "name": "LeftLinkNutDummyRightFront:0",
+      "type": "squareNut",
+      "size": "M3",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkNutDummyRightFront:0",
+      "type": "squareNut",
+      "size": "M3",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftCalibrationNutDummyRightFront:0",
+      "type": "squareNut",
+      "size": "M3",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightCalibrationNutDummyRightFront:0",
+      "type": "squareNut",
+      "size": "M3",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkNutDummyLeftFront:0",
+      "type": "squareNut",
+      "size": "M3",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkNutDummyLeftFront:0",
+      "type": "squareNut",
+      "size": "M3",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftCalibrationNutDummyLeftFront:0",
+      "type": "squareNut",
+      "size": "M3",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightCalibrationNutDummyLeftFront:0",
+      "type": "squareNut",
+      "size": "M3",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkNutDummyRightRear:0",
+      "type": "squareNut",
+      "size": "M3",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkNutDummyRightRear:0",
+      "type": "squareNut",
+      "size": "M3",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftCalibrationNutDummyRightRear:0",
+      "type": "squareNut",
+      "size": "M3",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightCalibrationNutDummyRightRear:0",
+      "type": "squareNut",
+      "size": "M3",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
     }
   ],
   "capScrew:M3x16": [
@@ -2946,6 +3486,114 @@
     },
     {
       "name": "RightLinkScrewDummyLeftRear:0",
+      "type": "capScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkScrewDummyRightFront:0",
+      "type": "capScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkScrewDummyRightFront:0",
+      "type": "capScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkScrewDummyLeftFront:0",
+      "type": "capScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkScrewDummyLeftFront:0",
+      "type": "capScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkScrewDummyRightRear:0",
+      "type": "capScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkScrewDummyRightRear:0",
       "type": "capScrew",
       "size": "M3x16",
       "pose": {
