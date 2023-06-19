@@ -956,7 +956,9 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 	CSG getNeckLink() {
 		double neckLenFudge = 4.5
 		double parametric = numbers.LinkLength-endOfPassiveLinkToBolt
-		CSG boltl = bom.get("RightLinkScrewTail:1")
+		String rightLinkScrewKey="RightLinkScrewTail:1"
+		bom.set(rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR()
+		CSG boltl = bom.get(rightLinkScrewKey)
 		return passiveLink(parametric+neckLenFudge,boltl)
 				.rotx(180)
 				.movez(-15.1)
@@ -1005,7 +1007,6 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		}
 		if(linkIndex==1) {
 			bom.set(leftLinkScrewKey,"capScrew","M3x16",new TransformNR())
-			bom.set(rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR())
 			bom.set(leftLinkNutKey,"squareNut","M3",new TransformNR())
 			bom.set(rightLinkNutKey,"squareNut","M3",new TransformNR())
 
