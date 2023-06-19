@@ -472,6 +472,8 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 
 		double link1Rotz=-90
 		double MototRetractDist =15
+		String motorKey = "Motor"+d.getScriptingName()+":"+linkIndex
+		bom.set(motorKey,conf.getElectroMechanicalType(),conf.getElectroMechanicalSize(),new TransformNR())
 		if(linkIndex==0) {
 			motor=motor.rotz(left?180:0)
 			motor=motor.roty(front?180:0)
@@ -525,6 +527,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 				return reverseDHValues(incoming.rotz(-zrotVal).rotx(-xrot), d, linkIndex).toZMin()
 			})
 			myDriveLink.getStorage().set("bedType", "ff-Two")
+			myDriveLink.setPrintBedNumber(2)
 			myDriveLink.setName("DriveLink "+linkIndex+" "+d.getScriptingName())
 			// attach this links manipulator
 			myDriveLink.setManipulator(dGetLinkObjectManipulator)
@@ -552,6 +555,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 					.movez(5)
 		})
 		myServoHorn.getStorage().set("bedType", "resin")
+		myServoHorn.setPrintBedNumber(4)
 		myServoHorn.setName("Resin Horn "+linkIndex+" "+d.getScriptingName())
 		// attach this links manipulator
 		myServoHorn.setManipulator(dGetLinkObjectManipulator)
@@ -581,6 +585,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 				return incoming.rotx(front?-90:90).toZMin().toXMin().toYMin()
 			})
 			wrist.getStorage().set("bedType", "ff-One")
+			wrist.setPrintBedNumber(1)
 			wrist.setManipulator(d.getLinkObjectManipulator(linkIndex))
 			back.add(wrist)
 		}else {
@@ -598,6 +603,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 					return incoming.rotx(-90).toZMin().roty(90).toZMin()
 				})
 				kneeCover.getStorage().set("bedType", "ff-Two")
+				kneeCover.setPrintBedNumber(2)
 				kneeCover.setName("ShoulderCover"+d.getScriptingName())
 				kneeCover.addAssemblyStep(12, new Transform().movex(10))
 				kneeCover.addAssemblyStep(11, new Transform().movez(left?-coverDistance:coverDistance))
@@ -614,6 +620,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 					return incoming.rotx(-90).roty(-90).toZMin()
 				})
 				knee.getStorage().set("bedType", "ff-Two")
+				knee.setPrintBedNumber(2)
 				knee.setName("Shoulder"+d.getScriptingName())
 				back.add(knee)
 			}
@@ -630,6 +637,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 					return incoming.rotx(180).rotx(-90).toZMin()
 				})
 				kneeCover.getStorage().set("bedType", "ff-One")
+				kneeCover.setPrintBedNumber(1)
 				kneeCover.setName("KneeCover"+d.getScriptingName())
 				kneeCover.addAssemblyStep(12, new Transform().movey(-10))
 				kneeCover.addAssemblyStep(11, new Transform().movez(left?-coverDistance:coverDistance))
@@ -644,6 +652,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 					return incoming.rotx(-180).rotx(-90).toZMin().rotz(left?180:0)
 				})
 				knee.getStorage().set("bedType", "ff-One")
+				knee.setPrintBedNumber(1)
 				knee.setName("Knee"+d.getScriptingName())
 				back.add(knee)
 
@@ -653,6 +662,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 					return incoming.rotx(90).roty(90-numbers.FootAngle).toZMin().rotz(front?180:0)
 				})
 				foot.getStorage().set("bedType", "ff-Two")
+				foot.setPrintBedNumber(2)
 				foot.setName("Foot"+d.getScriptingName())
 				back.add(foot)
 
@@ -687,6 +697,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 				return reverseDHValues( incoming.rotz(-zrotVal).rotx(-xrot), d, linkIndex).toZMin().toXMin().toYMin()
 			})
 			wrist.getStorage().set("bedType", "ff-Two")
+			wrist.setPrintBedNumber(2)
 			wrist.setManipulator(d.getLinkObjectManipulator(linkIndex))
 			back.add(wrist)
 		}
@@ -731,6 +742,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 				return incoming.roty(90).toZMin().toXMin().toYMin()
 			})
 			wrist.getStorage().set("bedType", "ff-One")
+			wrist.setPrintBedNumber(1)
 			back.add(wrist)
 		}
 		if(linkIndex==1) {
@@ -745,6 +757,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 				return incoming.roty(180).toZMin().toXMin().toYMin()
 			})
 			link.getStorage().set("bedType", "ff-Three")
+			link.setPrintBedNumber(3)
 			back.add(link)
 			CSG gearLink= Vitamins.get(ScriptingEngine.fileFromGit(
 					"https://github.com/OperationSmallKat/Marcos.git",
@@ -759,6 +772,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 				return incoming.roty(180).toZMin().toXMin().toYMin()
 			})
 			gearLink.getStorage().set("bedType", "ff-One")
+			gearLink.setPrintBedNumber(1)
 			back.add(gearLink)
 
 			CSG headtail= Vitamins.get(ScriptingEngine.fileFromGit(
@@ -789,6 +803,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 			headtail.setName(name+"_"+d.getScriptingName())
 
 			headtail.getStorage().set("bedType", "ff-One")
+			headtail.setPrintBedNumber(1)
 			back.add(headtail)
 
 
@@ -836,6 +851,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		ArrayList<CSG> back =[body, bodyCOver]
 		for(CSG c:back) {
 			c.getStorage().set("bedType", "ff-One")
+			c.setPrintBedNumber(1)
 		}
 		for(DHParameterKinematics k:arg0.getLegs()) {
 			boolean left=false;
@@ -867,7 +883,9 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 				return incoming.toZMin().toXMin().toYMin().movey(top.getTotalY()+1)
 			})
 			top.getStorage().set("bedType", "ff-Two")
+			top.setPrintBedNumber(2)
 			bottom.getStorage().set("bedType", "ff-Two")
+			bottom.setPrintBedNumber(2)
 			top.addAssemblyStep(6, new Transform().movez(10))
 			bottom.addAssemblyStep(6, new Transform().movez(-10))
 			double distacne = front?80:-80
@@ -980,7 +998,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		//		CSG RightRearbox=calBlock.move(tipRightRear.x, tipRightRear.y, tipRightRear.z).difference(footRightRear)
 		spars.setName("CalibrationJig")
 		spars.getStorage().set("bedType", "ff-Three")
-
+		spars.setPrintBedNumber(3)
 		spars.setManufacturing({incoming -> return incoming.toZMin()})
 
 		back.addAll([spars])
