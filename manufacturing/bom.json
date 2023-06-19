@@ -2928,7 +2928,7 @@
     },
     {
       "name": "LeftLinkScrewLeftFront:0",
-      "type": "capScrew",
+      "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
         "x": 0.0,
