@@ -288,7 +288,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 				"https://github.com/OperationSmallKat/Marcos.git",
 				"DriveLink.stl"))
 		double chamfer = numbers.Chamfer2
-		double smallChamfer = numbers.Chamfer1
+		double smallChamfer = numbers.Chamfer1/1.5
 		double linkWidth = numbers.LinkWidth
 		double linkRadius = linkWidth/2
 		double linkThickness = numbers.LinkHeight
@@ -369,7 +369,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		CSG boltHole = bolt.toZMax()
 				.movez(linkThickness)
 		CSG mountAssebmbly = MountHoleCutoutChamfer
-				.union(MountHeadHoleCutoutChamfer)
+				//.union(MountHeadHoleCutoutChamfer)
 				.union(boltHole)
 				.movex(rotationCenterToBoltCenter)
 
@@ -579,7 +579,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		CSG boltHole = bolt.toZMax()
 				.movez(linkThickness)
 		CSG mountAssebmbly = MountHoleCutoutChamfer
-				.union(MountHeadHoleCutoutChamfer)
+				//.union(MountHeadHoleCutoutChamfer)
 				.union(boltHole)
 				.movex(rotationCenterToBoltCenter)
 		CSG zipLug = new RoundedCube(zipTieWidth+chamfer*2,zipTieLugDepth-zipTieClerence,linkThickness-(zipTieClerence*2))
@@ -730,7 +730,10 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		
 		bom.set(leftCalibrationScrewKey,"conePointSetScrew","M3x8",new TransformNR())
 		bom.set(rightCalibrationScrewKey,"conePointSetScrew","M3x8",new TransformNR())
-		
+		LengthParameter offset		= new LengthParameter("printerOffset",0.0,[2,0])
+		LengthParameter facets		= new LengthParameter("Bolt Hole Facet Count",10,[40,10])
+		facets.setMM(30)
+		offset.setMM(numbers.LooseTolerance)
 		CSG boltl = bom.get(leftLinkScrewKey)
 		CSG boltr = bom.get(rightLinkScrewKey)
 		
@@ -1314,10 +1317,10 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 
 }
 def gen= new cadGenMarcos(resinPrintServoMount,numbers)
-MobileBase mb = (MobileBase)DeviceManager.getSpecificDevice("Marcos");
-gen.setMobileBase(mb)
-DHParameterKinematics limb = gen.getByName(mb,"RightFront")
-return [gen.generateCad(limb,0)]
+//MobileBase mb = (MobileBase)DeviceManager.getSpecificDevice("Marcos");
+//gen.setMobileBase(mb)
+//DHParameterKinematics limb = gen.getByName(mb,"RightFront")
+//return [gen.generateCad(limb,0)]
 //return [gen.calibrationLink(32-4.5)]
 return gen
 
