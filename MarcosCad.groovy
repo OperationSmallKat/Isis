@@ -874,6 +874,16 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 	public ArrayList<CSG> generateBody(MobileBase arg0) {
 		cache.clear()
 		bom=new VitaminBomManager(arg0.getGitSelfSource()[0]);
+		bom.set("MotherboardScrew1","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR())
+		bom.set("MotherboardScrew2","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR())
+		bom.set("MotherboardScrew3","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR())
+		bom.set("MotherboardScrew4","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR())
+		
+		bom.set("CoverScrew1","chamferedScrew","M3x16",new TransformNR())
+		bom.set("CoverScrew2","chamferedScrew","M3x16",new TransformNR())
+		bom.set("CoverScrew3","chamferedScrew","M3x16",new TransformNR())
+		bom.set("CoverScrew4","chamferedScrew","M3x16",new TransformNR())
+		
 		DHParameterKinematics dh = arg0.getLegs().get(0);
 
 		double zCenterLine = dh.getRobotToFiducialTransform().getZ()+numbers.ServoThickness/2.0

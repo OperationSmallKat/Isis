@@ -867,6 +867,62 @@
       }
     }
   ],
+  "chamferedScrew:M3x16": [
+    {
+      "name": "CoverScrew1",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "CoverScrew2",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "CoverScrew3",
+      "type": "chamferedScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    }
+  ],
   "PhillipsRoundedHeadThreadFormingScrews.groovy:M2x8": [
     {
       "name": "LeftMotorDoorScrewLeftRear:0",
@@ -3596,6 +3652,80 @@
       "name": "RightLinkScrewDummyRightRear:0",
       "type": "capScrew",
       "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    }
+  ],
+  "PhillipsRoundedHeadThreadFormingScrews:M3x6": [
+    {
+      "name": "MotherboardScrew1",
+      "type": "PhillipsRoundedHeadThreadFormingScrews",
+      "size": "M3x6",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "MotherboardScrew2",
+      "type": "PhillipsRoundedHeadThreadFormingScrews",
+      "size": "M3x6",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "MotherboardScrew3",
+      "type": "PhillipsRoundedHeadThreadFormingScrews",
+      "size": "M3x6",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "MotherboardScrew4",
+      "type": "PhillipsRoundedHeadThreadFormingScrews",
+      "size": "M3x6",
       "pose": {
         "x": 0.0,
         "y": 0.0,
