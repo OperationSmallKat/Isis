@@ -473,6 +473,13 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		double link1Rotz=-90
 		double MototRetractDist =15
 		String motorKey = "Motor"+d.getScriptingName()+":"+linkIndex
+		String leftMotorScrewKey = "LeftMotorScrew"+d.getScriptingName()+":"+linkIndex
+		String rightMotorScrewKey = "RightMotorScrew"+d.getScriptingName()+":"+linkIndex
+		String leftLinkScrewKey = "LeftLinkScrew"+d.getScriptingName()+":"+linkIndex
+		String rightLinkScrewKey = "RightLinkScrew"+d.getScriptingName()+":"+linkIndex
+		String leftLinkNutKey = "LeftLinkNut"+d.getScriptingName()+":"+linkIndex
+		String rightLinkNutKey = "RightLinkNut"+d.getScriptingName()+":"+linkIndex
+		
 		bom.set(motorKey,conf.getElectroMechanicalType(),conf.getElectroMechanicalSize(),new TransformNR())
 		
 		if(linkIndex==0) {
