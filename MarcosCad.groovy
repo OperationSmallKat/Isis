@@ -1295,13 +1295,13 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 
 }
 def gen= new cadGenMarcos(resinPrintServoMount,numbers)
-MobileBase mb = (MobileBase)DeviceManager.getSpecificDevice("Marcos");
-gen.setMobileBase(mb)
-DHParameterKinematics limb = gen.getByName(mb,"RightFront")
-return [
-	gen.generateCad(limb,0)
-	//,gen.generateCad(limb,1)
-]
+//MobileBase mb = (MobileBase)DeviceManager.getSpecificDevice("Marcos");
+//gen.setMobileBase(mb)
+//DHParameterKinematics limb = gen.getByName(mb,"RightFront")
+//return [
+//	gen.generateCad(limb,0)
+//	//,gen.generateCad(limb,1)
+//]
 //return [gen.calibrationLink(32-4.5)]
 return gen
 
