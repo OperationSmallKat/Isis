@@ -760,6 +760,15 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		boolean left=false;
 		boolean front=false;
 		boolean isDummyGearWrist = false;
+		
+		String leftLinkScrewKey = "LeftLinkScrew"+d.getScriptingName()+":"+linkIndex
+		String rightLinkScrewKey = "RightLinkScrew"+d.getScriptingName()+":"+linkIndex
+		String leftLinkNutKey = "LeftLinkNut"+d.getScriptingName()+":"+linkIndex
+		String rightLinkNutKey = "RightLinkNut"+d.getScriptingName()+":"+linkIndex
+		
+		String MountScrewKey = "MountScrew"+d.getScriptingName()+":"+linkIndex
+		String MountNutKey = "MountNut"+d.getScriptingName()+":"+linkIndex
+		
 		if(d.getScriptingName().startsWith("Dummy")) {
 			isDummyGearWrist=true;
 		}
