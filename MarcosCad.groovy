@@ -130,7 +130,7 @@ CSG spline = gears.get(0)
 CSG resinPrintServoMount=cutcore.difference(spline)
 resinPrintServoMount.setColor(Color.DARKGREY)
 
-class cadGenMarcos implements ICadGenerator,IgenerateBed{
+class cadGenMarcos implements ICadGenerator{
 	String url = "https://github.com/OperationSmallKat/Marcos.git"
 	CSG resinPrintServoMount
 	HashMap<String,Double> numbers
@@ -154,96 +154,96 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		Transform move = com.neuronrobotics.bowlerstudio.physics.TransformFactory.nrToCSG(step)
 		return incoming.transformed(move)
 	}
-	/**
-	 * This function should generate the bed or beds or parts to be used in manufacturing If parts are
-	 * to be ganged up to make print beds then this should happen here
-	 *
-	 * @param base the base to generate
-	 * @return simulatable CAD objects
-	 */
-	ArrayList<CSG> arrangeBed(MobileBase base){
-		println "Generating Marcos Print Bed"
-		ArrayList<CSG> resin = []
-		ArrayList<CSG> one = []
-		ArrayList<CSG> two = []
-		ArrayList<CSG> three = []
-		for(CSG bit :cache) {
-			def bitGetStorageGetValue = bit.getStorage().getValue("bedType")
-			if(bitGetStorageGetValue.present) {
-				bit=bit.prepForManufacturing()
-				String name=bit.getName()
-				File source=new File(ScriptingEngine.getRepositoryCloneDirectory(url).getAbsolutePath()+"/print_bed_location_"+name+".json")
-				if(source.exists()) {
-					//println "Loading location from "+source.getAbsolutePath()
-					Type TT_mapStringString = new TypeToken<ArrayList<TransformNR>>() {
-							}.getType();
-
-					ArrayList<TransformNR> l = gson.fromJson(source.text, TT_mapStringString);
-					if(l!=null&& l.size()>0) {
-						TransformNR location=l.get(0)
-						if(location!=null) {
-							Transform csfMove = TransformFactory.nrToCSG(location)
-							bit=bit.transformed(csfMove)
-						}
-					}
-				}
-				def bitGetStorageGetValueGetToString = bitGetStorageGetValue.get().toString()
-				if(bitGetStorageGetValueGetToString.contentEquals("resin")) {
-					resin.add(bit)
-				}
-				else if(bitGetStorageGetValueGetToString.contentEquals("ff-One")) {
-					one.add(bit)
-				}
-				else if(bitGetStorageGetValueGetToString.contentEquals("ff-Two")) {
-					two.add(bit)
-				}
-				else if(bitGetStorageGetValueGetToString.contentEquals("ff-Three")) {
-					three.add(bit)
-				}else {
-					println "unknown bed type! "+bitGetStorageGetValueGetToString
-				}
-				println "Adding part to Print bed "+bitGetStorageGetValueGetToString+" "+name
-			}
-			else
-				println "Rejecting "+bit.getName()
-		}
-
-		CSG bedThree=toBed(three ,"FF-Bed-Three")
-		CSG bedTwo=toBed(two ,"FF-Bed-Two")
-		CSG bedOne=toBed(one ,"FF-Bed-One")
-		CSG resinBed=null
-		for(int i=0;i<4;i++) {
-			for (int j=0;j<4;j++) {
-				double x = i*(numbers.ServoHornDiameter)
-				double y = j*(numbers.ServoHornDiameter+1.0)
-				try {
-					int index = i*4+(j)
-					if(index<resin.size()) {
-						println "Adding resin horn to resin bed "+index
-						CSG part =resin[index]
-						CSG moved = part.movex(x).movey(y)
-						if(resinBed==null)
-							resinBed=moved
-						else
-							resinBed=resinBed.dumbUnion(moved)
-					}
-				}catch(Exception ex) {
-					ex.printStackTrace()
-				}
-			}
-		}
-
-		resinBed.setName("Print-Bed-Resin-Printer")
-		resinBed.setColor(Color.GREY)
-
-		return [
-			resinBed,
-			bedOne,
-			bedTwo,
-			bedThree
-		]
-
-	}
+//	/**
+//	 * This function should generate the bed or beds or parts to be used in manufacturing If parts are
+//	 * to be ganged up to make print beds then this should happen here
+//	 *
+//	 * @param base the base to generate
+//	 * @return simulatable CAD objects
+//	 */
+//	ArrayList<CSG> arrangeBed(MobileBase base){
+//		println "Generating Marcos Print Bed"
+//		ArrayList<CSG> resin = []
+//		ArrayList<CSG> one = []
+//		ArrayList<CSG> two = []
+//		ArrayList<CSG> three = []
+//		for(CSG bit :cache) {
+//			def bitGetStorageGetValue = bit.getStorage().getValue("bedType")
+//			if(bitGetStorageGetValue.present) {
+//				bit=bit.prepForManufacturing()
+//				String name=bit.getName()
+//				File source=new File(ScriptingEngine.getRepositoryCloneDirectory(url).getAbsolutePath()+"/print_bed_location_"+name+".json")
+//				if(source.exists()) {
+//					//println "Loading location from "+source.getAbsolutePath()
+//					Type TT_mapStringString = new TypeToken<ArrayList<TransformNR>>() {
+//							}.getType();
+//
+//					ArrayList<TransformNR> l = gson.fromJson(source.text, TT_mapStringString);
+//					if(l!=null&& l.size()>0) {
+//						TransformNR location=l.get(0)
+//						if(location!=null) {
+//							Transform csfMove = TransformFactory.nrToCSG(location)
+//							bit=bit.transformed(csfMove)
+//						}
+//					}
+//				}
+//				def bitGetStorageGetValueGetToString = bitGetStorageGetValue.get().toString()
+//				if(bitGetStorageGetValueGetToString.contentEquals("resin")) {
+//					resin.add(bit)
+//				}
+//				else if(bitGetStorageGetValueGetToString.contentEquals("ff-One")) {
+//					one.add(bit)
+//				}
+//				else if(bitGetStorageGetValueGetToString.contentEquals("ff-Two")) {
+//					two.add(bit)
+//				}
+//				else if(bitGetStorageGetValueGetToString.contentEquals("ff-Three")) {
+//					three.add(bit)
+//				}else {
+//					println "unknown bed type! "+bitGetStorageGetValueGetToString
+//				}
+//				println "Adding part to Print bed "+bitGetStorageGetValueGetToString+" "+name
+//			}
+//			else
+//				println "Rejecting "+bit.getName()
+//		}
+//
+//		CSG bedThree=toBed(three ,"FF-Bed-Three")
+//		CSG bedTwo=toBed(two ,"FF-Bed-Two")
+//		CSG bedOne=toBed(one ,"FF-Bed-One")
+//		CSG resinBed=null
+//		for(int i=0;i<4;i++) {
+//			for (int j=0;j<4;j++) {
+//				double x = i*(numbers.ServoHornDiameter)
+//				double y = j*(numbers.ServoHornDiameter+1.0)
+//				try {
+//					int index = i*4+(j)
+//					if(index<resin.size()) {
+//						println "Adding resin horn to resin bed "+index
+//						CSG part =resin[index]
+//						CSG moved = part.movex(x).movey(y)
+//						if(resinBed==null)
+//							resinBed=moved
+//						else
+//							resinBed=resinBed.dumbUnion(moved)
+//					}
+//				}catch(Exception ex) {
+//					ex.printStackTrace()
+//				}
+//			}
+//		}
+//
+//		resinBed.setName("Print-Bed-Resin-Printer")
+//		resinBed.setColor(Color.GREY)
+//
+//		return [
+//			resinBed,
+//			bedOne,
+//			bedTwo,
+//			bedThree
+//		]
+//
+//	}
 
 	CSG toBed(ArrayList<CSG> parts, String name) {
 		CSG bedOne=null
