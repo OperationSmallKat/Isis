@@ -645,6 +645,17 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		boolean front=false;
 		boolean isDummyGearWrist = false;
 		double parametric = numbers.LinkLength-endOfPassiveLinkToBolt
+		
+		double l0offset =38.0-(numbers.LinkLength-endOfPassiveLinkToBolt)
+		double l1offset = 55.0 -(numbers.LinkLength-endOfPassiveLinkToBolt)
+		
+		if(linkIndex==0) {
+			parametric=d.getDH_R(linkIndex)-l0offset
+		}
+		if(linkIndex==1) {
+			parametric=d.getDH_R(linkIndex)-l1offset
+		}
+		
 		if(d.getScriptingName().startsWith("Dummy")) {
 			isDummyGearWrist=true;
 		}
@@ -956,7 +967,9 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 	CSG getNeckLink() {
 		double neckLenFudge = 4.5
 		double parametric = numbers.LinkLength-endOfPassiveLinkToBolt
-		CSG boltl = bom.get("RightLinkScrewTail:1")
+		String rightLinkScrewKey="RightLinkScrewTail:1"
+		bom.set(rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR())
+		CSG boltl = bom.get(rightLinkScrewKey)
 		return passiveLink(parametric+neckLenFudge,boltl)
 				.rotx(180)
 				.movez(-15.1)
@@ -1005,7 +1018,6 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		}
 		if(linkIndex==1) {
 			bom.set(leftLinkScrewKey,"capScrew","M3x16",new TransformNR())
-			bom.set(rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR())
 			bom.set(leftLinkNutKey,"squareNut","M3",new TransformNR())
 			bom.set(rightLinkNutKey,"squareNut","M3",new TransformNR())
 
@@ -1295,13 +1307,13 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 
 }
 def gen= new cadGenMarcos(resinPrintServoMount,numbers)
-MobileBase mb = (MobileBase)DeviceManager.getSpecificDevice("Marcos");
-gen.setMobileBase(mb)
-DHParameterKinematics limb = gen.getByName(mb,"RightFront")
-return [
-	gen.generateCad(limb,0)
-	//,gen.generateCad(limb,1)
-]
+//MobileBase mb = (MobileBase)DeviceManager.getSpecificDevice("Marcos");
+//gen.setMobileBase(mb)
+//DHParameterKinematics limb = gen.getByName(mb,"RightFront")
+//return [
+//	gen.generateCad(limb,0)
+//	//,gen.generateCad(limb,1)
+//]
 //return [gen.calibrationLink(32-4.5)]
 return gen
 
