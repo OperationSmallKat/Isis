@@ -509,7 +509,8 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		bom.set(leftCalibrationScrewKey,"conePointSetScrew","M3x8",new TransformNR())
 		bom.set(rightCalibrationScrewKey,"conePointSetScrew","M3x8",new TransformNR())
 		
-		
+		CSG boltl = bom.get(leftLinkScrewKey)
+		CSG boltr = bom.get(rightLinkScrewKey)
 		
 		if(linkIndex==0) {
 			
@@ -1088,7 +1089,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 }
 def gen= new cadGenMarcos(resinPrintServoMount,numbers)
 
-//return [gen.calibrationLink(32-4.5)]
+return [gen.passiveLink(32-4.5)]
 
 return gen
 
