@@ -325,6 +325,42 @@
           }
         }
       }
+    },
+    {
+      "name": "LeftCalibrationScrewLeftRear:1",
+      "type": "conePointSetScrew",
+      "size": "M3x6",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightCalibrationScrewLeftRear:1",
+      "type": "conePointSetScrew",
+      "size": "M3x6",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
     }
   ],
   "PhillipsRoundedHeadThreadFormingScrews.groovy:M2x8": [
@@ -363,6 +399,24 @@
           }
         }
       }
+    },
+    {
+      "name": "MotorDoorScrewLeftRear:1",
+      "type": "PhillipsRoundedHeadThreadFormingScrews.groovy",
+      "size": "M2x8",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
     }
   ],
   "PhillipsRoundedHeadThreadFormingScrews:M2x8": [
@@ -386,6 +440,42 @@
     },
     {
       "name": "RightMotorScrewLeftRear:0",
+      "type": "PhillipsRoundedHeadThreadFormingScrews",
+      "size": "M2x8",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftMotorScrewLeftRear:1",
+      "type": "PhillipsRoundedHeadThreadFormingScrews",
+      "size": "M2x8",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightMotorScrewLeftRear:1",
       "type": "PhillipsRoundedHeadThreadFormingScrews",
       "size": "M2x8",
       "pose": {
@@ -475,6 +565,78 @@
           }
         }
       }
+    },
+    {
+      "name": "LeftLinkNutLeftRear:1",
+      "type": "squareNut",
+      "size": "M3",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkNutLeftRear:1",
+      "type": "squareNut",
+      "size": "M3",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftCalibrationNutLeftRear:1",
+      "type": "squareNut",
+      "size": "M3",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightCalibrationNutLeftRear:1",
+      "type": "squareNut",
+      "size": "M3",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
     }
   ],
   "capScrew:M3x16": [
@@ -498,6 +660,42 @@
     },
     {
       "name": "RightLinkScrewLeftRear:0",
+      "type": "capScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "LeftLinkScrewLeftRear:1",
+      "type": "capScrew",
+      "size": "M3x16",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "RightLinkScrewLeftRear:1",
       "type": "capScrew",
       "size": "M3x16",
       "pose": {
