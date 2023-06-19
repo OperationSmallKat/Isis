@@ -513,8 +513,8 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		
 		if(linkIndex==0) {
 			
-			bom.set(leftmotorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews.groovy","M2x8",new TransformNR())
-			bom.set(rightmotorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews.groovy","M2x8",new TransformNR())
+			bom.set(leftmotorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR())
+			bom.set(rightmotorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR())
 			
 			motor=motor.rotz(left?180:0)
 			motor=motor.roty(front?180:0)
@@ -523,7 +523,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 			// pull the limb servos out the top
 			motor.addAssemblyStep(4, new Transform().movex(isDummyGearWrist?-30:MototRetractDist))
 		}else {
-			bom.set(motorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews.groovy","M2x8",new TransformNR())
+			bom.set(motorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR())
 			motor=motor.roty(left?180:0)
 			motor=motor.rotz(linkIndex==2?90:90+link1Rotz)
 			// the rest of the motors are located in the preior link's kinematic frame
