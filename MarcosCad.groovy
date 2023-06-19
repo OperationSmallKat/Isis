@@ -645,6 +645,17 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		boolean front=false;
 		boolean isDummyGearWrist = false;
 		double parametric = numbers.LinkLength-endOfPassiveLinkToBolt
+		
+		double l0offset =38.0-(numbers.LinkLength-endOfPassiveLinkToBolt)
+		double l1offset = 55.0 -(numbers.LinkLength-endOfPassiveLinkToBolt)
+		
+		if(linkIndex==0) {
+			parametric=d.getDH_R(linkIndex)-l0offset
+		}
+		if(linkIndex==1) {
+			parametric=d.getDH_R(linkIndex)-l1offset
+		}
+		
 		if(d.getScriptingName().startsWith("Dummy")) {
 			isDummyGearWrist=true;
 		}
