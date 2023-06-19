@@ -2,6 +2,7 @@ import com.google.gson.reflect.TypeToken
 import com.neuronrobotics.bowlerstudio.creature.ICadGenerator
 import com.neuronrobotics.bowlerstudio.creature.IgenerateBed
 import com.neuronrobotics.bowlerstudio.scripting.ScriptingEngine
+import com.neuronrobotics.bowlerstudio.vitamins.VitaminBomManager
 import com.neuronrobotics.bowlerstudio.vitamins.Vitamins
 import com.neuronrobotics.sdk.addons.kinematics.DHLink
 import com.neuronrobotics.sdk.addons.kinematics.DHParameterKinematics
@@ -135,7 +136,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 	double endOfPassiveLinkToBolt = 4.5
 
 	Gson gson = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
-
+	VitaminBomManager bom;
 	public cadGenMarcos(CSG res,HashMap<String,Double> n) {
 		resinPrintServoMount=res
 		numbers=n
@@ -815,6 +816,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 	@Override
 	public ArrayList<CSG> generateBody(MobileBase arg0) {
 		cache.clear()
+		bom=new VitaminBomManager(arg0.getGitSelfSource()[0]);
 		DHParameterKinematics dh = arg0.getLegs().get(0);
 
 		double zCenterLine = dh.getRobotToFiducialTransform().getZ()+numbers.ServoThickness/2.0
