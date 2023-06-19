@@ -506,8 +506,8 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		bom.set(rightCalibrationNutKey,"squareNut","M3",new TransformNR())
 		
 		
-		bom.set(leftCalibrationScrewKey,"conePointSetScrew","M3x6",new TransformNR())
-		bom.set(rightCalibrationScrewKey,"conePointSetScrew","M3x6",new TransformNR())
+		bom.set(leftCalibrationScrewKey,"conePointSetScrew","M3x8",new TransformNR())
+		bom.set(rightCalibrationScrewKey,"conePointSetScrew","M3x8",new TransformNR())
 		
 		
 		
