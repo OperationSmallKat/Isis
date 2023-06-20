@@ -367,7 +367,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 32.0,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -385,7 +385,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 20.5,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -403,7 +403,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 20.5,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -421,7 +421,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 27.5,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -439,7 +439,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 27.5,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -457,7 +457,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 27.5,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -475,7 +475,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 27.5,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -493,7 +493,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 20.5,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -511,7 +511,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 20.5,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -529,7 +529,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 27.5,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -547,7 +547,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 27.5,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -565,7 +565,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 27.5,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -583,7 +583,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 27.5,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -673,7 +673,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 27.5,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -691,7 +691,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 27.5,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -709,7 +709,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 20.5,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -727,7 +727,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 20.5,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -745,7 +745,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 27.5,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -763,7 +763,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 27.5,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -781,7 +781,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 27.5,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -799,7 +799,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 27.5,
         "y": 0.0,
         "z": 0.0,
         "rotation": {

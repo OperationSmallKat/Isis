@@ -735,6 +735,8 @@ class cadGenMarcos implements ICadGenerator{
 			motor.setManipulator(root)
 			// pull the limb servos out the top
 			motor.addAssemblyStep(4, new Transform().movex(isDummyGearWrist?-30:MototRetractDist))
+			motor.addAssemblyStep(3, new Transform().movey(isDummyGearWrist?-30:left?-MototRetractDist*4:MototRetractDist*4))
+			
 		}else {
 			bom.set(motorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR())
 			motor=motor.roty(left?180:0)
@@ -742,8 +744,9 @@ class cadGenMarcos implements ICadGenerator{
 			// the rest of the motors are located in the preior link's kinematic frame
 			motor.setManipulator(d.getLinkObjectManipulator(linkIndex-1))
 			// pull the link motors out the thin side
-
-			motor.addAssemblyStep(7, new Transform().movex(linkIndex==1?MototRetractDist:0).movey(linkIndex==2?-MototRetractDist:0))
+			motor.addAssemblyStep(6, new Transform().movey(linkIndex==1?MototRetractDist*2:0).movey(linkIndex==2?-MototRetractDist*2:0))
+			
+			motor.addAssemblyStep(7, new Transform().movex(linkIndex==1?MototRetractDist*2:0).movey(linkIndex==2?-MototRetractDist*2:0))
 			//motor.addAssemblyStep(8, new Transform().movex(-30))
 		}
 		// do not export the motors to STL for manufacturing
@@ -901,9 +904,11 @@ class cadGenMarcos implements ICadGenerator{
 			if(linkIndex==2) {
 				zrotVal+=(-90+numbers.FootAngle)
 			}
+
+
+			bom.set(leftLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(parametric))
+			bom.set(rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(parametric))
 			CSG boltlStart = bom.get(leftLinkScrewKey)
-
-
 			CSG boltrStart = bom.get(rightLinkScrewKey)
 
 
@@ -985,9 +990,6 @@ class cadGenMarcos implements ICadGenerator{
 			wrist.setManipulator(d.getLinkObjectManipulator(linkIndex))
 			back.add(wrist)
 
-			bom.set(leftLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(parametric))
-			bom.set(rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(parametric))
-
 		}
 		motor.setName(conf.getElectroMechanicalSize())
 		back.add(motor)
@@ -998,9 +1000,10 @@ class cadGenMarcos implements ICadGenerator{
 		double neckLenFudge = 4.5
 		double parametric = numbers.LinkLength-endOfPassiveLinkToBolt
 		String rightLinkScrewKey="RightLinkScrewTail:1"
-		bom.set(rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR())
+		double length =parametric+neckLenFudge
+		bom.set(rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(length))
 		CSG boltl = bom.get(rightLinkScrewKey)
-		return passiveLink(parametric+neckLenFudge,boltl)
+		return passiveLink(length,boltl)
 				.rotx(180)
 				.movez(-15.1)
 	}
@@ -1378,9 +1381,8 @@ def gen= new cadGenMarcos(resinPrintServoMount,numbers)
 //gen.setMobileBase(mb)
 //DHParameterKinematics limb = gen.getByName(mb,"LeftFront")
 //return [
-//	gen.generateCad(limb,0)
-//	,
-//	gen.generateCad(limb,1)
+//	gen.generateCad(limb,2)
+//	,gen.generateCad(limb,1)
 //	//gen.generateBody(mb)
 //]
 
