@@ -8,6 +8,7 @@ import com.neuronrobotics.sdk.addons.kinematics.DHLink
 import com.neuronrobotics.sdk.addons.kinematics.DHParameterKinematics
 import com.neuronrobotics.sdk.addons.kinematics.LinkConfiguration
 import com.neuronrobotics.sdk.addons.kinematics.MobileBase
+import com.neuronrobotics.sdk.addons.kinematics.math.RotationNR
 import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR
 
 import eu.mihosoft.vrl.v3d.CSG
@@ -154,96 +155,96 @@ class cadGenMarcos implements ICadGenerator{
 		Transform move = com.neuronrobotics.bowlerstudio.physics.TransformFactory.nrToCSG(step)
 		return incoming.transformed(move)
 	}
-//	/**
-//	 * This function should generate the bed or beds or parts to be used in manufacturing If parts are
-//	 * to be ganged up to make print beds then this should happen here
-//	 *
-//	 * @param base the base to generate
-//	 * @return simulatable CAD objects
-//	 */
-//	ArrayList<CSG> arrangeBed(MobileBase base){
-//		println "Generating Marcos Print Bed"
-//		ArrayList<CSG> resin = []
-//		ArrayList<CSG> one = []
-//		ArrayList<CSG> two = []
-//		ArrayList<CSG> three = []
-//		for(CSG bit :cache) {
-//			def bitGetStorageGetValue = bit.getStorage().getValue("bedType")
-//			if(bitGetStorageGetValue.present) {
-//				bit=bit.prepForManufacturing()
-//				String name=bit.getName()
-//				File source=new File(ScriptingEngine.getRepositoryCloneDirectory(url).getAbsolutePath()+"/print_bed_location_"+name+".json")
-//				if(source.exists()) {
-//					//println "Loading location from "+source.getAbsolutePath()
-//					Type TT_mapStringString = new TypeToken<ArrayList<TransformNR>>() {
-//							}.getType();
-//
-//					ArrayList<TransformNR> l = gson.fromJson(source.text, TT_mapStringString);
-//					if(l!=null&& l.size()>0) {
-//						TransformNR location=l.get(0)
-//						if(location!=null) {
-//							Transform csfMove = TransformFactory.nrToCSG(location)
-//							bit=bit.transformed(csfMove)
-//						}
-//					}
-//				}
-//				def bitGetStorageGetValueGetToString = bitGetStorageGetValue.get().toString()
-//				if(bitGetStorageGetValueGetToString.contentEquals("resin")) {
-//					resin.add(bit)
-//				}
-//				else if(bitGetStorageGetValueGetToString.contentEquals("ff-One")) {
-//					one.add(bit)
-//				}
-//				else if(bitGetStorageGetValueGetToString.contentEquals("ff-Two")) {
-//					two.add(bit)
-//				}
-//				else if(bitGetStorageGetValueGetToString.contentEquals("ff-Three")) {
-//					three.add(bit)
-//				}else {
-//					println "unknown bed type! "+bitGetStorageGetValueGetToString
-//				}
-//				println "Adding part to Print bed "+bitGetStorageGetValueGetToString+" "+name
-//			}
-//			else
-//				println "Rejecting "+bit.getName()
-//		}
-//
-//		CSG bedThree=toBed(three ,"FF-Bed-Three")
-//		CSG bedTwo=toBed(two ,"FF-Bed-Two")
-//		CSG bedOne=toBed(one ,"FF-Bed-One")
-//		CSG resinBed=null
-//		for(int i=0;i<4;i++) {
-//			for (int j=0;j<4;j++) {
-//				double x = i*(numbers.ServoHornDiameter)
-//				double y = j*(numbers.ServoHornDiameter+1.0)
-//				try {
-//					int index = i*4+(j)
-//					if(index<resin.size()) {
-//						println "Adding resin horn to resin bed "+index
-//						CSG part =resin[index]
-//						CSG moved = part.movex(x).movey(y)
-//						if(resinBed==null)
-//							resinBed=moved
-//						else
-//							resinBed=resinBed.dumbUnion(moved)
-//					}
-//				}catch(Exception ex) {
-//					ex.printStackTrace()
-//				}
-//			}
-//		}
-//
-//		resinBed.setName("Print-Bed-Resin-Printer")
-//		resinBed.setColor(Color.GREY)
-//
-//		return [
-//			resinBed,
-//			bedOne,
-//			bedTwo,
-//			bedThree
-//		]
-//
-//	}
+	//	/**
+	//	 * This function should generate the bed or beds or parts to be used in manufacturing If parts are
+	//	 * to be ganged up to make print beds then this should happen here
+	//	 *
+	//	 * @param base the base to generate
+	//	 * @return simulatable CAD objects
+	//	 */
+	//	ArrayList<CSG> arrangeBed(MobileBase base){
+	//		println "Generating Marcos Print Bed"
+	//		ArrayList<CSG> resin = []
+	//		ArrayList<CSG> one = []
+	//		ArrayList<CSG> two = []
+	//		ArrayList<CSG> three = []
+	//		for(CSG bit :cache) {
+	//			def bitGetStorageGetValue = bit.getStorage().getValue("bedType")
+	//			if(bitGetStorageGetValue.present) {
+	//				bit=bit.prepForManufacturing()
+	//				String name=bit.getName()
+	//				File source=new File(ScriptingEngine.getRepositoryCloneDirectory(url).getAbsolutePath()+"/print_bed_location_"+name+".json")
+	//				if(source.exists()) {
+	//					//println "Loading location from "+source.getAbsolutePath()
+	//					Type TT_mapStringString = new TypeToken<ArrayList<TransformNR>>() {
+	//							}.getType();
+	//
+	//					ArrayList<TransformNR> l = gson.fromJson(source.text, TT_mapStringString);
+	//					if(l!=null&& l.size()>0) {
+	//						TransformNR location=l.get(0)
+	//						if(location!=null) {
+	//							Transform csfMove = TransformFactory.nrToCSG(location)
+	//							bit=bit.transformed(csfMove)
+	//						}
+	//					}
+	//				}
+	//				def bitGetStorageGetValueGetToString = bitGetStorageGetValue.get().toString()
+	//				if(bitGetStorageGetValueGetToString.contentEquals("resin")) {
+	//					resin.add(bit)
+	//				}
+	//				else if(bitGetStorageGetValueGetToString.contentEquals("ff-One")) {
+	//					one.add(bit)
+	//				}
+	//				else if(bitGetStorageGetValueGetToString.contentEquals("ff-Two")) {
+	//					two.add(bit)
+	//				}
+	//				else if(bitGetStorageGetValueGetToString.contentEquals("ff-Three")) {
+	//					three.add(bit)
+	//				}else {
+	//					println "unknown bed type! "+bitGetStorageGetValueGetToString
+	//				}
+	//				println "Adding part to Print bed "+bitGetStorageGetValueGetToString+" "+name
+	//			}
+	//			else
+	//				println "Rejecting "+bit.getName()
+	//		}
+	//
+	//		CSG bedThree=toBed(three ,"FF-Bed-Three")
+	//		CSG bedTwo=toBed(two ,"FF-Bed-Two")
+	//		CSG bedOne=toBed(one ,"FF-Bed-One")
+	//		CSG resinBed=null
+	//		for(int i=0;i<4;i++) {
+	//			for (int j=0;j<4;j++) {
+	//				double x = i*(numbers.ServoHornDiameter)
+	//				double y = j*(numbers.ServoHornDiameter+1.0)
+	//				try {
+	//					int index = i*4+(j)
+	//					if(index<resin.size()) {
+	//						println "Adding resin horn to resin bed "+index
+	//						CSG part =resin[index]
+	//						CSG moved = part.movex(x).movey(y)
+	//						if(resinBed==null)
+	//							resinBed=moved
+	//						else
+	//							resinBed=resinBed.dumbUnion(moved)
+	//					}
+	//				}catch(Exception ex) {
+	//					ex.printStackTrace()
+	//				}
+	//			}
+	//		}
+	//
+	//		resinBed.setName("Print-Bed-Resin-Printer")
+	//		resinBed.setColor(Color.GREY)
+	//
+	//		return [
+	//			resinBed,
+	//			bedOne,
+	//			bedTwo,
+	//			bedThree
+	//		]
+	//
+	//	}
 
 	CSG toBed(ArrayList<CSG> parts, String name) {
 		CSG bedOne=null
@@ -645,17 +646,17 @@ class cadGenMarcos implements ICadGenerator{
 		boolean front=false;
 		boolean isDummyGearWrist = false;
 		double parametric = numbers.LinkLength-endOfPassiveLinkToBolt
-		
+
 		double l0offset =38.0-(numbers.LinkLength-endOfPassiveLinkToBolt)
 		double l1offset = 55.0 -(numbers.LinkLength-endOfPassiveLinkToBolt)
-		
+
 		if(linkIndex==0) {
 			parametric=d.getDH_R(linkIndex)-l0offset
 		}
 		if(linkIndex==1) {
 			parametric=d.getDH_R(linkIndex)-l1offset
 		}
-		
+
 		if(d.getScriptingName().startsWith("Dummy")) {
 			isDummyGearWrist=true;
 		}
@@ -1109,21 +1110,47 @@ class cadGenMarcos implements ICadGenerator{
 	}
 	@Override
 	public ArrayList<CSG> generateBody(MobileBase arg0) {
+		boolean makeCalibration =true;
 		cache.clear()
 		setMobileBase(arg0)
+		DHParameterKinematics dh = arg0.getLegs().get(0);
+		double zCenterLine = dh.getRobotToFiducialTransform().getZ()+numbers.ServoThickness/2.0;
+		
+		TransformNR batteryLocation =new TransformNR()
+										.translateZ(zCenterLine)
+		TransformNR motherboardLocation =batteryLocation.copy()
+											.translateZ(13.5)
+											.translateX(-1.5)
+		batteryLocation.setRotation(RotationNR.getRotationX(180))
+		batteryLocation=batteryLocation.times(new TransformNR(0,0,0,RotationNR.getRotationZ(90)))
+		TransformNR batteryInterfaceLocation =batteryLocation.copy()
+												.translateX(49.25)
+												.translateZ(-12.5)
+		
+		batteryLocation.translateZ(7)
+		batteryLocation.translateX(-3)
 		bom.set("MotherboardScrew1","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR())
 		bom.set("MotherboardScrew2","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR())
 		bom.set("MotherboardScrew3","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR())
 		bom.set("MotherboardScrew4","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR())
+		bom.set("BatteryScrew5","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR())
+		bom.set("BatteryScrew6","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR())
+		
+		bom.set("battery","smallKatElectronics","dji-mavic-pro-battery",batteryLocation)
+		bom.set("batteryInterface","smallKatElectronics","batteryInterface",batteryInterfaceLocation)
+		bom.set("motherboard","smallKatElectronics","motherboard",motherboardLocation)
+		
 
 		bom.set("CoverScrew1","chamferedScrew","M3x16",new TransformNR())
 		bom.set("CoverScrew2","chamferedScrew","M3x16",new TransformNR())
 		bom.set("CoverScrew3","chamferedScrew","M3x16",new TransformNR())
 		bom.set("CoverScrew4","chamferedScrew","M3x16",new TransformNR())
 
-		DHParameterKinematics dh = arg0.getLegs().get(0);
 
-		double zCenterLine = dh.getRobotToFiducialTransform().getZ()+numbers.ServoThickness/2.0
+		
+		CSG battery = bom.get("battery")
+		CSG batteryInterface = bom.get("batteryInterface")
+		CSG motherboard = bom.get("motherboard")
 
 		CSG body  = Vitamins.get(ScriptingEngine.fileFromGit(
 				"https://github.com/OperationSmallKat/Marcos.git",
@@ -1229,69 +1256,74 @@ class cadGenMarcos implements ICadGenerator{
 			return incoming.toZMin().toXMin().toYMin().movey(body.getTotalY()+1)
 		})
 
-		Transform tipLeftFront = TransformFactory.nrToCSG(getByName(arg0,"LeftFront").calcHome())
-		Transform tipRightFront = TransformFactory.nrToCSG(getByName(arg0,"RightFront").calcHome())
-		Transform tipLeftRear = TransformFactory.nrToCSG(getByName(arg0,"LeftRear").calcHome())
-		Transform tipRightRear = TransformFactory.nrToCSG(getByName(arg0,"RightRear").calcHome())
+		if(makeCalibration) {
 
-		Transform neck =TransformFactory.nrToCSG(getByName(arg0,"Head").calcHome())
-		Transform butt =TransformFactory.nrToCSG(getByName(arg0,"Tail").calcHome())
+			Transform tipLeftFront = TransformFactory.nrToCSG(getByName(arg0,"LeftFront").calcHome())
+			Transform tipRightFront = TransformFactory.nrToCSG(getByName(arg0,"RightFront").calcHome())
+			Transform tipLeftRear = TransformFactory.nrToCSG(getByName(arg0,"LeftRear").calcHome())
+			Transform tipRightRear = TransformFactory.nrToCSG(getByName(arg0,"RightRear").calcHome())
 
-		CSG neckBit = getNeckLink().transformed(neck)
-		CSG buttBit = getNeckLink().transformed(butt)
+			Transform neck =TransformFactory.nrToCSG(getByName(arg0,"Head").calcHome())
+			Transform butt =TransformFactory.nrToCSG(getByName(arg0,"Tail").calcHome())
 
-		CSG calBlock = new ChamferedCube(25,25,20,numbers.Chamfer2).toCSG()
-				.toZMin()
-				.movez(5)
-		CSG calLeft =calBlock.toYMin().movey(2)
-		CSG calRight = calBlock.toYMax().movey(-2)
-		CSG footLeftFront=getFoot().transformed(tipLeftFront)
-		CSG footRightFront=getFoot().transformed(tipRightFront)
-		CSG footLeftRear=getFoot().transformed(tipLeftRear)
-		CSG footRightRear=getFoot().transformed(tipRightRear)
+			CSG neckBit = getNeckLink().transformed(neck)
+			CSG buttBit = getNeckLink().transformed(butt)
 
-		CSG fCenter=calBlock.move(tipLeftFront.x, 0, tipLeftFront.z)
-		CSG rCenter=calBlock.move(tipRightRear.x, 0, tipRightRear.z)
-		CSG Center = fCenter
-				.union(rCenter)
-				.hull()
-		double calSinkInDistance =4
-		CSG fCal = calBlock.toZMax().move(neck.x, neck.y, neckBit.getMinZ()+numbers.Chamfer2+calSinkInDistance)
-				.union(fCenter)
-				.hull()
-				.difference(neckBit)
-		CSG rCal = calBlock.toZMax().move(butt.x, butt.y, buttBit.getMinZ()+numbers.Chamfer2+calSinkInDistance)
-				.union(rCenter)
-				.hull()
-				.difference(buttBit)
+			CSG calBlock = new ChamferedCube(25,25,20,numbers.Chamfer2).toCSG()
+					.toZMin()
+					.movez(5)
+			CSG calLeft =calBlock.toYMin().movey(2)
+			CSG calRight = calBlock.toYMax().movey(-2)
+			CSG footLeftFront=getFoot().transformed(tipLeftFront)
+			CSG footRightFront=getFoot().transformed(tipRightFront)
+			CSG footLeftRear=getFoot().transformed(tipLeftRear)
+			CSG footRightRear=getFoot().transformed(tipRightRear)
 
-		CSG FrontSpar = calBlock.move(tipLeftFront.x, tipLeftFront.y, tipLeftFront.z)
-				.union(calBlock.move(tipRightFront.x, tipRightFront.y, tipRightFront.z))
-				.hull()
-				.difference(footLeftFront)
-				.difference(footRightFront)
-		CSG RearSpar = calBlock.move(tipLeftRear.x, tipLeftRear.y, tipLeftRear.z)
-				.union(calBlock.move(tipRightRear.x, tipRightRear.y, tipRightRear.z))
-				.hull()
-				.difference(footLeftRear)
-				.difference(footRightRear)
-		CSG spars = Center.union([
-			FrontSpar,
-			RearSpar,
-			fCal,
-			rCal
-		])
-		//		CSG LeftFrontbox=calBlock.move(tipLeftFront.x, tipLeftFront.y, tipLeftFront.z).difference(footLeftFront)
-		//		CSG RightFrontbox=calBlock.move(tipRightFront.x, tipRightFront.y, tipRightFront.z).difference(footRightFront)
-		//		CSG LeftRearbox=calBlock.move(tipLeftRear.x, tipLeftRear.y, tipLeftRear.z).difference(footLeftRear)
-		//		CSG RightRearbox=calBlock.move(tipRightRear.x, tipRightRear.y, tipRightRear.z).difference(footRightRear)
-		spars.setName("CalibrationJig")
-		spars.getStorage().set("bedType", "ff-Three")
-		spars.setPrintBedNumber(3)
-		spars.setManufacturing({incoming -> return incoming.toZMin()})
+			CSG fCenter=calBlock.move(tipLeftFront.x, 0, tipLeftFront.z)
+			CSG rCenter=calBlock.move(tipRightRear.x, 0, tipRightRear.z)
+			CSG Center = fCenter
+					.union(rCenter)
+					.hull()
+			double calSinkInDistance =4
+			CSG fCal = calBlock.toZMax().move(neck.x, neck.y, neckBit.getMinZ()+numbers.Chamfer2+calSinkInDistance)
+					.union(fCenter)
+					.hull()
+					.difference(neckBit)
+			CSG rCal = calBlock.toZMax().move(butt.x, butt.y, buttBit.getMinZ()+numbers.Chamfer2+calSinkInDistance)
+					.union(rCenter)
+					.hull()
+					.difference(buttBit)
 
-		back.addAll([spars])
+			CSG FrontSpar = calBlock.move(tipLeftFront.x, tipLeftFront.y, tipLeftFront.z)
+					.union(calBlock.move(tipRightFront.x, tipRightFront.y, tipRightFront.z))
+					.hull()
+					.difference(footLeftFront)
+					.difference(footRightFront)
+			CSG RearSpar = calBlock.move(tipLeftRear.x, tipLeftRear.y, tipLeftRear.z)
+					.union(calBlock.move(tipRightRear.x, tipRightRear.y, tipRightRear.z))
+					.hull()
+					.difference(footLeftRear)
+					.difference(footRightRear)
+			CSG spars = Center.union([
+				FrontSpar,
+				RearSpar,
+				fCal,
+				rCal
+			])
+			//		CSG LeftFrontbox=calBlock.move(tipLeftFront.x, tipLeftFront.y, tipLeftFront.z).difference(footLeftFront)
+			//		CSG RightFrontbox=calBlock.move(tipRightFront.x, tipRightFront.y, tipRightFront.z).difference(footRightFront)
+			//		CSG LeftRearbox=calBlock.move(tipLeftRear.x, tipLeftRear.y, tipLeftRear.z).difference(footLeftRear)
+			//		CSG RightRearbox=calBlock.move(tipRightRear.x, tipRightRear.y, tipRightRear.z).difference(footRightRear)
+			spars.setName("CalibrationJig")
+			spars.getStorage().set("bedType", "ff-Three")
+			spars.setPrintBedNumber(3)
+			spars.setManufacturing({incoming -> return incoming.toZMin()})
 
+			back.addAll([spars])
+		}
+		back.addAll([
+			battery,
+			batteryInterface,motherboard])
 		for(CSG c:back) {
 			c.setManipulator(arg0.getRootListener())
 		}
@@ -1312,7 +1344,8 @@ def gen= new cadGenMarcos(resinPrintServoMount,numbers)
 //DHParameterKinematics limb = gen.getByName(mb,"RightFront")
 //return [
 //	gen.generateCad(limb,0)
-//	,gen.generateCad(limb,1)
+//	//,gen.generateCad(limb,1)
+//	//gen.generateBody(mb)
 //]
 
 return gen
