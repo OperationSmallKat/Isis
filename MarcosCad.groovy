@@ -514,8 +514,8 @@ class cadGenMarcos implements ICadGenerator{
 				.movez(linkThickness)
 		CSG mountAssebmbly = MountHoleCutoutChamfer
 				//.union(MountHeadHoleCutoutChamfer)
-				.union(boltHole)
 				.movex(rotationCenterToBoltCenter)
+				.union(boltHole)
 
 		CSG decritiveDivit = ChamferedCylinder(decritiveRad+chamfer,chamfer*2+1,chamfer)
 				.movez(linkThickness-chamfer)
@@ -709,8 +709,7 @@ class cadGenMarcos implements ICadGenerator{
 		bom.set(leftMotorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR())
 		bom.set(rightMotorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR())
 
-		bom.set(leftLinkScrewKey,"chamferedScrew","M3x16",new TransformNR())
-		bom.set(rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR())
+
 
 		bom.set(leftLinkNutKey,"squareNut","M3",new TransformNR())
 		bom.set(rightLinkNutKey,"squareNut","M3",new TransformNR())
@@ -725,9 +724,6 @@ class cadGenMarcos implements ICadGenerator{
 		LengthParameter facets		= new LengthParameter("Bolt Hole Facet Count",10,[40, 10])
 		facets.setMM(30)
 		offset.setMM(numbers.LooseTolerance)
-		CSG boltl = bom.get(leftLinkScrewKey)
-		CSG boltr = bom.get(rightLinkScrewKey)
-
 		if(linkIndex==0) {
 
 			bom.set(leftmotorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR())
@@ -756,42 +752,7 @@ class cadGenMarcos implements ICadGenerator{
 		//Start the horn link
 		// move the horn from tip of the link space, to the Motor of the last link space
 		// note the hore is moved to the centerline distance value before the transform to link space
-		if(!isDummyGearWrist) {
-			CSG movedDrive = calibrationLink(parametric,boltl)
-					.movez(distanceToMotorTop)//.rotz(180)
-			double xrot=180
-			xrot+=linkIndex==0&&(!front)?180:0
-			xrot+=linkIndex!=0&&(!left)?180:0
-			movedDrive=movedDrive.rotx(xrot)
-			double zrotVal = -d.getDH_Theta(linkIndex)
-			if(linkIndex==1) {
-				zrotVal+=45
-			}
-			if(linkIndex==2) {
-				zrotVal+=(-90+numbers.FootAngle)+1
-			}
-			movedDrive=movedDrive.rotz(zrotVal)
-			CSG myDriveLink = moveDHValues(movedDrive,d,linkIndex)
-			if(!isDummyGearWrist) {
-				if(linkIndex==0)
-					myDriveLink.addAssemblyStep(9, new Transform().movey(front?20:-20))
-				else
-					myDriveLink.addAssemblyStep(9, new Transform().movez(left?-20:20))
-			}else {
-				myDriveLink.addAssemblyStep(4, new Transform().movex(isDummyGearWrist?-30:30))
 
-			}
-			//reorent the horn for resin printing
-			myDriveLink.setManufacturing({incoming ->
-				return reverseDHValues(incoming.rotz(-zrotVal).rotx(-xrot), d, linkIndex).toZMin()
-			})
-			myDriveLink.getStorage().set("bedType", "ff-Two")
-			myDriveLink.setPrintBedNumber(2)
-			myDriveLink.setName("DriveLink "+linkIndex+" "+d.getScriptingName())
-			// attach this links manipulator
-			myDriveLink.setManipulator(dGetLinkObjectManipulator)
-			back.add(myDriveLink)
-		}
 		CSG movedHorn = resinPrintServoMount.movez(distanceToMotorTop)
 		if(linkIndex==0)
 			movedHorn=movedHorn.roty(front?180:0)
@@ -926,16 +887,13 @@ class cadGenMarcos implements ICadGenerator{
 				back.add(foot)
 
 			}
-			double kinematicsLen = d.getDH_R(linkIndex)
-			double staticOffset = 55.500-numbers.LinkLength-endOfPassiveLinkToBolt
-			double calculated = kinematicsLen-staticOffset
-
-			double xrot=0
-			CSG link = passiveLink(parametric,boltr)
-					.movez(distanceToMotorTop)
-			xrot+=linkIndex==0&&(!front)?180:0
-			xrot+=linkIndex!=0&&(!left)?180:0
-			link=link.rotx(xrot)
+			double zrotValDrive = -d.getDH_Theta(linkIndex)
+			if(linkIndex==1) {
+				zrotValDrive+=45
+			}
+			if(linkIndex==2) {
+				zrotValDrive+=(-90+numbers.FootAngle)+1
+			}
 			double zrotVal = -d.getDH_Theta(linkIndex)
 			if(linkIndex==1) {
 				zrotVal+=45
@@ -943,13 +901,80 @@ class cadGenMarcos implements ICadGenerator{
 			if(linkIndex==2) {
 				zrotVal+=(-90+numbers.FootAngle)
 			}
+			CSG boltlStart = bom.get(leftLinkScrewKey)
+
+
+			CSG boltrStart = bom.get(rightLinkScrewKey)
+
+
+			CSG boltl= moveDHValues(boltlStart
+					.rotx(180)
+					.toZMin()
+					.movez(-(distanceToMotorTop+numbers.LinkHeight))
+					.rotz(zrotVal)
+					,d,linkIndex)
+			CSG boltr= moveDHValues(boltrStart
+					.rotx(0)
+					.toZMax()
+					.movez((distanceToMotorTop+numbers.LinkHeight))
+					.rotz(zrotVal)
+					,d,linkIndex)
+
+			boltl.setManipulator(dGetLinkObjectManipulator)
+			boltr.setManipulator(dGetLinkObjectManipulator)
+			boltl.setManufacturing({return null})
+			boltr.setManufacturing({return null})
+
+			CSG movedDrive = calibrationLink(parametric,boltlStart)
+					.movez(distanceToMotorTop)//.rotz(180)
+			double xrotDrive=180
+			xrotDrive+=linkIndex==0&&(!front)?180:0
+			xrotDrive+=linkIndex!=0&&(!left)?180:0
+			movedDrive=movedDrive.rotx(xrotDrive)
+
+			movedDrive=movedDrive.rotz(zrotValDrive)
+			CSG myDriveLink = moveDHValues(movedDrive,d,linkIndex)
+			back.addAll([boltr, boltl])
+
+			if(linkIndex==0) {
+				boltl.addAssemblyStep(10, new Transform().movey(front?40:-40))
+				myDriveLink.addAssemblyStep(9, new Transform().movey(front?20:-20))
+			}else {
+				boltl.addAssemblyStep(10, new Transform().movez(front?-40:40))
+				myDriveLink.addAssemblyStep(9, new Transform().movez(left?-20:20))
+			}
+
+			//reorent the horn for resin printing
+			myDriveLink.setManufacturing({incoming ->
+				return reverseDHValues(incoming.rotz(-zrotValDrive).rotx(-xrotDrive), d, linkIndex).toZMin()
+			})
+			myDriveLink.getStorage().set("bedType", "ff-Two")
+			myDriveLink.setPrintBedNumber(2)
+			myDriveLink.setName("DriveLink "+linkIndex+" "+d.getScriptingName())
+			// attach this links manipulator
+			myDriveLink.setManipulator(dGetLinkObjectManipulator)
+			back.add(myDriveLink)
+
+			double kinematicsLen = d.getDH_R(linkIndex)
+			double staticOffset = 55.500-numbers.LinkLength-endOfPassiveLinkToBolt
+			double calculated = kinematicsLen-staticOffset
+
+			double xrot=0
+			CSG link = passiveLink(parametric,boltrStart)
+					.movez(distanceToMotorTop)
+			xrot+=linkIndex==0&&(!front)?180:0
+			xrot+=linkIndex!=0&&(!left)?180:0
+			link=link.rotx(xrot)
+
 			link=link.rotz(zrotVal)
 			CSG wrist= moveDHValues(link, d, linkIndex)
-			if(linkIndex!=0)
+			if(linkIndex!=0) {
+				boltr.addAssemblyStep(10, new Transform().movez(left?25:-25))
 				wrist.addAssemblyStep(10, new Transform().movez(left?5:-5))
-			else
+			}else {
+				boltr.addAssemblyStep(10, new Transform().movey(front?-25:25))
 				wrist.addAssemblyStep(10, new Transform().movey(front?-5:5))
-
+			}
 			//.rotx(90)
 			wrist.setName("PassiveLink"+d.getScriptingName()+linkIndex)
 			wrist.setManufacturing({ incoming ->
@@ -959,6 +984,10 @@ class cadGenMarcos implements ICadGenerator{
 			wrist.setPrintBedNumber(2)
 			wrist.setManipulator(d.getLinkObjectManipulator(linkIndex))
 			back.add(wrist)
+
+			bom.set(leftLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(parametric))
+			bom.set(rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(parametric))
+
 		}
 		motor.setName(conf.getElectroMechanicalSize())
 		back.add(motor)
@@ -1115,18 +1144,18 @@ class cadGenMarcos implements ICadGenerator{
 		setMobileBase(arg0)
 		DHParameterKinematics dh = arg0.getLegs().get(0);
 		double zCenterLine = dh.getRobotToFiducialTransform().getZ()+numbers.ServoThickness/2.0;
-		
+
 		TransformNR batteryLocation =new TransformNR()
-										.translateZ(zCenterLine)
+				.translateZ(zCenterLine)
 		TransformNR motherboardLocation =batteryLocation.copy()
-											.translateZ(13.5)
-											.translateX(-1.5)
+				.translateZ(13.5)
+				.translateX(-1.5)
 		batteryLocation.setRotation(RotationNR.getRotationX(180))
 		batteryLocation=batteryLocation.times(new TransformNR(0,0,0,RotationNR.getRotationZ(90)))
 		TransformNR batteryInterfaceLocation =batteryLocation.copy()
-												.translateX(49.25)
-												.translateZ(-12.5)
-		
+				.translateX(49.25)
+				.translateZ(-12.5)
+
 		batteryLocation.translateZ(7)
 		batteryLocation.translateX(-3)
 		bom.set("MotherboardScrew1","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR())
@@ -1135,11 +1164,11 @@ class cadGenMarcos implements ICadGenerator{
 		bom.set("MotherboardScrew4","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR())
 		bom.set("BatteryScrew5","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR())
 		bom.set("BatteryScrew6","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR())
-		
+
 		bom.set("battery","smallKatElectronics","dji-mavic-pro-battery",batteryLocation)
 		bom.set("batteryInterface","smallKatElectronics","batteryInterface",batteryInterfaceLocation)
 		bom.set("motherboard","smallKatElectronics","motherboard",motherboardLocation)
-		
+
 
 		bom.set("CoverScrew1","chamferedScrew","M3x16",new TransformNR())
 		bom.set("CoverScrew2","chamferedScrew","M3x16",new TransformNR())
@@ -1147,14 +1176,14 @@ class cadGenMarcos implements ICadGenerator{
 		bom.set("CoverScrew4","chamferedScrew","M3x16",new TransformNR())
 
 
-		
+
 		CSG battery = bom.get("battery")
-						.addAssemblyStep(13, new Transform().movez(-40))
+				.addAssemblyStep(13, new Transform().movez(-40))
 		CSG batteryInterface = bom.get("batteryInterface")
-							.addAssemblyStep(5, new Transform().movez(-40))
+				.addAssemblyStep(5, new Transform().movez(-40))
 		CSG motherboard = bom.get("motherboard")
-							.addAssemblyStep(5, new Transform().movez(40))
-		
+				.addAssemblyStep(5, new Transform().movez(40))
+
 
 		CSG body  = Vitamins.get(ScriptingEngine.fileFromGit(
 				"https://github.com/OperationSmallKat/Marcos.git",
@@ -1327,7 +1356,9 @@ class cadGenMarcos implements ICadGenerator{
 		}
 		back.addAll([
 			battery,
-			batteryInterface,motherboard])
+			batteryInterface,
+			motherboard
+		])
 		for(CSG c:back) {
 			c.setManipulator(arg0.getRootListener())
 		}
@@ -1345,10 +1376,11 @@ class cadGenMarcos implements ICadGenerator{
 def gen= new cadGenMarcos(resinPrintServoMount,numbers)
 //MobileBase mb = (MobileBase)DeviceManager.getSpecificDevice("Marcos");
 //gen.setMobileBase(mb)
-//DHParameterKinematics limb = gen.getByName(mb,"RightFront")
+//DHParameterKinematics limb = gen.getByName(mb,"LeftFront")
 //return [
 //	gen.generateCad(limb,0)
-//	//,gen.generateCad(limb,1)
+//	,
+//	gen.generateCad(limb,1)
 //	//gen.generateBody(mb)
 //]
 
