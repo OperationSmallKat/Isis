@@ -828,7 +828,7 @@ class cadGenMarcos implements ICadGenerator{
 					return incoming.rotx(-90).toZMin().roty(90).toZMin()
 				})
 				kneeCover.getStorage().set("bedType", "ff-Two")
-				kneeCover.setPrintBedNumber(2)
+				kneeCover.setPrintBedNumber(left?2:5)
 				kneeCover.setName("ShoulderCover"+d.getScriptingName())
 				kneeCover.addAssemblyStep(12, new Transform().movex(10))
 				kneeCover.addAssemblyStep(11, new Transform().movez(left?-coverDistance:coverDistance))
@@ -1206,7 +1206,7 @@ class cadGenMarcos implements ICadGenerator{
 		ArrayList<CSG> back =[body, bodyCOver]
 		for(CSG c:back) {
 			c.getStorage().set("bedType", "ff-One")
-			c.setPrintBedNumber(1)
+			c.setPrintBedNumber(5)
 		}
 		for(DHParameterKinematics k:arg0.getLegs()) {
 			boolean left=false;
@@ -1238,9 +1238,9 @@ class cadGenMarcos implements ICadGenerator{
 				return incoming.toZMin().toXMin().toYMin().movey(top.getTotalY()+1)
 			})
 			top.getStorage().set("bedType", "ff-Two")
-			top.setPrintBedNumber(2)
+			top.setPrintBedNumber(3)
 			bottom.getStorage().set("bedType", "ff-Two")
-			bottom.setPrintBedNumber(2)
+			bottom.setPrintBedNumber(3)
 			top.addAssemblyStep(6, new Transform().movez(10))
 			bottom.addAssemblyStep(6, new Transform().movez(-10))
 			double distacne = front?80:-80
