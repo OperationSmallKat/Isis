@@ -942,10 +942,10 @@ class cadGenMarcos implements ICadGenerator{
 			back.addAll([boltr, boltl])
 
 			if(linkIndex==0) {
-				boltl.addAssemblyStep(10, new Transform().movey(40))
+				boltl.addAssemblyStep(10, new Transform().movey(25))
 				myDriveLink.addAssemblyStep(9, new Transform().movey(front?20:-20))
 			}else {
-				boltl.addAssemblyStep(10, new Transform().movez(-40))
+				boltl.addAssemblyStep(10, new Transform().movez(-25))
 				myDriveLink.addAssemblyStep(9, new Transform().movez(left?-20:20))
 			}
 
@@ -974,7 +974,8 @@ class cadGenMarcos implements ICadGenerator{
 			link=link.rotz(zrotVal)
 			CSG wrist= moveDHValues(link, d, linkIndex)
 			if(linkIndex!=0) {
-				boltr.addAssemblyStep(10, new Transform().movez((left?25:-25)*(front?1:-1)))
+				double dist = 25;
+				boltr.addAssemblyStep(10, new Transform().movez(dist))
 				wrist.addAssemblyStep(10, new Transform().movez(left?5:-5))
 			}else {
 				boltr.addAssemblyStep(10, new Transform().movey(-25))
