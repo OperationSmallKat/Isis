@@ -613,8 +613,8 @@ class cadGenMarcos implements ICadGenerator{
 		double backOffset = 4
 
 		double chamfer = numbers.Chamfer2
-		double LugDepth = numbers.LinkLength-rotationCenterToBoltCenter
-		double x=rotationCenterToBoltCenter-LugDepth+chamfer-numbers.LinkDetailSize/2-backOffset
+
+		double x=rotationCenterToBoltCenter+chamfer-numbers.LinkDetailSize/2-backOffset-endOfPassiveLinkToBolt-0.5
 		double y=numbers.LinkWidth-numbers.LinkDetailSize*2+chamfer*2
 		double filletRad=numbers.Fillet3
 		CSG smallCut=ChamferedCylinder((numbers.LinkWidth-numbers.LinkDetailSize*2)/2, chamfer*2+1, chamfer)
@@ -1314,6 +1314,5 @@ return [
 	gen.generateCad(limb,0)
 	,gen.generateCad(limb,1)
 ]
-
 return gen
 
