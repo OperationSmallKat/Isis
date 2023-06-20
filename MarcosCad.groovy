@@ -1301,8 +1301,13 @@ class cadGenMarcos implements ICadGenerator{
 		if(calibrationJigFile.exists()) {
 			println "Calibration Jig Exists "+calibrationJigFile.getAbsolutePath()
 			makeCalibration=false
-			CSG jig  = Vitamins.get(calibrationJigFile);
-			back.add(jig)
+			CSG spars  = Vitamins.get(calibrationJigFile);
+			spars.setManufacturing({incoming -> return incoming.toZMin()})
+			spars.setName("CalibrationJig")
+			spars.getStorage().set("bedType", "ff-Three")
+			spars.setPrintBedNumber(3)
+			spars.setColor(Color.DARKRED)
+			back.add(spars)
 		}
 		if(makeCalibration) {
 
