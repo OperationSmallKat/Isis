@@ -1149,8 +1149,12 @@ class cadGenMarcos implements ICadGenerator{
 
 		
 		CSG battery = bom.get("battery")
+						.addAssemblyStep(13, new Transform().movez(-40))
 		CSG batteryInterface = bom.get("batteryInterface")
+							.addAssemblyStep(5, new Transform().movez(-40))
 		CSG motherboard = bom.get("motherboard")
+							.addAssemblyStep(5, new Transform().movez(40))
+		
 
 		CSG body  = Vitamins.get(ScriptingEngine.fileFromGit(
 				"https://github.com/OperationSmallKat/Marcos.git",
@@ -1247,7 +1251,7 @@ class cadGenMarcos implements ICadGenerator{
 		}
 
 		bodyCOver.setName("BodyCover")
-		bodyCOver.addAssemblyStep(5, new Transform().movez(80))
+		bodyCOver.addAssemblyStep(6, new Transform().movez(80))
 		body.setName("Body")
 		body.setManufacturing({ incoming ->
 			return incoming.rotx(180).toZMin().toXMin().toYMin()
