@@ -957,6 +957,26 @@
       }
     }
   ],
+  "smallKatElectronics:motherboard": [
+    {
+      "name": "motherboard",
+      "type": "smallKatElectronics",
+      "size": "motherboard",
+      "pose": {
+        "x": -1.5,
+        "y": 0.0,
+        "z": 139.535,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    }
+  ],
   "PhillipsRoundedHeadThreadFormingScrews:M2x8": [
     {
       "name": "LeftMotorScrewLeftRear:0",
@@ -1962,6 +1982,26 @@
             "q1": 0.0,
             "q2": 0.0,
             "q3": 0.0
+          }
+        }
+      }
+    }
+  ],
+  "smallKatElectronics:batteryInterface": [
+    {
+      "name": "batteryInterface",
+      "type": "smallKatElectronics",
+      "size": "batteryInterface",
+      "pose": {
+        "x": 49.25,
+        "y": 0.0,
+        "z": 113.535,
+        "rotation": {
+          "storage": {
+            "q0": -4.329780281177467E-17,
+            "q1": 0.7071067811865476,
+            "q2": -0.7071067811865475,
+            "q3": 4.329780281177466E-17
           }
         }
       }
@@ -3301,6 +3341,42 @@
           }
         }
       }
+    },
+    {
+      "name": "BatteryScrew5",
+      "type": "PhillipsRoundedHeadThreadFormingScrews",
+      "size": "M3x6",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
+    },
+    {
+      "name": "BatteryScrew6",
+      "type": "PhillipsRoundedHeadThreadFormingScrews",
+      "size": "M3x6",
+      "pose": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "rotation": {
+          "storage": {
+            "q0": 1.0,
+            "q1": 0.0,
+            "q2": 0.0,
+            "q3": 0.0
+          }
+        }
+      }
     }
   ],
   "capScrew:M3x16": [
@@ -3950,6 +4026,26 @@
             "q1": 0.0,
             "q2": 0.0,
             "q3": 0.0
+          }
+        }
+      }
+    }
+  ],
+  "smallKatElectronics:dji-mavic-pro-battery": [
+    {
+      "name": "battery",
+      "type": "smallKatElectronics",
+      "size": "dji-mavic-pro-battery",
+      "pose": {
+        "x": -3.0,
+        "y": 0.0,
+        "z": 133.035,
+        "rotation": {
+          "storage": {
+            "q0": -4.329780281177467E-17,
+            "q1": 0.7071067811865476,
+            "q2": -0.7071067811865475,
+            "q3": 4.329780281177466E-17
           }
         }
       }
