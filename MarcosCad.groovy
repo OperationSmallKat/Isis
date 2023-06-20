@@ -738,7 +738,7 @@ class cadGenMarcos implements ICadGenerator{
 			// pull the limb servos out the top
 			motor.addAssemblyStep(4, new Transform().movex(isDummyGearWrist?-30:MototRetractDist))
 			motor.addAssemblyStep(3, new Transform().movey(isDummyGearWrist?-30:left?-MototRetractDist*4:MototRetractDist*4))
-			
+
 		}else {
 			bom.set(motorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR())
 			motor=motor.roty(left?180:0)
@@ -747,7 +747,7 @@ class cadGenMarcos implements ICadGenerator{
 			motor.setManipulator(d.getLinkObjectManipulator(linkIndex-1))
 			// pull the link motors out the thin side
 			motor.addAssemblyStep(6, new Transform().movey(linkIndex==1?MototRetractDist*2:0).movey(linkIndex==2?-MototRetractDist*2:0))
-			
+
 			motor.addAssemblyStep(7, new Transform().movex(linkIndex==1?MototRetractDist*2:0).movey(linkIndex==2?-MototRetractDist*2:0))
 			//motor.addAssemblyStep(8, new Transform().movex(-30))
 		}
@@ -1294,10 +1294,10 @@ class cadGenMarcos implements ICadGenerator{
 		bodyCOver.setManufacturing({ incoming ->
 			return incoming.toZMin().toXMin().toYMin().movey(body.getTotalY()+1)
 		})
-		
+
 		String configHash = arg0.getXml().hashCode();
 		File calibrationJigFile = new File(ScriptingEngine.getRepositoryCloneDirectory(arg0.getGitSelfSource()[0]).getAbsolutePath()+"/Calibration-"+configHash+".stl")
-		
+
 		if(calibrationJigFile.exists()) {
 			println "Calibration Jig Exists "+calibrationJigFile.getAbsolutePath()
 			makeCalibration=false
@@ -1322,9 +1322,10 @@ class cadGenMarcos implements ICadGenerator{
 			CSG neckBit = getNeckLink().transformed(neck)
 			CSG buttBit = getNeckLink().transformed(butt)
 
-			CSG calBlock = new ChamferedCube(25,25,20,numbers.Chamfer2).toCSG()
+			CSG calBlock = new ChamferedCube(35,25,20,numbers.Chamfer2).toCSG()
 					.toZMin()
-					.movez(5)
+					.movez(1)
+					//.movez(5)
 			CSG calLeft =calBlock.toYMin().movey(2)
 			CSG calRight = calBlock.toYMax().movey(-2)
 			CSG footLeftFront=getFoot().transformed(tipLeftFront)
@@ -1332,7 +1333,7 @@ class cadGenMarcos implements ICadGenerator{
 			CSG footLeftRear=getFoot().transformed(tipLeftRear)
 			CSG footRightRear=getFoot().transformed(tipRightRear)
 
-			CSG fCenter=calBlock.move(tipLeftFront.x, 0, tipLeftFront.z)
+			CSG fCenter=calBlock.toXMax().move(tipLeftFront.x, 0, tipLeftFront.z)
 			CSG rCenter=calBlock.move(tipRightRear.x, 0, tipRightRear.z)
 			CSG Center = fCenter
 					.union(rCenter)
@@ -1346,14 +1347,21 @@ class cadGenMarcos implements ICadGenerator{
 					.union(rCenter)
 					.hull()
 					.difference(buttBit)
-
-			CSG FrontSpar = calBlock.move(tipLeftFront.x, tipLeftFront.y, tipLeftFront.z)
-					.union(calBlock.move(tipRightFront.x, tipRightFront.y, tipRightFront.z))
+			double inset=2
+			CSG scoochedUp = calBlock
+							.toXMax()
+							.movex(5)
+			CSG fl = scoochedUp.toYMax().movey(inset)
+			CSG fr = scoochedUp.toYMin().movey(-inset)
+			CSG rl = scoochedUp.toYMax().movey(inset)
+			CSG rr = scoochedUp.toYMin().movey(-inset)
+			CSG FrontSpar = fl.move(tipLeftFront.x, tipLeftFront.y, tipLeftFront.z)
+					.union(fr.move(tipRightFront.x, tipRightFront.y, tipRightFront.z))
 					.hull()
 					.difference(footLeftFront)
 					.difference(footRightFront)
-			CSG RearSpar = calBlock.move(tipLeftRear.x, tipLeftRear.y, tipLeftRear.z)
-					.union(calBlock.move(tipRightRear.x, tipRightRear.y, tipRightRear.z))
+			CSG RearSpar = rl.move(tipLeftRear.x, tipLeftRear.y, tipLeftRear.z)
+					.union(rr.move(tipRightRear.x, tipRightRear.y, tipRightRear.z))
 					.hull()
 					.difference(footLeftRear)
 					.difference(footRightRear)
@@ -1372,7 +1380,7 @@ class cadGenMarcos implements ICadGenerator{
 			spars.setPrintBedNumber(3)
 			spars.setManufacturing({incoming -> return incoming.toZMin()})
 			FileUtil.write(Paths.get(calibrationJigFile.getAbsolutePath()),
-				spars.toStlString());
+					spars.toStlString());
 			back.addAll([spars])
 		}
 		back.addAll([
