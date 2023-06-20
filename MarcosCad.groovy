@@ -15,6 +15,7 @@ import eu.mihosoft.vrl.v3d.CSG
 import eu.mihosoft.vrl.v3d.ChamferedCube
 import eu.mihosoft.vrl.v3d.Cube
 import eu.mihosoft.vrl.v3d.Cylinder
+import eu.mihosoft.vrl.v3d.FileUtil
 import eu.mihosoft.vrl.v3d.PrepForManufacturing
 import eu.mihosoft.vrl.v3d.RoundedCube
 import eu.mihosoft.vrl.v3d.Sphere
