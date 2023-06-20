@@ -24,6 +24,7 @@ import javafx.scene.paint.Color
 import javafx.scene.transform.Affine
 import eu.mihosoft.vrl.v3d.ChamferedCylinder
 import java.lang.reflect.Type
+import java.nio.file.Paths
 
 import javax.xml.transform.TransformerFactory
 
@@ -1070,7 +1071,7 @@ class cadGenMarcos implements ICadGenerator{
 			back.add(link)
 			CSG gearLink= Vitamins.get(ScriptingEngine.fileFromGit(
 					"https://github.com/OperationSmallKat/Marcos.git",
-					"GearLink.stl"))
+					"GearLinkChamfer.stl"))
 
 					.movez(16.25)
 			gearLink.addAssemblyStep(4, new Transform().movez(30))
@@ -1292,7 +1293,16 @@ class cadGenMarcos implements ICadGenerator{
 		bodyCOver.setManufacturing({ incoming ->
 			return incoming.toZMin().toXMin().toYMin().movey(body.getTotalY()+1)
 		})
-
+		
+		String configHash = arg0.getXml().hashCode();
+		File calibrationJigFile = new File(ScriptingEngine.getRepositoryCloneDirectory(arg0.getGitSelfSource()[0]).getAbsolutePath()+"/Calibration-"+configHash+".stl")
+		
+		if(calibrationJigFile.exists()) {
+			println "Calibration Jig Exists "+calibrationJigFile.getAbsolutePath()
+			makeCalibration=false
+			CSG jig  = Vitamins.get(calibrationJigFile);
+			back.add(jig)
+		}
 		if(makeCalibration) {
 
 			Transform tipLeftFront = TransformFactory.nrToCSG(getByName(arg0,"LeftFront").calcHome())
@@ -1355,7 +1365,8 @@ class cadGenMarcos implements ICadGenerator{
 			spars.getStorage().set("bedType", "ff-Three")
 			spars.setPrintBedNumber(3)
 			spars.setManufacturing({incoming -> return incoming.toZMin()})
-
+			FileUtil.write(Paths.get(calibrationJigFile.getAbsolutePath()),
+				spars.toStlString());
 			back.addAll([spars])
 		}
 		back.addAll([

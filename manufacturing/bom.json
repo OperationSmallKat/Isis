@@ -363,24 +363,6 @@
       }
     },
     {
-      "name": "RightLinkScrewTail:1",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 32.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
       "name": "LeftLinkScrewLeftRear:0",
       "type": "chamferedScrew",
       "size": "M3x16",
@@ -813,7 +795,7 @@
       }
     },
     {
-      "name": "LeftLinkScrewDummyLeftRear:0",
+      "name": "LeftLinkScrewHead:1",
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
@@ -831,11 +813,11 @@
       }
     },
     {
-      "name": "RightLinkScrewDummyLeftRear:0",
+      "name": "RightLinkScrewTail:1",
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 0.0,
+        "x": 32.0,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
@@ -849,97 +831,7 @@
       }
     },
     {
-      "name": "LeftLinkScrewDummyRightFront:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "RightLinkScrewDummyRightFront:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "LeftLinkScrewDummyLeftFront:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "RightLinkScrewDummyLeftFront:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "LeftLinkScrewDummyRightRear:0",
-      "type": "chamferedScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "RightLinkScrewDummyRightRear:0",
+      "name": "LeftLinkScrewTail:1",
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
@@ -972,6 +864,26 @@
             "q1": 0.0,
             "q2": 0.0,
             "q3": 0.0
+          }
+        }
+      }
+    }
+  ],
+  "smallKatElectronics:batteryInterface": [
+    {
+      "name": "batteryInterface",
+      "type": "smallKatElectronics",
+      "size": "batteryInterface",
+      "pose": {
+        "x": 49.25,
+        "y": 0.0,
+        "z": 113.535,
+        "rotation": {
+          "storage": {
+            "q0": -4.329780281177467E-17,
+            "q1": 0.7071067811865476,
+            "q2": -0.7071067811865475,
+            "q3": 4.329780281177466E-17
           }
         }
       }
@@ -1982,26 +1894,6 @@
             "q1": 0.0,
             "q2": 0.0,
             "q3": 0.0
-          }
-        }
-      }
-    }
-  ],
-  "smallKatElectronics:batteryInterface": [
-    {
-      "name": "batteryInterface",
-      "type": "smallKatElectronics",
-      "size": "batteryInterface",
-      "pose": {
-        "x": 49.25,
-        "y": 0.0,
-        "z": 113.535,
-        "rotation": {
-          "storage": {
-            "q0": -4.329780281177467E-17,
-            "q1": 0.7071067811865476,
-            "q2": -0.7071067811865475,
-            "q3": 4.329780281177466E-17
           }
         }
       }
@@ -3399,43 +3291,7 @@
       }
     },
     {
-      "name": "LeftLinkScrewHead:1",
-      "type": "capScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
       "name": "MountScrewTail:0",
-      "type": "capScrew",
-      "size": "M3x16",
-      "pose": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "rotation": {
-          "storage": {
-            "q0": 1.0,
-            "q1": 0.0,
-            "q2": 0.0,
-            "q3": 0.0
-          }
-        }
-      }
-    },
-    {
-      "name": "LeftLinkScrewTail:1",
       "type": "capScrew",
       "size": "M3x16",
       "pose": {
