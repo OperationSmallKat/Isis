@@ -1051,7 +1051,7 @@ class cadGenMarcos implements ICadGenerator{
 			bom.set(MountNutKey,"squareNut","M3",new TransformNR())
 		}
 		if(linkIndex==1) {
-			bom.set(leftLinkScrewKey,"capScrew","M3x16",new TransformNR())
+			bom.set(leftLinkScrewKey,"chamferedScrew","M3x16",new TransformNR())
 			bom.set(leftLinkNutKey,"squareNut","M3",new TransformNR())
 			bom.set(rightLinkNutKey,"squareNut","M3",new TransformNR())
 
