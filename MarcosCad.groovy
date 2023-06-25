@@ -314,7 +314,7 @@ class cadGenMarcos implements ICadGenerator{
 	}
 
 	public CSG calibrationLink(double rotationCenterToBoltCenter,CSG bolt) {
-		CSG core= linkCore(rotationCenterToBoltCenter, bolt)
+		CSG core= linkCore(rotationCenterToBoltCenter, bolt,numbers.LooseTolerance)
 		double defaultValue = numbers.LinkLength - endOfPassiveLinkToBolt
 		CSG stl= Vitamins.get(ScriptingEngine.fileFromGit(
 				"https://github.com/OperationSmallKat/Marcos.git",
@@ -482,7 +482,7 @@ class cadGenMarcos implements ICadGenerator{
 
 
 
-	public CSG linkCore(double rotationCenterToBoltCenter,CSG bolt) {
+	public CSG linkCore(double rotationCenterToBoltCenter,CSG bolt,double tollerence) {
 		double defaultValue = numbers.LinkLength - endOfPassiveLinkToBolt
 		double chamfer = numbers.Chamfer2
 		double smallChamfer = numbers.Chamfer1
@@ -491,10 +491,10 @@ class cadGenMarcos implements ICadGenerator{
 		double filletRad=numbers.Fillet3
 		double LinkMountingCutOutWidth=numbers.LinkMountingCutOutWidth
 		double blockx=rotationCenterToBoltCenter-numbers.LinkMountingCutOutLength-numbers.Tolerance+endOfPassiveLinkToBolt+filletRad
-		double IdlePinRad=(numbers.IdlePinDiamter+numbers.LooseTolerance)/2.0
-		double idlePinHeight  =numbers.IdlePinThickness+numbers.LooseTolerance
-		double mountHeadRad =( numbers.MountingScrewHeadDiamter+numbers.LooseTolerance)/2.0
-		double mountRad=( numbers.MountingScrewDiamter+numbers.LooseTolerance)/2.0
+		double IdlePinRad=(numbers.IdlePinDiamter+tollerence)/2.0
+		double idlePinHeight  =numbers.IdlePinThickness+tollerence
+		double mountHeadRad =( numbers.MountingScrewHeadDiamter+tollerence)/2.0
+		double mountRad=( numbers.MountingScrewDiamter+tollerence)/2.0
 		double decritiveRad = numbers.ServoHornDiameter/4.0
 		double zipTieLugDepth = 4
 		double zipTieWidth=3
@@ -570,7 +570,7 @@ class cadGenMarcos implements ICadGenerator{
 	}
 
 	public CSG passiveLink(double rotationCenterToBoltCenter,CSG bolt) {
-		CSG core= linkCore(rotationCenterToBoltCenter, bolt)
+		CSG core= linkCore(rotationCenterToBoltCenter, bolt,numbers.LooseTolerance)
 
 		double defaultValue = numbers.LinkLength - endOfPassiveLinkToBolt
 		CSG stl= Vitamins.get(ScriptingEngine.fileFromGit(
