@@ -632,6 +632,7 @@ class cadGenMarcos implements ICadGenerator{
 
 			motor=motor.rotz(left?180:0)
 			motor=motor.roty(front?180:0)
+			motor=motor.mirrory()
 			// the first link motor is located in the body
 			motor.setManipulator(root)
 			// pull the limb servos out the top
@@ -642,6 +643,9 @@ class cadGenMarcos implements ICadGenerator{
 			bom.set(motorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR())
 			motor=motor.roty(left?180:0)
 			motor=motor.rotz(linkIndex==2?90:90+link1Rotz)
+			if(linkIndex==1) {
+				motor=motor.mirrory()
+			}
 			// the rest of the motors are located in the preior link's kinematic frame
 			motor.setManipulator(d.getLinkObjectManipulator(linkIndex-1))
 			// pull the link motors out the thin side
@@ -722,6 +726,7 @@ class cadGenMarcos implements ICadGenerator{
 						.rotz(link1Rotz)
 				if(left)
 					kneeCover=kneeCover.mirrorz()
+				kneeCover=kneeCover.mirrory()
 				kneeCover.setManipulator(d.getLinkObjectManipulator(linkIndex-1))
 				kneeCover.setManufacturing({incoming->
 					return incoming.rotx(-90).toZMin().roty(90).toZMin()
@@ -739,6 +744,7 @@ class cadGenMarcos implements ICadGenerator{
 						.rotz(link1Rotz)
 				if(left)
 					knee=knee.mirrorz()
+				knee=knee.mirrory()
 				knee.setManipulator(d.getLinkObjectManipulator(linkIndex-1))
 				knee.setManufacturing({incoming->
 					return incoming.rotx(-90).roty(-90).toZMin()
