@@ -1,3 +1,11 @@
+// https://mvnrepository.com/artifact/fr.brouillard.oss/jgitver
+@Grapes(
+	@Grab(group='fr.brouillard.oss', module='jgitver', version='0.14.0')
+)
+import fr.brouillard.oss.jgitver.*;
+import eu.mihosoft.vrl.v3d.*;
+import javafx.scene.text.Font;
+
 import com.google.gson.reflect.TypeToken
 import com.neuronrobotics.bowlerstudio.creature.ICadGenerator
 import com.neuronrobotics.bowlerstudio.creature.IgenerateBed
@@ -1280,10 +1288,15 @@ class cadGenMarcos implements ICadGenerator{
 		bodyCOver.setManufacturing({ incoming ->
 			return incoming.toZMin().toXMin().toYMin().movey(body.getTotalY()+1)
 		})
-
-		String configHash = arg0.getXml().hashCode()+"1";
-		File calibrationJigFile = new File(ScriptingEngine.getRepositoryCloneDirectory(arg0.getGitSelfSource()[0]).getAbsolutePath()+"/Calibration-"+configHash+".stl")
-
+		File workDir = ScriptingEngine.getRepositoryCloneDirectory(arg0.getGitSelfSource()[0]);
+		GitVersionCalculator jgitver = GitVersionCalculator.location(workDir).setMavenLike(true)
+		
+		String semver = jgitver.getVersion()
+		String configHash = arg0.getXml().hashCode()+"-"+semver;
+		Font font = new Font("Arial",  6);
+		
+		File calibrationJigFile = new File(workDir.getAbsolutePath()+"/Calibration-"+configHash+".stl")
+		System.out.println("Stand file "+calibrationJigFile.getAbsolutePath());
 		if(calibrationJigFile.exists()) {
 			println "Calibration Jig Exists "+calibrationJigFile.getAbsolutePath()
 			makeCalibration=false
@@ -1296,7 +1309,16 @@ class cadGenMarcos implements ICadGenerator{
 			back.add(spars)
 		}
 		if(makeCalibration) {
-
+			double blockDepth = 35
+			double blockHeight = 20
+			double scoochUpDistance = 1
+			CSG label = CSG.unionAll(TextExtrude.text((double)1.0,semver,font))
+							.roty(180)
+							.movex(-blockDepth)
+							.toZMin()
+							.moveToCenterY()
+							
+							
 			Transform tipLeftFront = TransformFactory.nrToCSG(getByName(arg0,"LeftFront").calcHome())
 			Transform tipRightFront = TransformFactory.nrToCSG(getByName(arg0,"RightFront").calcHome())
 			Transform tipLeftRear = TransformFactory.nrToCSG(getByName(arg0,"LeftRear").calcHome())
@@ -1308,9 +1330,9 @@ class cadGenMarcos implements ICadGenerator{
 			CSG neckBit = getNeckLink().transformed(neck)
 			CSG buttBit = getNeckLink().transformed(butt)
 
-			CSG calBlock = new ChamferedCube(35,25,20,numbers.Chamfer2).toCSG()
+			CSG calBlock = new ChamferedCube(blockDepth,25,blockHeight,numbers.Chamfer2).toCSG()
 					.toZMin()
-					.movez(1)
+					.movez(scoochUpDistance)
 			//.movez(5)
 			CSG calLeft =calBlock.toYMin().movey(2)
 			CSG calRight = calBlock.toYMax().movey(-2)
@@ -1320,10 +1342,13 @@ class cadGenMarcos implements ICadGenerator{
 			CSG footRightRear=getFoot(getByName(arg0,"RightRear").getDH_R(2)).transformed(tipRightRear)
 
 			CSG fCenter=calBlock.toXMax().move(tipLeftFront.x, 0, tipLeftFront.z)
+			
 			CSG rCenter=calBlock.move(tipRightRear.x, 0, tipRightRear.z)
 			CSG Center = fCenter
 					.union(rCenter)
 					.hull()
+			label=label.movex(tipLeftFront.x-5)
+					.movez(Center.getMaxZ())
 			double calSinkInDistance =4
 			CSG fCal = calBlock.toZMax().move(neck.x, neck.y, neckBit.getMinZ()+numbers.Chamfer2+calSinkInDistance)
 					.union(fCenter)
@@ -1355,7 +1380,8 @@ class cadGenMarcos implements ICadGenerator{
 				FrontSpar,
 				RearSpar,
 				fCal,
-				rCal
+				rCal,
+				label
 			])
 			//		CSG LeftFrontbox=calBlock.move(tipLeftFront.x, tipLeftFront.y, tipLeftFront.z).difference(footLeftFront)
 			//		CSG RightFrontbox=calBlock.move(tipRightFront.x, tipRightFront.y, tipRightFront.z).difference(footRightFront)
@@ -1367,6 +1393,7 @@ class cadGenMarcos implements ICadGenerator{
 			spars.setManufacturing({incoming -> return incoming.toZMin()})
 			FileUtil.write(Paths.get(calibrationJigFile.getAbsolutePath()),
 					spars.toStlString());
+			spars.setColor(Color.DARKRED)
 			back.addAll([spars])
 		}
 		back.addAll([
