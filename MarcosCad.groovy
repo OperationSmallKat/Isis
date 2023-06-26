@@ -1296,16 +1296,12 @@ class cadGenMarcos implements ICadGenerator{
 		
 		File calibrationJigFile = new File(workDir.getAbsolutePath()+"/Calibration-"+configHash+".stl")
 		System.out.println("Stand file "+calibrationJigFile.getAbsolutePath());
+		CSG spars
 		if(calibrationJigFile.exists()) {
 			println "Calibration Jig Exists "+calibrationJigFile.getAbsolutePath()
 			makeCalibration=false
-			CSG spars  = Vitamins.get(calibrationJigFile);
-			spars.setManufacturing({incoming -> return incoming.toZMin()})
-			spars.setName("CalibrationJig")
-			spars.getStorage().set("bedType", "ff-Three")
-			spars.setPrintBedNumber(3)
-			spars.setColor(Color.DARKRED)
-			back.add(spars)
+			spars  = Vitamins.get(calibrationJigFile);
+			
 		}
 		if(makeCalibration) {
 			double blockDepth = 35
@@ -1375,7 +1371,7 @@ class cadGenMarcos implements ICadGenerator{
 					.hull()
 					.difference(footLeftRear)
 					.difference(footRightRear)
-			CSG spars = Center.union([
+			spars = Center.union([
 				FrontSpar,
 				RearSpar,
 				fCal,
@@ -1386,15 +1382,16 @@ class cadGenMarcos implements ICadGenerator{
 			//		CSG RightFrontbox=calBlock.move(tipRightFront.x, tipRightFront.y, tipRightFront.z).difference(footRightFront)
 			//		CSG LeftRearbox=calBlock.move(tipLeftRear.x, tipLeftRear.y, tipLeftRear.z).difference(footLeftRear)
 			//		CSG RightRearbox=calBlock.move(tipRightRear.x, tipRightRear.y, tipRightRear.z).difference(footRightRear)
-			spars.setName("CalibrationJig")
-			spars.getStorage().set("bedType", "ff-Three")
-			spars.setPrintBedNumber(3)
-			spars.setManufacturing({incoming -> return incoming.toZMin()})
 			FileUtil.write(Paths.get(calibrationJigFile.getAbsolutePath()),
 					spars.toStlString());
-			spars.setColor(Color.DARKRED)
-			back.addAll([spars])
 		}
+		spars.setManufacturing({incoming -> return incoming.rotz(90).toZMin()})
+		spars.setName("CalibrationJig")
+		spars.getStorage().set("bedType", "ff-Three")
+		spars.setPrintBedNumber(3)
+		spars.setColor(Color.DARKRED)
+		back.add(spars)
+		
 		back.addAll([
 			battery,
 			batteryInterface,
