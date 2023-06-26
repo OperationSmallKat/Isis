@@ -640,7 +640,6 @@ class cadGenMarcos implements ICadGenerator{
 
 			motor=motor.rotz(left?180:0)
 			motor=motor.roty(front?180:0)
-			motor=motor.mirrory()
 			// the first link motor is located in the body
 			motor.setManipulator(root)
 			// pull the limb servos out the top
