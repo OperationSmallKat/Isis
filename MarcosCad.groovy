@@ -684,10 +684,9 @@ class cadGenMarcos implements ICadGenerator{
 		}
 		//reorent the horn for resin printing
 		myServoHorn.setManufacturing({incoming ->
-			return reverseDHValues(incoming, d, linkIndex).toZMin()
-					.roty(45)
-					.toZMin()
-					.movez(5)
+			return reverseDHValues(incoming, d, linkIndex).roty(left?-180:0).toZMin()
+					//.roty(45)
+					//.movez(5)
 		})
 		myServoHorn.getStorage().set("bedType", "resin")
 		myServoHorn.setPrintBedNumber(4)
