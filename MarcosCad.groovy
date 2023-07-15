@@ -128,7 +128,7 @@ def gears = ScriptingEngine.gitScriptRun(
 			// Number of teeth gear b
 			numbers.ServoHornSplineHeight,
 			// thickness of gear A
-			numbers.ServoHornToothBaseWidth,
+			numbers.ServoHornToothBaseWidth*2,
 			// gear pitch in arc length mm
 			0,
 			// shaft angle, can be from 0 to 100 degrees
@@ -684,7 +684,7 @@ class cadGenMarcos implements ICadGenerator{
 		}
 		//reorent the horn for resin printing
 		myServoHorn.setManufacturing({incoming ->
-			return reverseDHValues(incoming, d, linkIndex).roty(left?-180:0).toZMin()
+			return reverseDHValues(incoming, d, linkIndex).roty(linkIndex==0?(front?180:0):(left?180:0)).toZMin()
 					//.roty(45)
 					//.movez(5)
 		})
