@@ -914,7 +914,7 @@ class cadGenMarcos implements ICadGenerator{
 		double neckLenFudge = 4.5
 		double parametric = numbers.LinkLength-endOfPassiveLinkToBolt
 		String rightLinkScrewKey="RightLinkScrewTail:1"
-		double length =parametric+neckLenFudge
+		double length =parametric+neckLenFudge-0.75
 		bom.set(rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(length))
 		CSG boltl = bom.get(rightLinkScrewKey)
 		return passiveLink(length,boltl)
