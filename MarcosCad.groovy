@@ -144,7 +144,7 @@ CSG spline = gears.get(0)
 CSG resinPrintServoMount=cutcore.difference(spline)
 resinPrintServoMount.setColor(Color.DARKGREY)
 resinPrintServoMount.setName("ResinHorn")
-return resinPrintServoMount
+//return resinPrintServoMount
 class cadGenMarcos implements ICadGenerator{
 	String url = "https://github.com/OperationSmallKat/Marcos.git"
 	CSG resinPrintServoMount
