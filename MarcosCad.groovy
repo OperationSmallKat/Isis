@@ -175,7 +175,7 @@ class cadGenMarcos implements ICadGenerator{
 		def ballRadius = 10
 		def radius = ballRadius-(capThickness/2.0)
 		def neckRad = 6
-		def arclen=18.5
+		def arclen=16.5
 		def neckThicknes =3.5
 		def theta = (arclen*360)/(2.0*3.14159*radius)
 		def internalAngle = (90-(theta/2))
