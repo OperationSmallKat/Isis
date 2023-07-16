@@ -116,6 +116,9 @@ CSG cutcore=core.difference([
 	screwHeadCutOut,
 	screwHoleCutOut
 ])
+double spineDiameter=4.68+0.2
+
+
 // use the gear maker to generate the spline
 def gears = ScriptingEngine.gitScriptRun(
 		"https://github.com/madhephaestus/GearGenerator.git", // git location of the library
@@ -128,7 +131,7 @@ def gears = ScriptingEngine.gitScriptRun(
 			// Number of teeth gear b
 			numbers.ServoHornSplineHeight,
 			// thickness of gear A
-			numbers.ServoHornToothBaseWidth*2,
+			computeGearPitch(spineDiameter,numbers.ServoHornNumberofTeeth),
 			// gear pitch in arc length mm
 			0,
 			// shaft angle, can be from 0 to 100 degrees
@@ -140,7 +143,8 @@ CSG spline = gears.get(0)
 // cut the spline from the core
 CSG resinPrintServoMount=cutcore.difference(spline)
 resinPrintServoMount.setColor(Color.DARKGREY)
-
+resinPrintServoMount.setName("ResinHorn")
+return resinPrintServoMount
 class cadGenMarcos implements ICadGenerator{
 	String url = "https://github.com/OperationSmallKat/Marcos.git"
 	CSG resinPrintServoMount
