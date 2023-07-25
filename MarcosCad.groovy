@@ -1,3 +1,11 @@
+// https://mvnrepository.com/artifact/fr.brouillard.oss/jgitver
+@Grapes(
+	@Grab(group='fr.brouillard.oss', module='jgitver', version='0.14.0')
+)
+import fr.brouillard.oss.jgitver.*;
+import eu.mihosoft.vrl.v3d.*;
+import javafx.scene.text.Font;
+
 import com.google.gson.reflect.TypeToken
 import com.neuronrobotics.bowlerstudio.creature.ICadGenerator
 import com.neuronrobotics.bowlerstudio.creature.IgenerateBed
@@ -108,6 +116,9 @@ CSG cutcore=core.difference([
 	screwHeadCutOut,
 	screwHoleCutOut
 ])
+double spineDiameter=4.68+0.2
+
+
 // use the gear maker to generate the spline
 def gears = ScriptingEngine.gitScriptRun(
 		"https://github.com/madhephaestus/GearGenerator.git", // git location of the library
@@ -120,7 +131,7 @@ def gears = ScriptingEngine.gitScriptRun(
 			// Number of teeth gear b
 			numbers.ServoHornSplineHeight,
 			// thickness of gear A
-			numbers.ServoHornToothBaseWidth,
+			computeGearPitch(spineDiameter,numbers.ServoHornNumberofTeeth),
 			// gear pitch in arc length mm
 			0,
 			// shaft angle, can be from 0 to 100 degrees
@@ -132,7 +143,8 @@ CSG spline = gears.get(0)
 // cut the spline from the core
 CSG resinPrintServoMount=cutcore.difference(spline)
 resinPrintServoMount.setColor(Color.DARKGREY)
-
+resinPrintServoMount.setName("ResinHorn")
+//return resinPrintServoMount
 class cadGenMarcos implements ICadGenerator{
 	String url = "https://github.com/OperationSmallKat/Marcos.git"
 	CSG resinPrintServoMount
@@ -163,7 +175,7 @@ class cadGenMarcos implements ICadGenerator{
 		def ballRadius = 10
 		def radius = ballRadius-(capThickness/2.0)
 		def neckRad = 6
-		def arclen=18.5
+		def arclen=16.5
 		def neckThicknes =3.5
 		def theta = (arclen*360)/(2.0*3.14159*radius)
 		def internalAngle = (90-(theta/2))
@@ -642,6 +654,9 @@ class cadGenMarcos implements ICadGenerator{
 			bom.set(motorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR())
 			motor=motor.roty(left?180:0)
 			motor=motor.rotz(linkIndex==2?90:90+link1Rotz)
+			if(linkIndex==1) {
+				motor=motor.mirrory()
+			}
 			// the rest of the motors are located in the preior link's kinematic frame
 			motor.setManipulator(d.getLinkObjectManipulator(linkIndex-1))
 			// pull the link motors out the thin side
@@ -673,10 +688,9 @@ class cadGenMarcos implements ICadGenerator{
 		}
 		//reorent the horn for resin printing
 		myServoHorn.setManufacturing({incoming ->
-			return reverseDHValues(incoming, d, linkIndex).toZMin()
-					.roty(45)
-					.toZMin()
-					.movez(5)
+			return reverseDHValues(incoming, d, linkIndex).roty(linkIndex==0?(front?180:0):(left?180:0)).toZMin()
+					//.roty(45)
+					//.movez(5)
 		})
 		myServoHorn.getStorage().set("bedType", "resin")
 		myServoHorn.setPrintBedNumber(4)
@@ -722,6 +736,7 @@ class cadGenMarcos implements ICadGenerator{
 						.rotz(link1Rotz)
 				if(left)
 					kneeCover=kneeCover.mirrorz()
+				kneeCover=kneeCover.mirrory()
 				kneeCover.setManipulator(d.getLinkObjectManipulator(linkIndex-1))
 				kneeCover.setManufacturing({incoming->
 					return incoming.rotx(-90).toZMin().roty(90).toZMin()
@@ -739,6 +754,7 @@ class cadGenMarcos implements ICadGenerator{
 						.rotz(link1Rotz)
 				if(left)
 					knee=knee.mirrorz()
+				knee=knee.mirrory()
 				knee.setManipulator(d.getLinkObjectManipulator(linkIndex-1))
 				knee.setManufacturing({incoming->
 					return incoming.rotx(-90).roty(-90).toZMin()
@@ -902,7 +918,7 @@ class cadGenMarcos implements ICadGenerator{
 		double neckLenFudge = 4.5
 		double parametric = numbers.LinkLength-endOfPassiveLinkToBolt
 		String rightLinkScrewKey="RightLinkScrewTail:1"
-		double length =parametric+neckLenFudge
+		double length =parametric+neckLenFudge-0.75
 		bom.set(rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(length))
 		CSG boltl = bom.get(rightLinkScrewKey)
 		return passiveLink(length,boltl)
@@ -1274,23 +1290,33 @@ class cadGenMarcos implements ICadGenerator{
 		bodyCOver.setManufacturing({ incoming ->
 			return incoming.toZMin().toXMin().toYMin().movey(body.getTotalY()+1)
 		})
-
-		String configHash = arg0.getXml().hashCode()+"1";
-		File calibrationJigFile = new File(ScriptingEngine.getRepositoryCloneDirectory(arg0.getGitSelfSource()[0]).getAbsolutePath()+"/Calibration-"+configHash+".stl")
-
+		File workDir = ScriptingEngine.getRepositoryCloneDirectory(arg0.getGitSelfSource()[0]);
+		GitVersionCalculator jgitver = GitVersionCalculator.location(workDir).setMavenLike(true)
+		
+		String semver = jgitver.getVersion()
+		String configHash = arg0.getXml().hashCode()+"-"+semver;
+		Font font = new Font("Arial",  6);
+		
+		File calibrationJigFile = new File(workDir.getAbsolutePath()+"/Calibration-"+configHash+".stl")
+		System.out.println("Stand file "+calibrationJigFile.getAbsolutePath());
+		CSG spars
 		if(calibrationJigFile.exists()) {
 			println "Calibration Jig Exists "+calibrationJigFile.getAbsolutePath()
 			makeCalibration=false
-			CSG spars  = Vitamins.get(calibrationJigFile);
-			spars.setManufacturing({incoming -> return incoming.toZMin()})
-			spars.setName("CalibrationJig")
-			spars.getStorage().set("bedType", "ff-Three")
-			spars.setPrintBedNumber(3)
-			spars.setColor(Color.DARKRED)
-			back.add(spars)
+			spars  = Vitamins.get(calibrationJigFile);
+			
 		}
 		if(makeCalibration) {
-
+			double blockDepth = 35
+			double blockHeight = 20
+			double scoochUpDistance = 1
+			CSG label = CSG.unionAll(TextExtrude.text((double)1.0,semver,font))
+							.roty(180)
+							.movex(-blockDepth)
+							.toZMin()
+							.moveToCenterY()
+							
+							
 			Transform tipLeftFront = TransformFactory.nrToCSG(getByName(arg0,"LeftFront").calcHome())
 			Transform tipRightFront = TransformFactory.nrToCSG(getByName(arg0,"RightFront").calcHome())
 			Transform tipLeftRear = TransformFactory.nrToCSG(getByName(arg0,"LeftRear").calcHome())
@@ -1302,9 +1328,9 @@ class cadGenMarcos implements ICadGenerator{
 			CSG neckBit = getNeckLink().transformed(neck)
 			CSG buttBit = getNeckLink().transformed(butt)
 
-			CSG calBlock = new ChamferedCube(35,25,20,numbers.Chamfer2).toCSG()
+			CSG calBlock = new ChamferedCube(blockDepth,25,blockHeight,numbers.Chamfer2).toCSG()
 					.toZMin()
-					.movez(1)
+					.movez(scoochUpDistance)
 			//.movez(5)
 			CSG calLeft =calBlock.toYMin().movey(2)
 			CSG calRight = calBlock.toYMax().movey(-2)
@@ -1314,10 +1340,13 @@ class cadGenMarcos implements ICadGenerator{
 			CSG footRightRear=getFoot(getByName(arg0,"RightRear").getDH_R(2)).transformed(tipRightRear)
 
 			CSG fCenter=calBlock.toXMax().move(tipLeftFront.x, 0, tipLeftFront.z)
+			
 			CSG rCenter=calBlock.move(tipRightRear.x, 0, tipRightRear.z)
 			CSG Center = fCenter
 					.union(rCenter)
 					.hull()
+			label=label.movex(tipLeftFront.x-5)
+					.movez(Center.getMaxZ())
 			double calSinkInDistance =4
 			CSG fCal = calBlock.toZMax().move(neck.x, neck.y, neckBit.getMinZ()+numbers.Chamfer2+calSinkInDistance)
 					.union(fCenter)
@@ -1345,24 +1374,27 @@ class cadGenMarcos implements ICadGenerator{
 					.hull()
 					.difference(footLeftRear)
 					.difference(footRightRear)
-			CSG spars = Center.union([
+			spars = Center.union([
 				FrontSpar,
 				RearSpar,
 				fCal,
-				rCal
+				rCal,
+				label
 			])
 			//		CSG LeftFrontbox=calBlock.move(tipLeftFront.x, tipLeftFront.y, tipLeftFront.z).difference(footLeftFront)
 			//		CSG RightFrontbox=calBlock.move(tipRightFront.x, tipRightFront.y, tipRightFront.z).difference(footRightFront)
 			//		CSG LeftRearbox=calBlock.move(tipLeftRear.x, tipLeftRear.y, tipLeftRear.z).difference(footLeftRear)
 			//		CSG RightRearbox=calBlock.move(tipRightRear.x, tipRightRear.y, tipRightRear.z).difference(footRightRear)
-			spars.setName("CalibrationJig")
-			spars.getStorage().set("bedType", "ff-Three")
-			spars.setPrintBedNumber(3)
-			spars.setManufacturing({incoming -> return incoming.toZMin()})
 			FileUtil.write(Paths.get(calibrationJigFile.getAbsolutePath()),
 					spars.toStlString());
-			back.addAll([spars])
 		}
+		spars.setManufacturing({incoming -> return incoming.rotz(90).toZMin()})
+		spars.setName("CalibrationJig")
+		spars.getStorage().set("bedType", "ff-Three")
+		spars.setPrintBedNumber(3)
+		spars.setColor(Color.DARKRED)
+		back.add(spars)
+		
 		back.addAll([
 			battery,
 			batteryInterface,

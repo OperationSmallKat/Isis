@@ -817,7 +817,7 @@
       "type": "chamferedScrew",
       "size": "M3x16",
       "pose": {
-        "x": 32.0,
+        "x": 31.25,
         "y": 0.0,
         "z": 0.0,
         "rotation": {
