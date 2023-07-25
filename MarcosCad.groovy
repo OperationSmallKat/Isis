@@ -222,7 +222,11 @@ class cadGenMarcos implements ICadGenerator{
 		CSG c2 = new Cylinder(r,r, h - chamferHeight * 2,40).toCSG().movez(chamferHeight)
 		return c1.union(c2).hull()
 	}
-
+	CSG ChamferedCylinderHR(double r, double h, double chamferHeight) {
+		CSG c1 = new Cylinder(r - chamferHeight,r - chamferHeight, h,80).toCSG()
+		CSG c2 = new Cylinder(r,r, h - chamferHeight * 2,80).toCSG().movez(chamferHeight)
+		return c1.union(c2).hull()
+	}
 	CSG StraightChamfer(double x, double y, double chamferHeight) {
 		CSG c1 = new Cube(x, y, chamferHeight).toCSG().movez(chamferHeight)
 		CSG c2 = new Cube(x+chamferHeight,y+chamferHeight, chamferHeight).toCSG()
@@ -1111,7 +1115,19 @@ class cadGenMarcos implements ICadGenerator{
 				.rotx(-90)
 				.rotz(-angle)
 		double linkXOffset = ball.getMinX()+numbers.Chamfer3*2
+		double recourveDepth =5
+		
+		double recurrveRad = hyp*1.5
+		
+		CSG recurveChamfer = ChamferedCylinderHR(recurrveRad+numbers.Chamfer3,numbers.Chamfer3*3, numbers.Chamfer3)
+		CSG recurve = new Cylinder(recurrveRad,recurrveRad, linkWidth,80).toCSG()
+							.union(recurveChamfer.toZMax().movez(numbers.Chamfer3))
+							.union(recurveChamfer.movez(linkWidth-numbers.Chamfer3))
+							.toYMax()
+							.movey(-linkWidth/2 + recourveDepth)
+							.movez(-linkWidth/2)
 		CSG linkPart = new ChamferedCube(hyp+linkXOffset,linkWidth,linkWidth,numbers.Chamfer3).toCSG()
+				.difference(recurve)
 				.toXMax()
 				.movex(linkXOffset)
 				.rotz(-linkangel)
