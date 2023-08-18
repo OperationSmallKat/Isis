@@ -13,6 +13,7 @@ import eu.mihosoft.vrl.v3d.CSG
 import eu.mihosoft.vrl.v3d.ChamferedCube
 import eu.mihosoft.vrl.v3d.Cube
 import eu.mihosoft.vrl.v3d.Cylinder
+import eu.mihosoft.vrl.v3d.Extrude
 import eu.mihosoft.vrl.v3d.PrepForManufacturing
 import eu.mihosoft.vrl.v3d.RoundedCube
 import eu.mihosoft.vrl.v3d.Sphere
@@ -528,9 +529,11 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		CSG pawbase = new Cylinder((FootPawInnerDiameter)/2, FootPawHeight2-FootPawHeight1, 40).toCSG().toZMax()
 		CSG pawradius = new Sphere(FootPawRadius,40,40).toCSG().movez(-FootPawHeight2+FootPawHeight1).movex(FootPawRadius)
 		pawradius = pawradius.difference(spherecutter.toZMin().movez(-FootPawHeight2+FootPawHeight1)).difference(spherecutter.movez(-FootPawHeight2))
-		//for(int i=0;i<=360;i++) {
-		//pawradius = pawradius.hull(pawradius.rotz(i))
-		//}
+		for(int i=0;i<=180;i++) {
+		pawradius = pawradius.hull(pawradius.rotz(i*2))
+		}
+		
+		//CSG base = CSG.unionAll(Extrude.revolve(pawradius, 0, 40))
 		CSG paw = ball.difference(spherecutter).union(pawbase).union(pawradius)
 		
 	    CSG LinkMountBlank = new ChamferedCube(linkWidth,(JointSpacing+linkThickness*2),(LinkMountingCutOutLength+tolerance+FootBaseWidth*2+chamfer*2),chamfer).toCSG()
@@ -568,7 +571,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		println(linkThickness+tolerance)
 		
 		// Assemble the whole link
-		CSG link = LinkMount
+		CSG link = paw
 		//link.setIsWireFrame(true)
 		link.setColor(Color.BLUE)
 		return link
