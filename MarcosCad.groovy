@@ -544,7 +544,7 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		CSG BoltHole = new Cylinder(mountRad, JointSpacing+linkThickness*2, 40).toCSG().moveToCenter().rotx(90)
 		LinkMount = LinkMount.difference(BoltHole)
 		
-		CSG LinkCutOut = new Cube(linkWidth-(LinkMountingCutOutWidth-tolerance)*2,(linkThickness+tolerance),(LinkMountingCutOutLength+tolerance+FootBaseWidth)-filletRad).toCSG().toZMin()
+		CSG LinkCutOut = new Cube(linkWidth-(LinkMountingCutOutWidth-tolerance)*2,(linkThickness+tolerance),(LinkMountingCutOutLength+tolerance)-filletRad).toCSG().toZMin()
 		CSG LinkCutOutFillet = new Cylinder(filletRad, linkThickness+tolerance, 40).toCSG().moveToCenter().rotx(90)
 		LinkCutOut = LinkCutOut.union(LinkCutOutFillet.movex(((linkWidth-(LinkMountingCutOutWidth-tolerance)*2)/2)-filletRad))
 		LinkCutOut = LinkCutOut.union(LinkCutOutFillet.movex(-((linkWidth-(LinkMountingCutOutWidth-tolerance)*2)/2)+filletRad)).hull()
@@ -554,17 +554,21 @@ class cadGenMarcos implements ICadGenerator,IgenerateBed{
 		LinkCutOut = LinkCutOut.union(LinkUpperRadius.rotz(180).movex(-(linkWidth-(LinkMountingCutOutWidth-tolerance)*2)/2))
 		
 	    CSG CutOutTop = new ChamferedCube(linkWidth,(linkThickness+tolerance),FootBaseWidth+chamfer*2,chamfer).toCSG().toZMin()
-		CSG CutOutSlicer = new Cube(linkWidth,(linkThickness+tolerance),FootBaseWidth).toCSG().toZMin()
-		CSG CutOutAddition = new Cube(linkWidth,chamfer,chamfer).toCSG().toZMin()
+		CSG CutOutSlicer = new Cube(linkWidth,(linkThickness+tolerance),chamfer).toCSG().toZMin()
+		CSG CutOutAddition = new Cube(linkWidth,chamfer,FootBaseWidth).toCSG().toZMin()
 		CutOutTop = CutOutTop.difference(CutOutSlicer)
 		CutOutTop = CutOutTop.toZMax().difference(CutOutSlicer.toZMax())
 		LinkCutOut = LinkCutOut.union(CutOutTop.toZMin())
-		//LinkCutOut = LinkCutOut.union(CutOutAddition.toYMax().movey((linkThickness+tolerance)/2))
+		LinkCutOut = LinkCutOut.union(CutOutAddition.toYMax().movey((linkThickness+tolerance)/2))
+		
+		LinkMount = LinkMount.toZMax().toYMax().difference(LinkCutOut.toZMax().toYMax())
+		LinkMount = LinkMount.toYMin().difference(LinkCutOut.toZMax().rotz(180))
+		LinkMount = LinkMount.moveToCenter()
 		
 		println(linkThickness+tolerance)
 		
 		// Assemble the whole link
-		CSG link = LinkCutOut
+		CSG link = LinkMount
 		//link.setIsWireFrame(true)
 		link.setColor(Color.BLUE)
 		return link
