@@ -1427,7 +1427,119 @@ class cadGenMarcos implements ICadGenerator{
 		cache.addAll(back)
 		return back;
 	}
+	public CSG foot() {
+		double defaultValue = numbers.LinkLength - endOfPassiveLinkToBolt
+		CSG stl= Vitamins.get(ScriptingEngine.fileFromGit(
+				"https://github.com/OperationSmallKat/Marcos.git",
+				"DriveLink.stl"))
+		
+		double tolerance = numbers.Tolerance
+		double chamfer = numbers.Chamfer2
+		double largeChamfer = numbers.Chamfer3
+		double smallChamfer = numbers.Chamfer1
+		double linkWidth = numbers.LinkWidth
+		double linkThickness = numbers.LinkHeight
+		double linkRadius = linkWidth/2
+		double filletRad=numbers.Fillet3
+		
+		double FootLength = numbers.FootLength
+		double FootBaseWidth = numbers.FootBaseWidth
+		double FootBaseHeight = numbers.FootBaseHeight
+		double FootAngle = numbers.FootAngle
+		double FootDiameter = numbers.FootDiameter
+		double FootPawDiameter = numbers.FootPawDiameter
+		double FootPawHeight1 = numbers.FootPawHeight1
+		double FootPawHeight2 = numbers.FootPawHeight2
+		double FootPawInnerDiameter = 13.4
+		double FootPawAngle = numbers.FootPawAngle
+		double FootPawRadius = numbers.FootPawRadius
+		double FootArch = numbers.FootArch
+		double FootWidth = numbers.FootWidth
+		double JointSpacing = numbers.JointSpacing
+		double LinkMountingCutOutWidth=numbers.LinkMountingCutOutWidth
+		double LinkMountingCutOutLength=numbers.LinkMountingCutOutLength
+		
+		double ServoHornRad=(numbers.ServoHornDiameter+numbers.ServoHornHoleTolerance)/2.0
+		double ServoHornHeight =numbers.ServoHornHeight+numbers.LooseTolerance
+		double mountHeadRad =( numbers.MountingScrewHeadDiamter+numbers.LooseTolerance)/2.0
+		double mountRad=(numbers.MountingScrewDiamter+numbers.HoleTolerance)/2.0
+		double decritiveRad = numbers.ServoHornDiameter/4.0
+		double SetscrewLength = numbers.SetScrewLength
+		double SetscrewSize = numbers.SetScrewSize
+		double SquareNutWidth = numbers.SquareNutWidth + numbers.LooseTolerance
+		double SquareNutHeight = numbers.SquareNutHeight + numbers.LooseTolerance
+		double SquareNutCutOutHeight = linkThickness/2+SquareNutWidth/2
+		double LinkSqaureNutSpacing = numbers.LinkSqaureNutSpacing
+		
+		
+		
+		
+		//Solving for Angle of setscrew.
+		double hypot1 = Math.hypot(ServoHornRad + SetscrewLength + numbers.LooseTolerance, SetscrewSize/2)
+		double angle1 = Math.asin(linkRadius/hypot1)
+		double angle2 = Math.asin((ServoHornRad + SetscrewLength + numbers.LooseTolerance)/hypot1)
+		double angle3 = (Math.PI/2)-angle1
+		double angle4 = (Math.PI/2)-angle2
+		double SetScrewAngle = Math.toDegrees((Math.PI/2)-(angle3+angle4))
+		double SetScrewChamferLength = linkRadius/Math.sin((Math.PI/2)-(angle3+angle4))
+		double SetScrewCutOutLength = numbers.LinkLength/Math.cos((Math.PI/2)-(angle3+angle4))
+		
+		// Hull together a toolshape to make the cutter to make the shape appropratly
+		CSG ball = new Sphere(FootDiameter/2,40,40).toCSG()
+		// cut from the corner to the ege of the link
+		CSG spherecutter = new Cylinder((FootDiameter+1)/2, FootDiameter, 40).toCSG().toZMax()
+		CSG pawbase = new Cylinder((FootPawInnerDiameter)/2, FootPawHeight2-FootPawHeight1, 40).toCSG().toZMax()
+		CSG pawradius = new Sphere(FootPawRadius,40,40).toCSG().movez(-FootPawHeight2+FootPawHeight1).movex(FootPawRadius)
+		pawradius = pawradius.difference(spherecutter.toZMin().movez(-FootPawHeight2+FootPawHeight1)).difference(spherecutter.movez(-FootPawHeight2))
+		for(int i=0;i<=180;i++) {
+		pawradius = pawradius.hull(pawradius.rotz(i*2))
+		}
+		
+		//CSG base = CSG.unionAll(Extrude.revolve(pawradius, 0, 40))
+		CSG paw = ball.difference(spherecutter).union(pawbase).union(pawradius)
+		
+		CSG LinkMountBlank = new ChamferedCube(linkWidth,(JointSpacing+linkThickness*2),(LinkMountingCutOutLength+tolerance+FootBaseWidth*2+chamfer*2),chamfer).toCSG()
+		CSG LinkMountSideChamfer = new Cube(linkWidth,(JointSpacing+linkThickness*2),(LinkMountingCutOutLength+tolerance+FootBaseWidth*2+chamfer*2)).toCSG()
+		LinkMountSideChamfer = LinkMountSideChamfer.difference(LinkMountBlank)
+		CSG LinkMount = new Cube(linkWidth,(JointSpacing+linkThickness*2),(LinkMountingCutOutLength+tolerance+FootBaseWidth*2)-largeChamfer*2).toCSG()
+		CSG LinkMountChamfer = StraightChamfer(linkWidth-largeChamfer, (JointSpacing+linkThickness*2)-largeChamfer, largeChamfer)
+		LinkMount = LinkMount.toZMax().union(LinkMountChamfer)
+		LinkMount = LinkMount.toZMin().union(LinkMountChamfer.roty(180)).moveToCenter().difference(LinkMountSideChamfer)
+		
+		CSG BoltHole = new Cylinder(mountRad, JointSpacing+linkThickness*2, 40).toCSG().moveToCenter().rotx(90)
+		LinkMount = LinkMount.difference(BoltHole)
+		
+		CSG LinkCutOut = new Cube(linkWidth-(LinkMountingCutOutWidth-tolerance)*2,(linkThickness+tolerance),(LinkMountingCutOutLength+tolerance)-filletRad).toCSG().toZMin()
+		CSG LinkCutOutFillet = new Cylinder(filletRad, linkThickness+tolerance, 40).toCSG().moveToCenter().rotx(90)
+		LinkCutOut = LinkCutOut.union(LinkCutOutFillet.movex(((linkWidth-(LinkMountingCutOutWidth-tolerance)*2)/2)-filletRad))
+		LinkCutOut = LinkCutOut.union(LinkCutOutFillet.movex(-((linkWidth-(LinkMountingCutOutWidth-tolerance)*2)/2)+filletRad)).hull()
+		
+		CSG LinkUpperRadius = InnerRadiusFillet(filletRad,(linkThickness+tolerance))
+		LinkCutOut = LinkCutOut.toZMax().union(LinkUpperRadius.movex((linkWidth-(LinkMountingCutOutWidth-tolerance)*2)/2))
+		LinkCutOut = LinkCutOut.union(LinkUpperRadius.rotz(180).movex(-(linkWidth-(LinkMountingCutOutWidth-tolerance)*2)/2))
+		
+		CSG CutOutTop = new ChamferedCube(linkWidth,(linkThickness+tolerance),FootBaseWidth+chamfer*2,chamfer).toCSG().toZMin()
+		CSG CutOutSlicer = new Cube(linkWidth,(linkThickness+tolerance),chamfer).toCSG().toZMin()
+		CSG CutOutAddition = new Cube(linkWidth,chamfer,FootBaseWidth).toCSG().toZMin()
+		CutOutTop = CutOutTop.difference(CutOutSlicer)
+		CutOutTop = CutOutTop.toZMax().difference(CutOutSlicer.toZMax())
+		LinkCutOut = LinkCutOut.union(CutOutTop.toZMin())
+		LinkCutOut = LinkCutOut.union(CutOutAddition.toYMax().movey((linkThickness+tolerance)/2))
+		
+		LinkMount = LinkMount.toZMax().toYMax().difference(LinkCutOut.toZMax().toYMax())
+		LinkMount = LinkMount.toYMin().difference(LinkCutOut.toZMax().rotz(180))
+		LinkMount = LinkMount.moveToCenter()
+		
+		println(linkThickness+tolerance)
+		
+		// Assemble the whole link
+		CSG link = paw
+		//link.setIsWireFrame(true)
+		link.setColor(Color.BLUE)
+		return link
 
+	}
+	
 
 }
 def gen= new cadGenMarcos(resinPrintServoMount,numbers)
