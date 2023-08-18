@@ -249,6 +249,7 @@ class cadGenMarcos implements ICadGenerator{
 		CSG xSec= corners.union(corners.movex(x-r*2))
 		return xSec.union(xSec.movey(y-(r*2))).hull().toXMin().toYMin().movex(-x/2).movey(-y/2)
 	}
+	// Adding the inner fillet radius
 	CSG InnerRadiusFillet(double FilletRadius, double Length) {
 		CSG startcube = new Cube(FilletRadius,Length, FilletRadius).toCSG().toZMin().toXMax()
 		CSG cutterCylinder = new Cylinder(FilletRadius,Length,40).toCSG().moveToCenter().rotx(90)
