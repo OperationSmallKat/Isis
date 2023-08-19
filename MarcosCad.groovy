@@ -1554,7 +1554,6 @@ gen.setMobileBase(mb)
 DHParameterKinematics limb = gen.getByName(mb,"RightFront")
 return [
 	gen.generateCad(limb,0),
-	
 	//,gen.generateCad(limb,1),
 	//gen.generateCad(limb,2)
 	//,gen.generateBody(mb)
