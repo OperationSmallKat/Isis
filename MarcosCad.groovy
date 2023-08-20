@@ -255,6 +255,16 @@ class cadGenMarcos implements ICadGenerator{
 		CSG cutterCylinder = new Cylinder(FilletRadius,Length,40).toCSG().moveToCenter().rotx(90)
 		return startcube.difference(cutterCylinder).toZMax().toXMin()
 	}
+	
+	CSG OuterChamferedCylinder(double Radius, double Height, double Chamfer) {
+		CSG center = new Cylinder(Radius, Chamfer, 100).toCSG().toZMin()
+		CSG outside = new Cylinder(Radius+Chamfer, Chamfer, 100).toCSG().toZMax()
+		CSG Inside = new Cylinder(Radius, Height, 100).toCSG().toZMin()
+		CSG chamfer = outside.union(center).hull().difference(outside).toZMin()
+		Inside = Inside.union(chamfer).toZMax().union(chamfer.roty(180))
+		
+		return Inside
+	}
 
 	public CSG calibrationLink(double rotationCenterToBoltCenter,CSG bolt) {
 		CSG core= linkCore(rotationCenterToBoltCenter, bolt,numbers.LooseTolerance)
@@ -1480,10 +1490,8 @@ class cadGenMarcos implements ICadGenerator{
 		double SquareNutCutOutHeight = linkThickness/2+SquareNutWidth/2
 		double LinkSqaureNutSpacing = numbers.LinkSqaureNutSpacing
 		double MountingScrewHeadDiamter = numbers.MountingScrewHeadDiamter
-
 		double LinkCenterToCenter = LinkLength - LinkMountingHoleSpacing - (MountingScrewHeadDiamter + LooseTolerance)/2
 		double angle = numbers.FootAngle
-		
 		double MountingHoleHeight = (MountingScrewHeadDiamter + LooseTolerance)/2 + LinkMountingHoleSpacing + tolerance + FootBaseWidth
 		
 		
@@ -1497,15 +1505,15 @@ class cadGenMarcos implements ICadGenerator{
 		double MountAngle2 = Math.toDegrees(Math.acos((linkWidth/2)/C1))	
 		double MountAngle3 = MountAngle2-MountAngle
 		double ShaftHeightOffset = C1*(Math.sin(Math.toRadians(MountAngle3)))
+		double ArchStart = (C1)*(Math.cos(Math.toRadians(MountAngle3)))
+		double pawshaftheight = (FootDiameter/2)*(Math.sin(Math.toRadians(FootPawAngle)))
 		
 		
-//		 Math.sin(Math.toRadians(angle))*linklen
-//		double c1 = Math.cos(Math.toRadians(angle))*linklen
-//		double c2= linkLen-c1;
-//		double hyp = Math.sqrt(Math.pow(c3, 2)+Math.pow(c2,2))-(numbers.MountingScrewDiamter+numbers.HoleTolerance)*2+numbers.Chamfer3
-//		double linkangel = Math.toDegrees(Math.atan2(c3, c2))
-		
-		
+		double ArcCutOutWidth = C - (FootDiameter/2)*(Math.cos(Math.toRadians(FootPawAngle)))-(C1)*(Math.cos(Math.toRadians(MountAngle3)))
+		double ArcWidth = Math.sqrt(Math.pow(ArcCutOutWidth,2) + Math.pow(pawshaftheight-ShaftHeightOffset,2))
+		double ArcAngle = Math.toDegrees(Math.asin(ArcWidth/(2*FootArch)))*2
+		double ArcHeight = FootArch*(1-Math.cos(Math.toRadians(ArcAngle/2)))
+		double ArcOffsetAngle = Math.toDegrees(Math.acos(ArcCutOutWidth/ArcWidth))
 		
 		
 		
@@ -1521,8 +1529,14 @@ class cadGenMarcos implements ICadGenerator{
 		pawradius = pawradius.hull(pawradius.rotz(i*2))
 		}
 		
-		//CSG base = CSG.unionAll(Extrude.revolve(pawradius, 0, 40))
-		CSG paw = ball.difference(spherecutter).union(pawbase).union(pawradius)
+		CSG paw = ball.difference(spherecutter)
+		
+		CSG pawDeco = ChamferedCylinder(FootDiameter/2, FootWidth, largeChamfer).moveToCenter().rotx(90)
+		pawDeco = pawDeco.difference(spherecutter.toZMax()).difference(spherecutter.toZMax().roty(90))
+		CSG pawDeco2 = pawDeco.union(paw).hull().difference(spherecutter.rotx(90).movey((-FootWidth/2)+largeChamfer)).difference(spherecutter.rotx(-90).movey((FootWidth/2)-largeChamfer)).union(pawDeco).hull()
+		pawbase = pawbase.union(pawradius)
+		
+		
 		
 		CSG LinkMountBlank = new ChamferedCube(linkWidth,(JointSpacing+linkThickness*2),(LinkMountingCutOutLength+tolerance+FootBaseWidth*2+chamfer*2),chamfer).toCSG()
 		CSG LinkMountSideChamfer = new Cube(linkWidth,(JointSpacing+linkThickness*2),(LinkMountingCutOutLength+tolerance+FootBaseWidth*2+chamfer*2)).toCSG()
@@ -1531,8 +1545,6 @@ class cadGenMarcos implements ICadGenerator{
 		CSG LinkMountChamfer = StraightChamfer(linkWidth-largeChamfer, (JointSpacing+linkThickness*2)-largeChamfer, largeChamfer)
 		LinkMount = LinkMount.toZMax().union(LinkMountChamfer)
 		LinkMount = LinkMount.toZMin().union(LinkMountChamfer.roty(180)).moveToCenter().difference(LinkMountSideChamfer)
-		
-		CSG BoltHole = new Cylinder(mountRad, JointSpacing+linkThickness*2, 40).toCSG().moveToCenter().rotx(90)
 		
 		
 		CSG LinkCutOut = new Cube(linkWidth-(LinkMountingCutOutWidth-tolerance)*2,(linkThickness+tolerance),(LinkMountingCutOutLength+tolerance)-filletRad).toCSG().toZMin()
@@ -1555,15 +1567,31 @@ class cadGenMarcos implements ICadGenerator{
 		LinkMount = LinkMount.toZMax().toYMax().difference(LinkCutOut.toZMax().toYMax())
 		LinkMount = LinkMount.toYMin().difference(LinkCutOut.toZMax().rotz(180)).moveToCenter().toZMin().movez(-MountingHoleHeight)
 			
-		CSG shaft = new Cube(C,FootWidth,ShaftHeight).toCSG().toXMin().toZMin().movez(-ShaftHeightOffset)
-		shaft = shaft.difference(spherecutter.toZMax().roty(FootPawAngle).movex(C)).union(paw.roty(FootPawAngle).movex(C))
+		
+		
+		CSG shaft = new ChamferedCube(C,FootWidth,ShaftHeight,largeChamfer).toCSG().toXMin().toZMin().movez(-ShaftHeightOffset)
+		shaft = shaft.difference(spherecutter.toZMax().roty(FootPawAngle).movex(C)).union(pawDeco2.roty(FootPawAngle).movex(C))
+		shaft = shaft.movex(-ArchStart).movez(ShaftHeightOffset)
+		CSG Arch = OuterChamferedCylinder(FootArch, FootWidth, largeChamfer).moveToCenter().rotx(90).movez(-FootArch+ArcHeight).movex(ArcWidth/2).roty(ArcOffsetAngle)
+		shaft = shaft.difference(Arch).movex(ArchStart).movez(-ShaftHeightOffset)
+		
+		shaft = shaft.union(paw.roty(FootPawAngle).movex(C))
+		shaft = shaft.movex(-ArchStart).movez(ShaftHeightOffset)
+		CSG Arch2 = new Cylinder(FootArch, FootWidth,80).toCSG().moveToCenter().rotx(90).movez(-FootArch+ArcHeight).movex(ArcWidth/2).roty(ArcOffsetAngle)
+		shaft = shaft.difference(Arch2).movex(ArchStart).movez(-ShaftHeightOffset).union(pawbase.roty(FootPawAngle).movex(C))
+		
+		
+		
+		
+		CSG BoltHole = new Cylinder(mountRad, JointSpacing+linkThickness*2, 40).toCSG().moveToCenter().rotx(90)
+		
 		
 		LinkMount = LinkMount.union(shaft.roty(-MountAngle)).difference(BoltHole)
 		
 		println(MountingHoleHeight)
 		println(C1)
-		println(MountAngle2)
 		println(ShaftHeightOffset)
+		println(ArchStart)
 
 		
 		// Assemble the whole link
