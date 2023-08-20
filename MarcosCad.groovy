@@ -1433,18 +1433,20 @@ class cadGenMarcos implements ICadGenerator{
 		cache.addAll(back)
 		return back;
 	}
-	public CSG foot() {
+	public CSG foot(double linkLen) {
 		double defaultValue = numbers.LinkLength - endOfPassiveLinkToBolt
 		CSG stl= Vitamins.get(ScriptingEngine.fileFromGit(
 				"https://github.com/OperationSmallKat/Marcos.git",
 				"DriveLink.stl"))
 		
 		double tolerance = numbers.Tolerance
+		double LooseTolerance = numbers.LooseTolerance
 		double chamfer = numbers.Chamfer2
 		double largeChamfer = numbers.Chamfer3
 		double smallChamfer = numbers.Chamfer1
 		double linkWidth = numbers.LinkWidth
 		double linkThickness = numbers.LinkHeight
+		double LinkLength = numbers.LinkLength
 		double linkRadius = linkWidth/2
 		double filletRad=numbers.Fillet3
 		
@@ -1464,6 +1466,7 @@ class cadGenMarcos implements ICadGenerator{
 		double JointSpacing = numbers.JointSpacing
 		double LinkMountingCutOutWidth=numbers.LinkMountingCutOutWidth
 		double LinkMountingCutOutLength=numbers.LinkMountingCutOutLength
+		double LinkMountingHoleSpacing = numbers.LinkMountingHoleSpacing
 		
 		double ServoHornRad=(numbers.ServoHornDiameter+numbers.ServoHornHoleTolerance)/2.0
 		double ServoHornHeight =numbers.ServoHornHeight+numbers.LooseTolerance
@@ -1476,24 +1479,41 @@ class cadGenMarcos implements ICadGenerator{
 		double SquareNutHeight = numbers.SquareNutHeight + numbers.LooseTolerance
 		double SquareNutCutOutHeight = linkThickness/2+SquareNutWidth/2
 		double LinkSqaureNutSpacing = numbers.LinkSqaureNutSpacing
+		double MountingScrewHeadDiamter = numbers.MountingScrewHeadDiamter
+
+		double LinkCenterToCenter = LinkLength - LinkMountingHoleSpacing - (MountingScrewHeadDiamter + LooseTolerance)/2
+		double angle = numbers.FootAngle
+		
+		double MountingHoleHeight = (MountingScrewHeadDiamter + LooseTolerance)/2 + LinkMountingHoleSpacing + tolerance + FootBaseWidth
+		
+		
+		//Shaft Calcs
+		// Law of cosines to solve for length of foot between ball and mount
+		double C = Math.sqrt(Math.pow(LinkCenterToCenter,2) + Math.pow(linkLen,2) - 2*LinkCenterToCenter*linkLen*Math.cos(Math.toRadians(angle)))
+		double Y = Math.toDegrees(Math.acos((Math.pow(C,2) + Math.pow(LinkCenterToCenter,2) - Math.pow(linkLen,2))/(2*C*LinkCenterToCenter)))
+		double MountAngle = Y - 90
+		double ShaftHeight = Math.cos(Math.toRadians(MountAngle))*(LinkMountingCutOutLength+tolerance+FootBaseWidth)
+		double C1 = Math.sqrt(Math.pow(MountingHoleHeight,2) + Math.pow(linkWidth/2,2))
+		double MountAngle2 = Math.toDegrees(Math.acos((linkWidth/2)/C1))	
+		double MountAngle3 = MountAngle2-MountAngle
+		double ShaftHeightOffset = C1*(Math.sin(Math.toRadians(MountAngle3)))
+		
+		
+//		 Math.sin(Math.toRadians(angle))*linklen
+//		double c1 = Math.cos(Math.toRadians(angle))*linklen
+//		double c2= linkLen-c1;
+//		double hyp = Math.sqrt(Math.pow(c3, 2)+Math.pow(c2,2))-(numbers.MountingScrewDiamter+numbers.HoleTolerance)*2+numbers.Chamfer3
+//		double linkangel = Math.toDegrees(Math.atan2(c3, c2))
 		
 		
 		
 		
-		//Solving for Angle of setscrew.
-		double hypot1 = Math.hypot(ServoHornRad + SetscrewLength + numbers.LooseTolerance, SetscrewSize/2)
-		double angle1 = Math.asin(linkRadius/hypot1)
-		double angle2 = Math.asin((ServoHornRad + SetscrewLength + numbers.LooseTolerance)/hypot1)
-		double angle3 = (Math.PI/2)-angle1
-		double angle4 = (Math.PI/2)-angle2
-		double SetScrewAngle = Math.toDegrees((Math.PI/2)-(angle3+angle4))
-		double SetScrewChamferLength = linkRadius/Math.sin((Math.PI/2)-(angle3+angle4))
-		double SetScrewCutOutLength = numbers.LinkLength/Math.cos((Math.PI/2)-(angle3+angle4))
+		
 		
 		// Hull together a toolshape to make the cutter to make the shape appropratly
 		CSG ball = new Sphere(FootDiameter/2,40,40).toCSG()
 		// cut from the corner to the ege of the link
-		CSG spherecutter = new Cylinder((FootDiameter+1)/2, FootDiameter, 40).toCSG().toZMax()
+		CSG spherecutter = new Cylinder((FootDiameter*2)/2, FootDiameter, 40).toCSG().toZMax()
 		CSG pawbase = new Cylinder((FootPawInnerDiameter)/2, FootPawHeight2-FootPawHeight1, 40).toCSG().toZMax()
 		CSG pawradius = new Sphere(FootPawRadius,40,40).toCSG().movez(-FootPawHeight2+FootPawHeight1).movex(FootPawRadius)
 		pawradius = pawradius.difference(spherecutter.toZMin().movez(-FootPawHeight2+FootPawHeight1)).difference(spherecutter.movez(-FootPawHeight2))
@@ -1513,7 +1533,7 @@ class cadGenMarcos implements ICadGenerator{
 		LinkMount = LinkMount.toZMin().union(LinkMountChamfer.roty(180)).moveToCenter().difference(LinkMountSideChamfer)
 		
 		CSG BoltHole = new Cylinder(mountRad, JointSpacing+linkThickness*2, 40).toCSG().moveToCenter().rotx(90)
-		LinkMount = LinkMount.difference(BoltHole)
+		
 		
 		CSG LinkCutOut = new Cube(linkWidth-(LinkMountingCutOutWidth-tolerance)*2,(linkThickness+tolerance),(LinkMountingCutOutLength+tolerance)-filletRad).toCSG().toZMin()
 		CSG LinkCutOutFillet = new Cylinder(filletRad, linkThickness+tolerance, 40).toCSG().moveToCenter().rotx(90)
@@ -1533,13 +1553,21 @@ class cadGenMarcos implements ICadGenerator{
 		LinkCutOut = LinkCutOut.union(CutOutAddition.toYMax().movey((linkThickness+tolerance)/2))
 		
 		LinkMount = LinkMount.toZMax().toYMax().difference(LinkCutOut.toZMax().toYMax())
-		LinkMount = LinkMount.toYMin().difference(LinkCutOut.toZMax().rotz(180))
-		LinkMount = LinkMount.moveToCenter()
+		LinkMount = LinkMount.toYMin().difference(LinkCutOut.toZMax().rotz(180)).moveToCenter().toZMin().movez(-MountingHoleHeight)
+			
+		CSG shaft = new Cube(C,FootWidth,ShaftHeight).toCSG().toXMin().toZMin().movez(-ShaftHeightOffset)
+		shaft = shaft.difference(spherecutter.toZMax().roty(FootPawAngle).movex(C)).union(paw.roty(FootPawAngle).movex(C))
 		
-		println(linkThickness+tolerance)
+		LinkMount = LinkMount.union(shaft.roty(-MountAngle)).difference(BoltHole)
+		
+		println(MountingHoleHeight)
+		println(C1)
+		println(MountAngle2)
+		println(ShaftHeightOffset)
+
 		
 		// Assemble the whole link
-		CSG link = paw
+		CSG link = LinkMount
 		//link.setIsWireFrame(true)
 		link.setColor(Color.BLUE)
 		return link
@@ -1557,7 +1585,7 @@ return [
 	//,gen.generateCad(limb,1),
 	//gen.generateCad(limb,2)
 	//,gen.generateBody(mb)
-	gen.foot()
+	gen.foot(65)
 ]
 return gen
 
