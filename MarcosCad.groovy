@@ -1536,26 +1536,21 @@ class cadGenMarcos implements ICadGenerator{
 		CSG pawDeco2 = pawDeco.union(paw).hull().difference(spherecutter.rotx(90).movey((-FootWidth/2)+largeChamfer)).difference(spherecutter.rotx(-90).movey((FootWidth/2)-largeChamfer)).union(pawDeco).hull()
 		pawbase = pawbase.union(pawradius)
 		
-		
-		
+				
 		CSG LinkMountBlank = new ChamferedCube(linkWidth,(JointSpacing+linkThickness*2),(LinkMountingCutOutLength+tolerance+FootBaseWidth*2+chamfer*2),chamfer).toCSG()
 		CSG LinkMountSideChamfer = new Cube(linkWidth,(JointSpacing+linkThickness*2),(LinkMountingCutOutLength+tolerance+FootBaseWidth*2+chamfer*2)).toCSG()
 		LinkMountSideChamfer = LinkMountSideChamfer.difference(LinkMountBlank)
 		CSG LinkMount = new Cube(linkWidth,(JointSpacing+linkThickness*2),(LinkMountingCutOutLength+tolerance+FootBaseWidth*2)-largeChamfer*2).toCSG()
 		CSG LinkMountChamfer = StraightChamfer(linkWidth-largeChamfer, (JointSpacing+linkThickness*2)-largeChamfer, largeChamfer)
 		LinkMount = LinkMount.toZMax().union(LinkMountChamfer)
-		LinkMount = LinkMount.toZMin().union(LinkMountChamfer.roty(180)).moveToCenter().difference(LinkMountSideChamfer)
-		
-		
+		LinkMount = LinkMount.toZMin().union(LinkMountChamfer.roty(180)).moveToCenter().difference(LinkMountSideChamfer)	
 		CSG LinkCutOut = new Cube(linkWidth-(LinkMountingCutOutWidth-tolerance)*2,(linkThickness+tolerance),(LinkMountingCutOutLength+tolerance)-filletRad).toCSG().toZMin()
 		CSG LinkCutOutFillet = new Cylinder(filletRad, linkThickness+tolerance, 40).toCSG().moveToCenter().rotx(90)
 		LinkCutOut = LinkCutOut.union(LinkCutOutFillet.movex(((linkWidth-(LinkMountingCutOutWidth-tolerance)*2)/2)-filletRad))
-		LinkCutOut = LinkCutOut.union(LinkCutOutFillet.movex(-((linkWidth-(LinkMountingCutOutWidth-tolerance)*2)/2)+filletRad)).hull()
-		
+		LinkCutOut = LinkCutOut.union(LinkCutOutFillet.movex(-((linkWidth-(LinkMountingCutOutWidth-tolerance)*2)/2)+filletRad)).hull()		
 		CSG LinkUpperRadius = InnerRadiusFillet(filletRad,(linkThickness+tolerance))
 		LinkCutOut = LinkCutOut.toZMax().union(LinkUpperRadius.movex((linkWidth-(LinkMountingCutOutWidth-tolerance)*2)/2))
 		LinkCutOut = LinkCutOut.union(LinkUpperRadius.rotz(180).movex(-(linkWidth-(LinkMountingCutOutWidth-tolerance)*2)/2))
-		
 		CSG CutOutTop = new ChamferedCube(linkWidth,(linkThickness+tolerance),FootBaseWidth+chamfer*2,chamfer).toCSG().toZMin()
 		CSG CutOutSlicer = new Cube(linkWidth,(linkThickness+tolerance),chamfer).toCSG().toZMin()
 		CSG CutOutAddition = new Cube(linkWidth,chamfer,FootBaseWidth).toCSG().toZMin()
@@ -1563,11 +1558,9 @@ class cadGenMarcos implements ICadGenerator{
 		CutOutTop = CutOutTop.toZMax().difference(CutOutSlicer.toZMax())
 		LinkCutOut = LinkCutOut.union(CutOutTop.toZMin())
 		LinkCutOut = LinkCutOut.union(CutOutAddition.toYMax().movey((linkThickness+tolerance)/2))
-		
 		LinkMount = LinkMount.toZMax().toYMax().difference(LinkCutOut.toZMax().toYMax())
 		LinkMount = LinkMount.toYMin().difference(LinkCutOut.toZMax().rotz(180)).moveToCenter().toZMin().movez(-MountingHoleHeight)
-			
-		
+
 		
 		CSG shaft = new ChamferedCube(C,FootWidth,ShaftHeight,largeChamfer).toCSG().toXMin().toZMin().movez(-ShaftHeightOffset)
 		shaft = shaft.difference(spherecutter.toZMax().roty(FootPawAngle).movex(C)).union(pawDeco2.roty(FootPawAngle).movex(C))
@@ -1579,14 +1572,9 @@ class cadGenMarcos implements ICadGenerator{
 		shaft = shaft.movex(-ArchStart).movez(ShaftHeightOffset)
 		CSG Arch2 = new Cylinder(FootArch, FootWidth,80).toCSG().moveToCenter().rotx(90).movez(-FootArch+ArcHeight).movex(ArcWidth/2).roty(ArcOffsetAngle)
 		shaft = shaft.difference(Arch2).movex(ArchStart).movez(-ShaftHeightOffset).union(pawbase.roty(FootPawAngle).movex(C))
-		
-		
-		
-		
 		CSG BoltHole = new Cylinder(mountRad, JointSpacing+linkThickness*2, 40).toCSG().moveToCenter().rotx(90)
-		
-		
 		LinkMount = LinkMount.union(shaft.roty(-MountAngle)).difference(BoltHole)
+		
 		
 		println(MountingHoleHeight)
 		println(C1)
