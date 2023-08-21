@@ -229,7 +229,7 @@ class cadGenMarcos implements ICadGenerator{
 	}
 	CSG StraightChamfer(double x, double y, double chamferHeight) {
 		CSG c1 = new Cube(x, y, chamferHeight).toCSG().movez(chamferHeight)
-		CSG c2 = new Cube(x+chamferHeight,y+chamferHeight, chamferHeight).toCSG()
+		CSG c2 = new Cube(x+chamferHeight*2,y+chamferHeight*2, chamferHeight).toCSG()
 		CSG c3 = c1.union(c2).hull()
 		return c3.difference(c2).toZMin()
 
@@ -1485,11 +1485,16 @@ class cadGenMarcos implements ICadGenerator{
 		double decritiveRad = numbers.ServoHornDiameter/4.0
 		double SetscrewLength = numbers.SetScrewLength
 		double SetscrewSize = numbers.SetScrewSize
-		double SquareNutWidth = numbers.SquareNutWidth + numbers.LooseTolerance
-		double SquareNutHeight = numbers.SquareNutHeight + numbers.LooseTolerance
+		double SquareNutWidth = numbers.SquareNutWidth + tolerance
+		double SquareNutHeight = numbers.SquareNutHeight + tolerance
 		double SquareNutCutOutHeight = linkThickness/2+SquareNutWidth/2
 		double LinkSqaureNutSpacing = numbers.LinkSqaureNutSpacing
 		double MountingScrewHeadDiamter = numbers.MountingScrewHeadDiamter
+		double MountingScrewHeadHeight = numbers.MountingScrewHeadHeight
+		double MountingScrewLength = numbers.MountingScrewLength
+		double MountingScrewDiamter = numbers.MountingScrewDiamter
+		double SquareNutDistanceFromOutside = MountingScrewHeadHeight + MountingScrewLength - MountingScrewDiamter - SquareNutHeight/2
+		
 		double LinkCenterToCenter = LinkLength - LinkMountingHoleSpacing - (MountingScrewHeadDiamter + LooseTolerance)/2
 		double angle = numbers.FootAngle
 		double MountingHoleHeight = (MountingScrewHeadDiamter + LooseTolerance)/2 + LinkMountingHoleSpacing + tolerance + FootBaseWidth
@@ -1540,10 +1545,12 @@ class cadGenMarcos implements ICadGenerator{
 		CSG LinkMountBlank = new ChamferedCube(linkWidth,(JointSpacing+linkThickness*2),(LinkMountingCutOutLength+tolerance+FootBaseWidth*2+chamfer*2),chamfer).toCSG()
 		CSG LinkMountSideChamfer = new Cube(linkWidth,(JointSpacing+linkThickness*2),(LinkMountingCutOutLength+tolerance+FootBaseWidth*2+chamfer*2)).toCSG()
 		LinkMountSideChamfer = LinkMountSideChamfer.difference(LinkMountBlank)
+		
 		CSG LinkMount = new Cube(linkWidth,(JointSpacing+linkThickness*2),(LinkMountingCutOutLength+tolerance+FootBaseWidth*2)-largeChamfer*2).toCSG()
-		CSG LinkMountChamfer = StraightChamfer(linkWidth-largeChamfer, (JointSpacing+linkThickness*2)-largeChamfer, largeChamfer)
+		CSG LinkMountChamfer = StraightChamfer(linkWidth-largeChamfer*2, (JointSpacing+linkThickness*2)-largeChamfer*2, largeChamfer)
 		LinkMount = LinkMount.toZMax().union(LinkMountChamfer)
 		LinkMount = LinkMount.toZMin().union(LinkMountChamfer.roty(180)).moveToCenter().difference(LinkMountSideChamfer)	
+		
 		CSG LinkCutOut = new Cube(linkWidth-(LinkMountingCutOutWidth-tolerance)*2,(linkThickness+tolerance),(LinkMountingCutOutLength+tolerance)-filletRad).toCSG().toZMin()
 		CSG LinkCutOutFillet = new Cylinder(filletRad, linkThickness+tolerance, 40).toCSG().moveToCenter().rotx(90)
 		LinkCutOut = LinkCutOut.union(LinkCutOutFillet.movex(((linkWidth-(LinkMountingCutOutWidth-tolerance)*2)/2)-filletRad))
@@ -1551,7 +1558,7 @@ class cadGenMarcos implements ICadGenerator{
 		CSG LinkUpperRadius = InnerRadiusFillet(filletRad,(linkThickness+tolerance))
 		LinkCutOut = LinkCutOut.toZMax().union(LinkUpperRadius.movex((linkWidth-(LinkMountingCutOutWidth-tolerance)*2)/2))
 		LinkCutOut = LinkCutOut.union(LinkUpperRadius.rotz(180).movex(-(linkWidth-(LinkMountingCutOutWidth-tolerance)*2)/2))
-		CSG CutOutTop = new ChamferedCube(linkWidth,(linkThickness+tolerance),FootBaseWidth+chamfer*2,chamfer).toCSG().toZMin()
+    	CSG CutOutTop = new ChamferedCube(linkWidth,(linkThickness+tolerance),FootBaseWidth+chamfer*2,chamfer).toCSG().toZMin()
 		CSG CutOutSlicer = new Cube(linkWidth,(linkThickness+tolerance),chamfer).toCSG().toZMin()
 		CSG CutOutAddition = new Cube(linkWidth,chamfer,FootBaseWidth).toCSG().toZMin()
 		CutOutTop = CutOutTop.difference(CutOutSlicer)
@@ -1568,17 +1575,29 @@ class cadGenMarcos implements ICadGenerator{
 		CSG Arch = OuterChamferedCylinder(FootArch, FootWidth, largeChamfer).moveToCenter().rotx(90).movez(-FootArch+ArcHeight).movex(ArcWidth/2).roty(ArcOffsetAngle)
 		shaft = shaft.difference(Arch).movex(ArchStart).movez(-ShaftHeightOffset)
 		
-		shaft = shaft.union(paw.roty(FootPawAngle).movex(C))
+		CSG ShaftJoiner = new ChamferedCube(linkWidth,FootWidth,LinkMountingCutOutLength+tolerance+FootBaseWidth*2,2).toCSG().toZMin().movez(-MountingHoleHeight).roty(MountAngle)
+		CSG ShaftCutter = new Cube(linkLen,FootWidth,ShaftHeight*3).toCSG().moveToCenter().toXMin().movex(ArchStart+largeChamfer)
+		ShaftJoiner = shaft.union(ShaftJoiner).difference(ShaftCutter).hull()
+		
+  	    shaft = shaft.union(paw.roty(FootPawAngle).movex(C))
 		shaft = shaft.movex(-ArchStart).movez(ShaftHeightOffset)
 		CSG Arch2 = new Cylinder(FootArch, FootWidth,80).toCSG().moveToCenter().rotx(90).movez(-FootArch+ArcHeight).movex(ArcWidth/2).roty(ArcOffsetAngle)
 		shaft = shaft.difference(Arch2).movex(ArchStart).movez(-ShaftHeightOffset).union(pawbase.roty(FootPawAngle).movex(C))
+		
 		CSG BoltHole = new Cylinder(mountRad, JointSpacing+linkThickness*2, 40).toCSG().moveToCenter().rotx(90)
-		LinkMount = LinkMount.union(shaft.roty(-MountAngle)).difference(BoltHole)
+		CSG NutCapture = new Cube(SquareNutWidth,SquareNutHeight,(LinkMountingCutOutLength+tolerance+FootBaseWidth*2)-MountingHoleHeight+SquareNutWidth/2+tolerance).toCSG().toZMax()
+		CSG NutChamfer = StraightChamfer(SquareNutWidth,SquareNutHeight,smallChamfer)
+		NutCapture = NutCapture.union(NutChamfer.toZMin().roty(180)).toZMin().movez(-SquareNutWidth/2-tolerance)
 		
 		
+		LinkMount = LinkMount.union(shaft.union(ShaftJoiner).roty(-MountAngle)).difference(BoltHole).difference(NutCapture.movey(-(JointSpacing+linkThickness*2)/2+SquareNutDistanceFromOutside)).difference(NutCapture.movey((JointSpacing+linkThickness*2)/2-SquareNutDistanceFromOutside))
+		
+		
+		
+		println(-(JointSpacing+linkThickness*2))
+		println(SquareNutDistanceFromOutside)
 		println(MountingHoleHeight)
-		println(C1)
-		println(ShaftHeightOffset)
+		println(SquareNutWidth)
 		println(ArchStart)
 
 		
