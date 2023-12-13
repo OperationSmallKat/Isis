@@ -267,7 +267,7 @@ class cadGenMarcos implements ICadGenerator{
 		double filletRad=numbers.Fillet3
 		double LinkMountingCutOutWidth=numbers.LinkMountingCutOutWidth
 		double blockx=rotationCenterToBoltCenter-numbers.LinkMountingCutOutLength-numbers.Tolerance+endOfPassiveLinkToBolt+filletRad
-		double ServoHornRad=(hornDiam+numbers.ServoHornHoleTolerance)/2.0
+		double ServoHornRad=(hornDiam+numbers.ServoHornHoleTolerance/2)/2.0
 		double ServoHornHeight =numbers.ServoHornHeight+numbers.LooseTolerance
 		double mountHeadRad =( numbers.MountingScrewHeadDiamter+numbers.LooseTolerance)/2.0
 		double mountRad=(numbers.MountingScrewDiamter+numbers.LooseTolerance)/2.0
@@ -277,7 +277,7 @@ class cadGenMarcos implements ICadGenerator{
 		double SquareNutWidth = numbers.SquareNutWidth + numbers.LooseTolerance
 		double SquareNutHeight = numbers.SquareNutHeight + numbers.LooseTolerance
 		double SquareNutCutOutHeight = linkThickness/2+SquareNutWidth/2
-		double LinkSqaureNutSpacing = numbers.LinkSqaureNutSpacing
+		double LinkSqaureNutSpacing = numbers.LinkSqaureNutSpacing-3
 
 		//Solving for Angle of setscrew.
 		double hypot1 = Math.hypot(ServoHornRad + SetscrewLength + numbers.LooseTolerance, SetscrewSize/2)
@@ -293,7 +293,8 @@ class cadGenMarcos implements ICadGenerator{
 		println(SetScrewChamferLength)
 		println(SetScrewCutOutLength)
 
-
+		CSG screwHole = new Cylinder(4.2/2.0, core.getTotalZ()).toCSG()
+		
 		CSG ServoHornCutoutChamfer = ChamferedCylinder(ServoHornRad+smallChamfer,ServoHornHeight+smallChamfer,smallChamfer)
 				.toZMax()
 				.movez(smallChamfer)
@@ -301,13 +302,14 @@ class cadGenMarcos implements ICadGenerator{
 		CSG ServoHornCutout = ChamferedCylinder(ServoHornRad,ServoHornHeight,smallChamfer)
 				//.movez(-smallChamfer)
 				.union(ServoHornCutoutChamfer)
-
+				.union(screwHole)
+		double distanceOfSquareNut = (LinkSqaureNutSpacing+linkRadius)-(SquareNutHeight/2)
 		CSG SquareNutCutOut = new Cube(SquareNutHeight,SquareNutWidth, SquareNutCutOutHeight).toCSG()
 				.toZMin()
-				.movex((LinkSqaureNutSpacing+linkRadius)-(SquareNutHeight/2))
+				.movex(distanceOfSquareNut)
 
 		CSG SquareNutChamfer = StraightChamfer(SquareNutHeight,SquareNutWidth,smallChamfer)
-				.movex((LinkSqaureNutSpacing+linkRadius)-(SquareNutHeight/2))
+				.movex(distanceOfSquareNut)
 
 		CSG SetScrewCutOut = new Cylinder(SetscrewSize/2, SetScrewCutOutLength).toCSG()
 				.toZMin()
