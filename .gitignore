@@ -7,3 +7,4 @@
 /*.class
 /Calibration-*.stl
 /bin/
+*.~lock.*

@@ -98,9 +98,11 @@ numbers=(HashMap<String,Double>) ScriptingEngine.inlineScriptStringRun(code, nul
 //for(String key :numbers.keySet()) {
 //	println key+" : "+numbers.get(key)
 //}
+def honrConfig = Vitamins.getConfiguration("hobbyServoHorn", "standardMicro1")
+double hornDiam = honrConfig.hornBaseDiameter
 
 // Begin creating the resin print horn piece withn a chamfered cylendar
-CSG core=  ChamferedCylinder(numbers.ServoHornDiameter/2.0,numbers.ServoHornHeight,numbers.Chamfer2)
+CSG core=  ChamferedCylinder(hornDiam/2.0,hornDiam,numbers.Chamfer2)
 //calculate the depth of the screw head based on the given measurments
 double cutoutDepth = numbers.ServoHornHeight-numbers.ServoMountingScrewSpace - numbers.ServoHornSplineHeight
 // the cutout for the head of the screw on the resin horn
@@ -120,28 +122,28 @@ double spineDiameter=4.68+0.2
 
 
 // use the gear maker to generate the spline
-def gears = ScriptingEngine.gitScriptRun(
-		"https://github.com/madhephaestus/GearGenerator.git", // git location of the library
-		"bevelGear.groovy" , // file to load
-		// Parameters passed to the funcetion
-		[
-			numbers.ServoHornNumberofTeeth,
-			// Number of teeth gear a
-			numbers.ServoHornNumberofTeeth,
-			// Number of teeth gear b
-			numbers.ServoHornSplineHeight,
-			// thickness of gear A
-			computeGearPitch(spineDiameter,numbers.ServoHornNumberofTeeth),
-			// gear pitch in arc length mm
-			0,
-			// shaft angle, can be from 0 to 100 degrees
-			0// helical angle, only used for 0 degree bevels
-		]
-		)
-// get just the pinion of the set
-CSG spline = gears.get(0)
+//def gears = ScriptingEngine.gitScriptRun(
+//		"https://github.com/madhephaestus/GearGenerator.git", // git location of the library
+//		"bevelGear.groovy" , // file to load
+//		// Parameters passed to the funcetion
+//		[
+//			numbers.ServoHornNumberofTeeth,
+//			// Number of teeth gear a
+//			numbers.ServoHornNumberofTeeth,
+//			// Number of teeth gear b
+//			numbers.ServoHornSplineHeight,
+//			// thickness of gear A
+//			computeGearPitch(spineDiameter,numbers.ServoHornNumberofTeeth),
+//			// gear pitch in arc length mm
+//			0,
+//			// shaft angle, can be from 0 to 100 degrees
+//			0// helical angle, only used for 0 degree bevels
+//		]
+//		)
+//// get just the pinion of the set
+//CSG spline = gears.get(0)
 // cut the spline from the core
-CSG resinPrintServoMount=cutcore.difference(spline)
+CSG resinPrintServoMount=cutcore//.difference(spline)
 resinPrintServoMount.setColor(Color.DARKGREY)
 resinPrintServoMount.setName("ResinHorn")
 //return resinPrintServoMount
@@ -151,12 +153,13 @@ class cadGenMarcos implements ICadGenerator{
 	HashMap<String,Double> numbers
 	LengthParameter tailLength		= new LengthParameter("Cable Cut Out Length",30,[500, 0.01])
 	double endOfPassiveLinkToBolt = 4.5
-
+	double hornDiam;
 	Gson gson = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
 	VitaminBomManager bom;
-	public cadGenMarcos(CSG res,HashMap<String,Double> n) {
+	public cadGenMarcos(CSG res,HashMap<String,Double> n,double h) {
 		resinPrintServoMount=res
 		numbers=n
+		hornDiam=h
 	}
 	ArrayList<CSG> cache = new ArrayList<CSG>()
 	CSG moveDHValues(CSG incoming,DHParameterKinematics d, int linkIndex ){
@@ -264,7 +267,7 @@ class cadGenMarcos implements ICadGenerator{
 		double filletRad=numbers.Fillet3
 		double LinkMountingCutOutWidth=numbers.LinkMountingCutOutWidth
 		double blockx=rotationCenterToBoltCenter-numbers.LinkMountingCutOutLength-numbers.Tolerance+endOfPassiveLinkToBolt+filletRad
-		double ServoHornRad=(numbers.ServoHornDiameter+numbers.ServoHornHoleTolerance)/2.0
+		double ServoHornRad=(hornDiam+numbers.ServoHornHoleTolerance)/2.0
 		double ServoHornHeight =numbers.ServoHornHeight+numbers.LooseTolerance
 		double mountHeadRad =( numbers.MountingScrewHeadDiamter+numbers.LooseTolerance)/2.0
 		double mountRad=(numbers.MountingScrewDiamter+numbers.LooseTolerance)/2.0
@@ -1542,7 +1545,7 @@ class cadGenMarcos implements ICadGenerator{
 	
 
 }
-def gen= new cadGenMarcos(resinPrintServoMount,numbers)
+def gen= new cadGenMarcos(resinPrintServoMount,numbers,hornDiam)
 //MobileBase mb = (MobileBase)DeviceManager.getSpecificDevice("Marcos");
 //gen.setMobileBase(mb)
 //DHParameterKinematics limb = gen.getByName(mb,"RightFront")
