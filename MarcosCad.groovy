@@ -1583,7 +1583,7 @@ class cadGenMarcos implements ICadGenerator{
 }
 def gen= new cadGenMarcos(resinPrintServoMount,numbers,hornDiam)
 
-return gen.getGearLink() 
+//return gen.getGearLink() 
 
 //MobileBase mb = (MobileBase)DeviceManager.getSpecificDevice("Marcos");
 //gen.setMobileBase(mb)
