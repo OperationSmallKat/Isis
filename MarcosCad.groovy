@@ -558,6 +558,42 @@ class cadGenMarcos implements ICadGenerator{
 		return lug
 	}
 
+	def getGearLink() {
+		// generate the link
+		/*
+		double ServoHornRad=(hornDiam+numbers.ServoHornHoleTolerance/2)/2.0
+		double smallChamfer = numbers.Chamfer1/1.5
+		
+		CSG stl = Vitamins.get(ScriptingEngine.fileFromGit(
+				"https://github.com/OperationSmallKat/Marcos.git",
+				"DriveGear.stl")).moveToCenterX()
+				.moveToCenterY()
+				.rotz(180)
+		double setScrewLen = stl.getTotalX()/2;
+		double lowerSectionHeight =Math.abs(stl.getMinZ())
+		CSG fill = new Cylinder(7, lowerSectionHeight).toCSG()
+				.toZMax()
+
+		CSG setScrew = new Cylinder(3.3/2.0, setScrewLen).toCSG()
+				.roty(-90)
+				.movez(-lowerSectionHeight/2+0.15)
+		CSG ServoHornCutoutChamfer = ChamferedCylinder(ServoHornRad+smallChamfer,lowerSectionHeight+smallChamfer,smallChamfer)
+				.toZMax()
+				.movez(smallChamfer)
+		// Idle pin cutout
+		CSG ServoHornCutout = ChamferedCylinder(ServoHornRad,lowerSectionHeight,smallChamfer)
+				.union(ServoHornCutoutChamfer)
+				.movez(-lowerSectionHeight)
+		fill= fill.difference(setScrew)
+				.difference(setScrew.rotz(-90))
+				.difference(ServoHornCutout)
+		stl=stl.union(fill)
+		return stl
+		*/
+		return Vitamins.get(ScriptingEngine.fileFromGit(
+			"https://github.com/OperationSmallKat/Marcos.git",
+			"DriveGearHorn.stl"))
+	}
 	@Override
 	public ArrayList<CSG> generateCad(DHParameterKinematics d, int linkIndex) {
 		if(d.getScriptingName().startsWith("Head")||d.getScriptingName().startsWith("Tail")) {
@@ -713,9 +749,7 @@ class cadGenMarcos implements ICadGenerator{
 			motor.addAssemblyStep(3, new Transform().movez(front?60:-60))
 			myServoHorn.addAssemblyStep(3, new Transform().movey(front?-50:50))
 
-			CSG tmp =Vitamins.get(ScriptingEngine.fileFromGit(
-					"https://github.com/OperationSmallKat/Marcos.git",
-					"DriveGear.stl"))
+			CSG tmp = getGearLink() 
 					.roty(front?180:0)
 			if(front)
 				tmp=tmp.toZMax()
@@ -1548,6 +1582,9 @@ class cadGenMarcos implements ICadGenerator{
 
 }
 def gen= new cadGenMarcos(resinPrintServoMount,numbers,hornDiam)
+
+return gen.getGearLink() 
+
 //MobileBase mb = (MobileBase)DeviceManager.getSpecificDevice("Marcos");
 //gen.setMobileBase(mb)
 //DHParameterKinematics limb = gen.getByName(mb,"RightFront")
