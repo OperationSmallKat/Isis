@@ -592,7 +592,7 @@ class cadGenMarcos implements ICadGenerator{
 		*/
 		return Vitamins.get(ScriptingEngine.fileFromGit(
 			"https://github.com/OperationSmallKat/Marcos.git",
-			"DriveGearHorn.stl"))
+			"DriveGear.stl"))
 	}
 	@Override
 	public ArrayList<CSG> generateCad(DHParameterKinematics d, int linkIndex) {
