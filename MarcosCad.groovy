@@ -1441,34 +1441,46 @@ class cadGenMarcos implements ICadGenerator{
 					.hull()
 					.difference(footLeftRear)
 					.difference(footRightRear)
-					CSG gearAllignment = null;
-					def gearLimbs = [getByName(arg0,"DummyRightFront"),
-						getByName(arg0,"DummyLeftFront"),
-						getByName(arg0,"DummyRightRear"),
-						getByName(arg0,"DummyLeftRear")
-						]
-					CSG gearCutout = getGearLinkKeepaway()
-					CSG gearRest = new  ChamferedCube(gearCutout.getTotalX(),gearCutout.getTotalY(),gearCutout.getTotalZ(),,numbers.Chamfer2).toCSG()
-										.toZMin()
-										.movez(gearCutout.getMinZ())
-					for(DHParameterKinematics k:gearLimbs) {
-						Transform location =TransformFactory.nrToCSG(k.getRobotToFiducialTransform())
-						boolean front = k.getScriptingName().toLowerCase().contains("front")
-						double zdistance = (front?-1:1)*(getDistanceFromCenterToMotorTop(k, 0)+((front?0:1)*2.5))+
-										(front?gearCutout.getMinZ():gearCutout.getMaxZ())
-						location = location.apply(new Transform().movez(zdistance))
-						 
-						CSG calibrationBlock = gearRest
-												.movez((front?-1:1)*-1.5)
-												.movex(gearCutout.getTotalX()*0.75)
-												.difference(gearCutout)
-						CSG moved = calibrationBlock
-									.transformed(location)
-						if(gearAllignment==null)
-							gearAllignment=moved
-						else
-							gearAllignment=gearAllignment.union(moved)
-					}
+			CSG gearAllignment = null;
+			def gearLimbs = [getByName(arg0,"DummyRightFront"),
+				getByName(arg0,"DummyLeftFront"),
+				getByName(arg0,"DummyRightRear"),
+				getByName(arg0,"DummyLeftRear")
+				]
+			CSG gearCutout = getGearLinkKeepaway()
+			CSG gearRest = new  ChamferedCube(gearCutout.getTotalX(),gearCutout.getTotalY(),gearCutout.getTotalZ(),
+				numbers.Chamfer2).toCSG()
+								.toZMin()
+								.movez(gearCutout.getMinZ())
+
+			for(DHParameterKinematics k:gearLimbs) {
+				Transform location =TransformFactory.nrToCSG(k.getRobotToFiducialTransform())
+				boolean front = k.getScriptingName().toLowerCase().contains("front")
+				double zdistance = (front?-1:1)*(getDistanceFromCenterToMotorTop(k, 0)+((front?0:1)*2.5))+
+								(front?gearCutout.getMinZ():gearCutout.getMaxZ())
+				location = location.apply(new Transform().movez(zdistance))
+				CSG support =new Wedge(gearCutout.getTotalX()/2-(numbers.Chamfer2*2),
+					gearCutout.getTotalY()-(numbers.Chamfer2*2),
+					gearCutout.getTotalZ()-(numbers.Chamfer2*2)
+					).toCSG()
+					.rotx(front?0:180)
+					.toZMin()
+					.toYMin()
+					.movey(gearRest.getMinY()+numbers.Chamfer2)
+					.toXMin()
+					.movex(gearRest.getMaxX())
+					.movez(gearRest.getMinZ()+numbers.Chamfer2)
+				CSG calibrationBlock = gearRest.union(support)
+										.movez((front?-1:1)*-1.5)
+										.movex(gearCutout.getTotalX()*0.75)
+										.difference(gearCutout)
+				CSG moved = calibrationBlock
+							.transformed(location)
+				if(gearAllignment==null)
+					gearAllignment=moved
+				else
+					gearAllignment=gearAllignment.union(moved)
+			}
 			spars = Center.union([
 				FrontSpar,
 				RearSpar,
@@ -1625,20 +1637,20 @@ def gen= new cadGenMarcos(resinPrintServoMount,numbers,hornDiam)
 
 //return [gen.getGearLink(),gen.getGearLinkKeepaway()]
 
-//MobileBase mb = (MobileBase)DeviceManager.getSpecificDevice("Marcos");
-//gen.setMobileBase(mb)
-//DHParameterKinematics limb = gen.getByName(mb,"DummyRightFront")
-//DHParameterKinematics limb2 = gen.getByName(mb,"DummyLeftFront")
-//DHParameterKinematics limb3 = gen.getByName(mb,"DummyRightRear")
-//DHParameterKinematics limb4 = gen.getByName(mb,"DummyLeftRear")
-//return [
-//	//gen.generateCad(limb,0)
-//	//,gen.generateCad(limb,1),
-//	gen.generateCad(limb,0),
-//	gen.generateCad(limb2,0),
-//	gen.generateCad(limb3,0),
-//	gen.generateCad(limb4,0),
-//	gen.generateBody(mb)
-//]
+MobileBase mb = (MobileBase)DeviceManager.getSpecificDevice("Marcos");
+gen.setMobileBase(mb)
+DHParameterKinematics limb = gen.getByName(mb,"DummyRightFront")
+DHParameterKinematics limb2 = gen.getByName(mb,"DummyLeftFront")
+DHParameterKinematics limb3 = gen.getByName(mb,"DummyRightRear")
+DHParameterKinematics limb4 = gen.getByName(mb,"DummyLeftRear")
+return [
+	//gen.generateCad(limb,0)
+	//,gen.generateCad(limb,1),
+	gen.generateCad(limb,0),
+	gen.generateCad(limb2,0),
+	gen.generateCad(limb3,0),
+	gen.generateCad(limb4,0),
+	gen.generateBody(mb)
+]
 return gen
 
