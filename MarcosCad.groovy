@@ -1637,20 +1637,20 @@ def gen= new cadGenMarcos(resinPrintServoMount,numbers,hornDiam)
 
 //return [gen.getGearLink(),gen.getGearLinkKeepaway()]
 
-MobileBase mb = (MobileBase)DeviceManager.getSpecificDevice("Marcos");
-gen.setMobileBase(mb)
-DHParameterKinematics limb = gen.getByName(mb,"DummyRightFront")
-DHParameterKinematics limb2 = gen.getByName(mb,"DummyLeftFront")
-DHParameterKinematics limb3 = gen.getByName(mb,"DummyRightRear")
-DHParameterKinematics limb4 = gen.getByName(mb,"DummyLeftRear")
-return [
-	//gen.generateCad(limb,0)
-	//,gen.generateCad(limb,1),
-	gen.generateCad(limb,0),
-	gen.generateCad(limb2,0),
-	gen.generateCad(limb3,0),
-	gen.generateCad(limb4,0),
-	gen.generateBody(mb)
-]
+//MobileBase mb = (MobileBase)DeviceManager.getSpecificDevice("Marcos");
+//gen.setMobileBase(mb)
+//DHParameterKinematics limb = gen.getByName(mb,"DummyRightFront")
+//DHParameterKinematics limb2 = gen.getByName(mb,"DummyLeftFront")
+//DHParameterKinematics limb3 = gen.getByName(mb,"DummyRightRear")
+//DHParameterKinematics limb4 = gen.getByName(mb,"DummyLeftRear")
+//return [
+//	//gen.generateCad(limb,0)
+//	//,gen.generateCad(limb,1),
+//	gen.generateCad(limb,0),
+//	gen.generateCad(limb2,0),
+//	gen.generateCad(limb3,0),
+//	gen.generateCad(limb4,0),
+//	gen.generateBody(mb)
+//]
 return gen
 
