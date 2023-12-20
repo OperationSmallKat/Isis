@@ -556,42 +556,45 @@ class cadGenMarcos implements ICadGenerator{
 		return lug
 	}
 
-	CSG getGearLink() {
+	def getGearLink() {
 		if(cachedGearLink==null) {
 			// generate the link
-			/*
-			 double ServoHornRad=(hornDiam+numbers.ServoHornHoleTolerance/2)/2.0
-			 double smallChamfer = numbers.Chamfer1/1.5
-			 CSG stl = Vitamins.get(ScriptingEngine.fileFromGit(
-			 "https://github.com/OperationSmallKat/Marcos.git",
-			 "DriveGear.stl"))
-			 double setScrewLen = stl.getTotalX()/2;
-			 double lowerSectionHeight =Math.abs(stl.getMinZ())
-			 CSG fill = new Cylinder(7, lowerSectionHeight).toCSG()
-			 .toZMax()
-			 CSG setScrew = new Cylinder(3.3/2.0, setScrewLen).toCSG()
-			 .roty(-90)
-			 .movez(-lowerSectionHeight/2+0.3)
-			 CSG ServoHornCutoutChamfer = ChamferedCylinder(ServoHornRad+smallChamfer,lowerSectionHeight+smallChamfer,smallChamfer)
-			 .toZMax()
-			 .movez(smallChamfer)
-			 // Idle pin cutout
-			 CSG ServoHornCutout = ChamferedCylinder(ServoHornRad,lowerSectionHeight,smallChamfer)
-			 .union(ServoHornCutoutChamfer)
-			 .movez(-lowerSectionHeight)
-			 fill= fill.difference(setScrew)
-			 .difference(setScrew.rotz(-90))
-			 .difference(ServoHornCutout)
-			 stl=stl.union(fill)
-			 return stl
-			 */
+			double gearDiameter = 27.61
 			cachedGearLink= Vitamins.get(ScriptingEngine.fileFromGit(
 					"https://github.com/OperationSmallKat/Marcos.git",
 					"DriveGear.stl"))
-			.moveToCenterX()
-			.moveToCenterY()
-			.rotz(180)
-			.movez(0.15)
+					.moveToCenterX()
+					.moveToCenterY()
+					.rotz(180)
+					.movez(0.15)
+					cachedGearLink.setColor(Color.RED)
+			double ServoHornRad=6.8/2.0
+			double ServoHornDepth=4.95
+			double squareNutDepth = 17
+			CSG squareNut = Vitamins.get("squareNut", "M3")
+
+			double smallChamfer = numbers.Chamfer1/1.5
+			CSG stl = cachedGearLink
+			double setScrewLen = gearDiameter/2;
+			double lowerSectionHeight =Math.abs(stl.getMinZ())
+			CSG fill = new Cylinder(7, lowerSectionHeight).toCSG()
+					.toZMax()
+			CSG setScrew = new Cylinder(3.3/2.0, setScrewLen).toCSG()
+					.roty(-90)
+					.movez(-lowerSectionHeight+ServoHornDepth/2)
+			CSG ServoHornCutoutChamfer = ChamferedCylinder(ServoHornRad+smallChamfer,3*smallChamfer,smallChamfer)
+					.toZMax()
+					.movez(smallChamfer)
+			// Idle pin cutout
+			CSG ServoHornCutout = ChamferedCylinder(ServoHornRad,ServoHornDepth,smallChamfer)
+					.union(ServoHornCutoutChamfer)
+					.movez(-lowerSectionHeight)
+			fill= fill.difference(setScrew)
+					.difference(setScrew.rotz(-90))
+					.difference(ServoHornCutout)
+			return [stl, fill]
+			//stl=stl.union(fill)
+			// return stl
 		}
 		return cachedGearLink
 	}
@@ -1635,7 +1638,7 @@ class cadGenMarcos implements ICadGenerator{
 }
 def gen= new cadGenMarcos(resinPrintServoMount,numbers,hornDiam)
 
-//return [gen.getGearLink(),gen.getGearLinkKeepaway()]
+return [gen.getGearLink(),gen.getGearLinkKeepaway()]
 
 //MobileBase mb = (MobileBase)DeviceManager.getSpecificDevice("Marcos");
 //gen.setMobileBase(mb)

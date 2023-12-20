@@ -81,12 +81,12 @@ enum CycleState {
 class BodyController{
 	int numberOfInterpolationPoints=0
 	double stepOverHeight =1
-
-	double numPointsInLoop =12.0
+	int numMsOfLoop = 64;
+	double numPointsInLoop =12
 	double unitScale =1.0/(numPointsInLoop/2.0)
 	Thread bodyLoop = null;
 	boolean availible=true;
-	int numMsOfLoop = 32;
+	
 	int coriolisIndex = 0
 	// ms of the tail loop
 	double timeOfTailLoop = numMsOfLoop*10
