@@ -149,6 +149,8 @@ resinPrintServoMount.setName("ResinHorn")
 //return resinPrintServoMount
 class cadGenMarcos implements ICadGenerator{
 	String url = "https://github.com/OperationSmallKat/Marcos.git"
+	LengthParameter offset		= new LengthParameter("printerOffset",0.0,[2, 0])
+	
 	CSG resinPrintServoMount
 	HashMap<String,Double> numbers
 	LengthParameter tailLength		= new LengthParameter("Cable Cut Out Length",30,[500, 0.01])
@@ -559,7 +561,7 @@ class cadGenMarcos implements ICadGenerator{
 	def getGearLink() {
 		if(cachedGearLink==null) {
 			// generate the link
-			double gearDiameter = 27.61
+			double gearDiameter = 27.65
 			cachedGearLink= Vitamins.get(ScriptingEngine.fileFromGit(
 					"https://github.com/OperationSmallKat/Marcos.git",
 					"DriveGear.stl"))
@@ -567,21 +569,34 @@ class cadGenMarcos implements ICadGenerator{
 					.moveToCenterY()
 					.rotz(180)
 					.movez(0.15)
-					cachedGearLink.setColor(Color.RED)
-			double ServoHornRad=6.8/2.0
+			cachedGearLink.setColor(Color.RED)
+			double ServoHornRad=(6.96+0.2)/2.0
 			double ServoHornDepth=5.15
-			double squareNutDepth = 4.5
+			double squareNutDepth = 2+ServoHornRad
 			double setScrewRadius = 3.3/2.0
 			
-			double smallChamfer = numbers.Chamfer1/1.5
+			double smallChamfer = numbers.Chamfer1
 			CSG stl = cachedGearLink
 			double setScrewLen = gearDiameter/2;
 			double lowerSectionHeight =Math.abs(stl.getMinZ())
-			
-			CSG squareNut = Vitamins.get("squareNut", "M3")
+			double previousOffset = offset.getMM()
+			double nutDepth = -lowerSectionHeight+ServoHornDepth/2
+			offset.setMM(0.2);
+			CSG nutStart = Vitamins.get("squareNut", "M3")
 					.roty(-90)
-					.movez(-lowerSectionHeight+ServoHornDepth/2)
+			offset.setMM(previousOffset);
+					
+			CSG nutChamfer = new ChamferedCube(nutStart.getTotalX()+smallChamfer,
+				 nutStart.getTotalY()+smallChamfer,
+				 3*smallChamfer, smallChamfer).toCSG()
+				 .toZMax()
+				 .movex(nutStart.getTotalX()/2)
+				 .movez(-lowerSectionHeight+smallChamfer)
+			CSG squareNut = nutStart
+					.movez(nutDepth)
+					.union(nutChamfer)
 					.movex(squareNutDepth)
+			
 			CSG fill = ChamferedCylinder(setScrewLen, lowerSectionHeight+smallChamfer,smallChamfer)
 					.toZMax()
 					.movez(smallChamfer)
@@ -713,7 +728,6 @@ class cadGenMarcos implements ICadGenerator{
 
 		bom.set(leftCalibrationScrewKey,"conePointSetScrew","M3x8",new TransformNR())
 		bom.set(rightCalibrationScrewKey,"conePointSetScrew","M3x8",new TransformNR())
-		LengthParameter offset		= new LengthParameter("printerOffset",0.0,[2, 0])
 		LengthParameter facets		= new LengthParameter("Bolt Hole Facet Count",10,[40, 10])
 		facets.setMM(30)
 		offset.setMM(numbers.LooseTolerance)
@@ -1652,7 +1666,7 @@ class cadGenMarcos implements ICadGenerator{
 }
 def gen= new cadGenMarcos(resinPrintServoMount,numbers,hornDiam)
 
-//return [gen.getGearLink(),gen.getGearLinkKeepaway()]
+return [gen.getGearLink(),gen.getGearLinkKeepaway()]
 
 //MobileBase mb = (MobileBase)DeviceManager.getSpecificDevice("Marcos");
 //gen.setMobileBase(mb)
