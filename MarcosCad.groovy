@@ -605,9 +605,9 @@ class cadGenMarcos implements ICadGenerator{
 					.difference(squareNut)
 					.difference(squareNut.rotz(-90))
 			//return [stl, asm]
-			println "Cutting the bottom off the existing gear"
+			//println "Cutting the bottom off the existing gear"
 			CSG cutGear = stl.difference(stl.getBoundingBox().toZMax())
-			println "Adding lower Section Back On"
+			//println "Adding lower Section Back On"
 			cachedGearLink=cutGear.union(asm)
 		}
 		return cachedGearLink
