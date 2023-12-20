@@ -569,7 +569,7 @@ class cadGenMarcos implements ICadGenerator{
 					.moveToCenterY()
 					.rotz(180)
 					.movez(0.15)
-			cachedGearLink.setColor(Color.RED)
+
 			double ServoHornRad=(6.96+0.2)/2.0
 			double ServoHornDepth=5.15
 			double squareNutDepth = 2+ServoHornRad
@@ -625,6 +625,7 @@ class cadGenMarcos implements ICadGenerator{
 			//println "Adding lower Section Back On"
 			cachedGearLink=cutGear.union(asm)
 		}
+		cachedGearLink.setColor(Color.RED)
 		return cachedGearLink
 	}
 	CSG getGearLinkKeepaway() {
