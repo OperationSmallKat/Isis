@@ -569,17 +569,27 @@ class cadGenMarcos implements ICadGenerator{
 					.movez(0.15)
 					cachedGearLink.setColor(Color.RED)
 			double ServoHornRad=6.8/2.0
-			double ServoHornDepth=4.95
-			double squareNutDepth = 17
-			CSG squareNut = Vitamins.get("squareNut", "M3")
-
+			double ServoHornDepth=5.15
+			double squareNutDepth = 4.5
+			double setScrewRadius = 3.3/2.0
+			
 			double smallChamfer = numbers.Chamfer1/1.5
 			CSG stl = cachedGearLink
 			double setScrewLen = gearDiameter/2;
 			double lowerSectionHeight =Math.abs(stl.getMinZ())
-			CSG fill = new Cylinder(7, lowerSectionHeight).toCSG()
+			
+			CSG squareNut = Vitamins.get("squareNut", "M3")
+					.roty(-90)
+					.movez(-lowerSectionHeight+ServoHornDepth/2)
+					.movex(squareNutDepth)
+			CSG fill = ChamferedCylinder(setScrewLen, lowerSectionHeight+smallChamfer,smallChamfer)
 					.toZMax()
-			CSG setScrew = new Cylinder(3.3/2.0, setScrewLen).toCSG()
+					.movez(smallChamfer)
+			fill=fill.difference(fill.getBoundingBox().toZMin())
+			CSG setScrewChamfer =  ChamferedCylinder(setScrewRadius+smallChamfer, 3*smallChamfer,smallChamfer)
+									.movez(setScrewLen-smallChamfer)
+			CSG setScrew = new Cylinder(setScrewRadius, setScrewLen).toCSG()
+					.union(setScrewChamfer)
 					.roty(-90)
 					.movez(-lowerSectionHeight+ServoHornDepth/2)
 			CSG ServoHornCutoutChamfer = ChamferedCylinder(ServoHornRad+smallChamfer,3*smallChamfer,smallChamfer)
@@ -589,12 +599,16 @@ class cadGenMarcos implements ICadGenerator{
 			CSG ServoHornCutout = ChamferedCylinder(ServoHornRad,ServoHornDepth,smallChamfer)
 					.union(ServoHornCutoutChamfer)
 					.movez(-lowerSectionHeight)
-			fill= fill.difference(setScrew)
+			CSG asm= fill.difference(setScrew)
 					.difference(setScrew.rotz(-90))
 					.difference(ServoHornCutout)
-			return [stl, fill]
-			//stl=stl.union(fill)
-			// return stl
+					.difference(squareNut)
+					.difference(squareNut.rotz(-90))
+			//return [stl, asm]
+			println "Cutting the bottom off the existing gear"
+			CSG cutGear = stl.difference(stl.getBoundingBox().toZMax())
+			println "Adding lower Section Back On"
+			cachedGearLink=cutGear.union(asm)
 		}
 		return cachedGearLink
 	}
@@ -1638,7 +1652,7 @@ class cadGenMarcos implements ICadGenerator{
 }
 def gen= new cadGenMarcos(resinPrintServoMount,numbers,hornDiam)
 
-return [gen.getGearLink(),gen.getGearLinkKeepaway()]
+//return [gen.getGearLink(),gen.getGearLinkKeepaway()]
 
 //MobileBase mb = (MobileBase)DeviceManager.getSpecificDevice("Marcos");
 //gen.setMobileBase(mb)
