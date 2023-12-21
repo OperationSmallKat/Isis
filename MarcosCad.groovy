@@ -895,7 +895,7 @@ class cadGenMarcos implements ICadGenerator{
 					return incoming.rotx(90).roty(90-numbers.FootAngle).toZMin().rotz(front?180:0)
 				})
 				foot.getStorage().set("bedType", "ff-Two")
-				foot.setPrintBedNumber(2)
+				foot.setPrintBedNumber(3)
 				foot.setName("Foot"+d.getScriptingName())
 				back.add(foot)
 			}
@@ -1074,7 +1074,7 @@ class cadGenMarcos implements ICadGenerator{
 				return incoming.roty(180).toZMin().toXMin().toYMin()
 			})
 			link.getStorage().set("bedType", "ff-Three")
-			link.setPrintBedNumber(3)
+			link.setPrintBedNumber(2)
 			back.add(link)
 			CSG gearLink= Vitamins.get(ScriptingEngine.fileFromGit(
 					"https://github.com/OperationSmallKat/Marcos.git",
