@@ -1402,7 +1402,7 @@ class cadGenMarcos implements ICadGenerator{
 		CSG spars
 		if(calibrationJigFile.exists()) {
 			println "Calibration Jig Exists "+calibrationJigFile.getAbsolutePath()
-			//makeCalibration=false
+			makeCalibration=false
 			spars  = Vitamins.get(calibrationJigFile);
 		}
 		if(makeCalibration) {
