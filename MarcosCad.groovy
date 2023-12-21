@@ -1406,7 +1406,7 @@ class cadGenMarcos implements ICadGenerator{
 			spars  = Vitamins.get(calibrationJigFile);
 		}
 		if(makeCalibration) {
-			double blockDepth = 35
+			double blockDepth = 25
 			double blockHeight = 20
 			double scoochUpDistance = 1
 			CSG label = CSG.unionAll(TextExtrude.text((double)1.0,semver,font))
@@ -1426,13 +1426,12 @@ class cadGenMarcos implements ICadGenerator{
 
 			CSG neckBit = getNeckLink().transformed(neck)
 			CSG buttBit = getNeckLink().transformed(butt)
-
+			
 			CSG calBlock = new ChamferedCube(blockDepth,25,blockHeight,numbers.Chamfer2).toCSG()
 					.toZMin()
 					.movez(scoochUpDistance)
+			
 			//.movez(5)
-			CSG calLeft =calBlock.toYMin().movey(2)
-			CSG calRight = calBlock.toYMax().movey(-2)
 			CSG footLeftFront=getFoot(getByName(arg0,"LeftFront").getDH_R(2)).transformed(tipLeftFront)
 			CSG footRightFront=getFoot(getByName(arg0,"RightFront").getDH_R(2)).transformed(tipRightFront)
 			CSG footLeftRear=getFoot(getByName(arg0,"LeftRear").getDH_R(2)).transformed(tipLeftRear)
@@ -1441,13 +1440,9 @@ class cadGenMarcos implements ICadGenerator{
 			CSG fCenter=calBlock.toXMax().move(tipLeftFront.x, 0, tipLeftFront.z)
 
 			CSG rCenter=calBlock.move(tipRightRear.x, 0, tipRightRear.z)
-			CSG Center = fCenter
-					.union(rCenter)
-					.hull()
-			label=label.movex(tipLeftFront.x-5)
-					.movez(Center.getMaxZ())
+
 			double calSinkInDistance =4
-			CSG fCal = calBlock.toZMax().move(neck.x, neck.y, neckBit.getMinZ()+numbers.Chamfer2+calSinkInDistance)
+			CSG fCal = calBlock.union(calBlock.movex(5)).toZMax().move(neck.x, neck.y, neckBit.getMinZ()+numbers.Chamfer2+calSinkInDistance)
 					.union(fCenter)
 					.hull()
 					.difference(neckBit)
@@ -1456,9 +1451,15 @@ class cadGenMarcos implements ICadGenerator{
 					.hull()
 					.difference(buttBit)
 			double inset=2
+			CSG lowerBlock =  new ChamferedCube(10,25,blockHeight/2,numbers.Chamfer2).toCSG()
+			.toZMax()
+			.toXMax()
+			.movex(-15)
+			.movez(scoochUpDistance+calBlock.getMinZ()+3)
 			CSG scoochedUp = calBlock
+					.union(lowerBlock)
 					.toXMax()
-					.movex(5)
+					.movex(12)
 			CSG fl = scoochedUp.toYMax().movey(inset)
 			CSG fr = scoochedUp.toYMin().movey(-inset)
 			CSG rl = scoochedUp.toYMax().movey(inset)
@@ -1473,6 +1474,14 @@ class cadGenMarcos implements ICadGenerator{
 					.hull()
 					.difference(footLeftRear)
 					.difference(footRightRear)
+			CSG Center = fCenter
+					.union(rCenter)
+					.hull()
+					.toZMin()
+					.movez(RearSpar.getMinZ())
+					.movex(-15)
+			label=label.movex(tipLeftFront.x-5)
+					.movez(Center.getMaxZ())
 			CSG gearAllignment = null;
 			def gearLimbs = [getByName(arg0,"DummyRightFront"),
 				getByName(arg0,"DummyLeftFront"),

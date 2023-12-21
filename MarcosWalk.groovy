@@ -35,10 +35,10 @@ IDriveEngine engine = new IDriveEngine () {
 	*/
 
 	boolean firstRun=true
-	double zoffsetOfFeetHome = -12.5
-	double xOffsetOfFeetHome = 5
-	double ySplayOut = 10
-	double stepOverHeight = 7
+	double zoffsetOfFeetHome = -7.5
+	double xOffsetOfFeetHome = 0
+	double ySplayOut = 5
+	double stepOverHeight = 20
 	public void DriveArc(MobileBase source,TransformNR newPose,double seconds) {
 		try {
 			
@@ -81,7 +81,7 @@ enum CycleState {
 class BodyController{
 	int numberOfInterpolationPoints=0
 	double stepOverHeight =1
-	int numMsOfLoop = 64;
+	int numMsOfLoop = 16;
 	double numPointsInLoop =12
 	double unitScale =1.0/(numPointsInLoop/2.0)
 	Thread bodyLoop = null;
