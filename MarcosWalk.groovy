@@ -35,7 +35,7 @@ IDriveEngine engine = new IDriveEngine () {
 	*/
 
 	boolean firstRun=true
-	double zoffsetOfFeetHome = -20
+	double zoffsetOfFeetHome = -18
 	double xOffsetOfFeetHome = 0
 	double ySplayOut = 5
 	double stepOverHeight = 20
@@ -89,12 +89,12 @@ class BodyController{
 	
 	int coriolisIndex = 0
 	// ms of the tail loop
-	double timeOfTailLoop = numMsOfLoop*10
+	double timeOfTailLoop = 250
 	double coriolisTimeBase =numMsOfLoop
 	// degrees per time slice
 	double coriolisDivisions = timeOfTailLoop/coriolisTimeBase
 	double coriolisDivisionsScale = 360.0/coriolisDivisions
-	double coriolisGain=3.5
+	double coriolisGain=3
 	
 	double cycleTime = numMsOfLoop*numPointsInLoop*(numberOfInterpolationPoints+1)+(numMsOfLoop*1)
 	int numberOfInterpolatedPointsInALoop = numPointsInLoop*(numberOfInterpolationPoints+1)
@@ -560,17 +560,3 @@ class BodyController{
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
