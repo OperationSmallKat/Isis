@@ -35,7 +35,7 @@ IDriveEngine engine = new IDriveEngine () {
 	*/
 
 	boolean firstRun=true
-	double zoffsetOfFeetHome = -7.5
+	double zoffsetOfFeetHome = -20
 	double xOffsetOfFeetHome = 0
 	double ySplayOut = 5
 	double stepOverHeight = 20
