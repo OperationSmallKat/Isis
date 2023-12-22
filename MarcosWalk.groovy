@@ -362,19 +362,19 @@ class BodyController{
 			bodyLoop=new Thread({
 				try {
 					// initialize real-time initial conditions
-					long start = System.currentTimeMillis();
-					long index=0;
 					// run body controller until disconnected
 					while(availible) {
+						long start = System.currentTimeMillis();
+						
 						// update the gait generation
 						loop();
 						// update the dynamics controller
 						runDynamics();
 						// compute the real-time condition
-						long elapsed =  System.currentTimeMillis()-(start +(numMsOfLoop*index) )
+						long elapsed =  System.currentTimeMillis()-(start )
 						def numMsOfLoopElapsed = numMsOfLoop-elapsed
 						// check for real-time overrun
-						if(numMsOfLoopElapsed<=16) {
+						if(numMsOfLoopElapsed<0) {
 							println "Real time in Body Controller broken! Loop took:"+elapsed+" sleep time "+numMsOfLoopElapsed
 							// this controller must run slower than the UI thread
 							Thread.sleep(16);
@@ -383,7 +383,6 @@ class BodyController{
 							Thread.sleep(numMsOfLoopElapsed);
 						}
 						// update the real-time index
-						index++
 					}
 				}catch(Throwable t) {
 					BowlerStudio.printStackTrace(t)
