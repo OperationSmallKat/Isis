@@ -94,7 +94,7 @@ class BodyController{
 	// degrees per time slice
 	double coriolisDivisions = timeOfTailLoop/coriolisTimeBase
 	double coriolisDivisionsScale = 360.0/coriolisDivisions
-	double coriolisGain=3
+	double coriolisGain=2
 	
 	double cycleTime = numMsOfLoop*numPointsInLoop*(numberOfInterpolationPoints+1)+(numMsOfLoop*1)
 	int numberOfInterpolatedPointsInALoop = numPointsInLoop*(numberOfInterpolationPoints+1)
@@ -210,7 +210,7 @@ class BodyController{
 			if(tiltAngle<-90)
 				tiltAngle+=180
 			def abs = Math.abs(tiltAngle)
-			def min =5
+			def min =6
 			if(abs<min) {
 				coriolisIndex=0;
 				abs=min
@@ -233,9 +233,15 @@ class BodyController{
 	
 			double[] vect =tail.getCurrentJointSpaceVector()
 			vect[0]=computedTilt
-			vect[1]=computedPan
-			
+			vect[1]=computedPan//+tiltAngle
+			if(Math.abs(tiltAngle)<10)
+				vect[1]+=tiltAngle*2;
+			else {
+				vect[1]+=tiltAngle>0?10:-10;
+			}
 			tail.setDesiredJointSpaceVector(vect, 0)
+			vect[1]*=-1
+			head.setDesiredJointSpaceVector(vect, 0)
 		}
 	}
 
