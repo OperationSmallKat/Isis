@@ -36,9 +36,9 @@ IDriveEngine engine = new IDriveEngine () {
 
 	boolean firstRun=true
 	double zoffsetOfFeetHome = -18
-	double xOffsetOfFeetHome = -2.5
+	double xOffsetOfFeetHome = 2.5
 	double ySplayOut = 5
-	double stepOverHeight = 20
+	double stepOverHeight = 10
 	public void DriveArc(MobileBase source,TransformNR newPose,double seconds) {
 		try {
 			
@@ -89,7 +89,7 @@ class BodyController{
 	
 	int coriolisIndex = 0
 	// ms of the tail loop
-	double timeOfTailLoop = 250
+	double timeOfTailLoop = 350
 	double coriolisTimeBase =numMsOfLoop
 	// degrees per time slice
 	double coriolisDivisions = timeOfTailLoop/coriolisTimeBase
@@ -210,7 +210,7 @@ class BodyController{
 			if(tiltAngle<-90)
 				tiltAngle+=180
 			def abs = Math.abs(tiltAngle)
-			def min =6
+			def min =8
 			if(abs<min) {
 				coriolisIndex=0;
 				abs=min
