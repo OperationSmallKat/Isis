@@ -1545,6 +1545,7 @@ class cadGenMarcos implements ICadGenerator{
 		spars.setPrintBedNumber(3)
 		spars.setColor(Color.DARKRED)
 		back.add(spars)
+		spars.getStorage().set("no-physics", true);
 
 		back.addAll([
 			battery,
