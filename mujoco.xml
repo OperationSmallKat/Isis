@@ -100,6 +100,11 @@
           <joint name="pan_Head"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-70.875 63.315" />
           <geom name="pan_Head_A" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
           <geom name="pan_Head_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+          <body name="tip_Head" pos="0.0 0.0 0.0"  quat="1.0 -0.0 -0.0 -0.0">
+            <joint name="tip_Head"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-70.875 63.315" />
+            <geom name="tip_Head_A" pos="0.199995 -5.0E-6 -5.0E-6" size="0.01"/>
+            <geom name="tip_Head_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+          </body>
         </body>
       </body>
       <geom name="Marcos_base_6" pos="-0.085005 -5.0E-6 0.136995" size="0.01"/>
@@ -111,6 +116,11 @@
           <joint name="baseTilt_Tail"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-85.05 85.05" />
           <geom name="baseTilt_Tail_A" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
           <geom name="baseTilt_Tail_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+          <body name="tip_Tail" pos="0.0 0.0 0.0"  quat="1.0 -0.0 -0.0 -0.0">
+            <joint name="tip_Tail"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-85.05 85.05" />
+            <geom name="tip_Tail_A" pos="0.199995 -5.0E-6 -5.0E-6" size="0.01"/>
+            <geom name="tip_Tail_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+          </body>
         </body>
       </body>
     </body>
@@ -120,6 +130,7 @@
       <motor name="elbow_LeftFront"       gear="120"  joint="elbow_LeftFront"/>
       <motor name="baseTilt_RightRear"       gear="120"  joint="baseTilt_RightRear"/>
       <motor name="basePan_RightRear"       gear="120"  joint="basePan_RightRear"/>
+      <motor name="tip_Tail"       gear="120"  joint="tip_Tail"/>
       <motor name="basePan_LeftFront"       gear="120"  joint="basePan_LeftFront"/>
       <motor name="elbow_LeftRear"       gear="120"  joint="elbow_LeftRear"/>
       <motor name="elbow_RightFront"       gear="120"  joint="elbow_RightFront"/>
@@ -130,6 +141,7 @@
       <motor name="basePan_RightFront"       gear="120"  joint="basePan_RightFront"/>
       <motor name="pan_Head"       gear="120"  joint="pan_Head"/>
       <motor name="baseTilt_Tail"       gear="120"  joint="baseTilt_Tail"/>
+      <motor name="tip_Head"       gear="120"  joint="tip_Head"/>
       <motor name="baseTilt_LeftRear"       gear="120"  joint="baseTilt_LeftRear"/>
       <motor name="baseTilt_LeftFront"       gear="120"  joint="baseTilt_LeftFront"/>
       <motor name="basePan_Tail"       gear="120"  joint="basePan_Tail"/>
