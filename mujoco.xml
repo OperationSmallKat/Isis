@@ -1,5 +1,6 @@
 <mujoco model="Marcos">
   <option timestep="0.005"/>
+  <size njmax="8000" nconmax="4000"/>
   <visual>
     <map force="0.1" zfar="30"/>
     <rgba haze="0.15 0.25 0.35 1"/>
@@ -17,7 +18,7 @@
     <default class="body">
 
       <!-- geoms -->
-      <geom type="capsule" condim="1" friction=".7" solimp=".9 .99 .003" solref=".015 1" material="body" group="1"/>
+      <geom type="sphere" condim="1" friction=".7" solimp=".9 .99 .003" solref=".015 1" material="body" group="1"/>
 <!-- joints -->
       <joint type="hinge" damping="7.5" stiffness="20" armature=".01" limited="true" solimplimit="0 .99 .01"/>
     </default>
@@ -26,89 +27,34 @@
     <geom name="floor" size="0 0 .05" type="plane" material="grid" condim="3"/>
     <body name="Marcos_base" pos="0.0 0.0 0.13843452850341798" childclass="body">
       <freejoint name="root"/>
-      <geom name="Marcos_base_0" fromto="-5.893999862670898E-5 0.0 0.0 -0.09819106000137329 0.0 0.0" size="0.11787999725341797"/>
-      <geom name="Marcos_base_1" fromto="0.09819106000137329 0.0 0.0 5.893999862670898E-5 0.0 0.0" size="0.11787999725341797"/>
-      <body name="RightFront_basePan" pos="-0.01674999993383267 0.004627092321673633 -0.0015">
-        <joint name="RightFront_basePan"  pos="0.0775 -0.04675 0.12" axis="0.0 0.0 -1.0" range="-34.019999999999996 84.10499999999999" />
-        <geom name="RightFront_basePan" fromto="0.006474372907678328 0.0 0.0 -0.039974372775343665 0.0 0.0" size="0.051254184643347266"/>
-        <body name="RightFront_baseTilt" pos="-0.02749957722410698 0.00525 2.7273185391862854E-8">
-          <joint name="RightFront_baseTilt"  pos="0.030999999527843002 5.410520653713441E-6 0.005" axis="1.0 0.0 0.0" range="-85.05 85.05" />
-          <geom name="RightFront_baseTilt" fromto="0.008974750000000002 0.0 0.0 -0.06397390444821396 0.0 0.0" size="0.0505"/>
-          <body name="RightFront_elbow" pos="-0.021999873741076377 -0.011221080362917498 1.8261958050587169E-6">
-            <joint name="RightFront_elbow"  pos="0.038890872965260115 -0.03889087296526011 0.0" axis="0.7071067811865475 -0.7071067811865475 0.0" range="-85.05 85.05" />
-            <geom name="RightFront_elbow" fromto="0.012978781299366282 0.0 0.0 -0.05697852878151904 0.0 0.0" size="0.04243740126743317"/>
+      <geom name="Marcos_base_1" pos="0.07749500000000001 -0.046755000000000005 0.119995" size="0.01"/>
+      <body name="basePan_RightFront" pos="0.0775 -0.04675 0.12"  quat="6.171209208705922E-5 -0.7071684825084507 6.170132223498458E-5 0.7070450690947923">
+        <joint name="basePan_RightFront"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-34.019999999999996 84.10499999999999" />
+        <geom name="basePan_RightFront_A" pos="0.030994999527843004 4.105206537133909E-7 0.004995" size="0.01"/>
+        <geom name="basePan_RightFront_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+        <body name="baseTilt_RightFront" pos="0.030999999527843002 5.410520653713441E-6 0.005"  quat="0.7072918743815211 -0.7069216341423136 -6.16905505034108E-5 6.172286005948052E-5">
+          <joint name="baseTilt_RightFront"  pos="0.0 0.0 0.0" axis="0 0 1" range="-85.05 85.05" />
+          <geom name="baseTilt_RightFront_A" pos="0.03888587296526011 -0.03889587296526012 -5.0E-6" size="0.01"/>
+          <geom name="baseTilt_RightFront_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+          <body name="elbow_RightFront" pos="0.038890872965260115 -0.03889087296526011 0.0"  quat="0.9238795289934143 8.062369856820899E-5 -3.339542939563245E-5 -0.3826834309079392">
+            <joint name="elbow_RightFront"  pos="0.0 0.0 0.0" axis="0 0 1" range="-85.05 85.05" />
+            <geom name="elbow_RightFront_A" pos="-4.999999999997336E-6 0.047994999999999996 -5.0E-6" size="0.01"/>
+            <geom name="elbow_RightFront_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
           </body>
         </body>
       </body>
-      <body name="LeftFront_basePan" pos="-0.01674999993383267 0.004999998605267862 -0.0015">
-        <joint name="LeftFront_basePan"  pos="0.0775 0.04675 0.12" axis="0.0 0.0 -1.0" range="-85.05 35.91" />
-        <geom name="LeftFront_basePan" fromto="0.006474745813961924 0.0 0.0 -0.03997474568162726 0.0 0.0" size="0.050508372076158804"/>
-        <body name="LeftFront_baseTilt" pos="-0.02749957722410698 0.00525 2.7273185395415568E-8">
-          <joint name="LeftFront_baseTilt"  pos="0.030999999527843002 5.410520653713441E-6 0.005" axis="1.0 0.0 0.0" range="-85.05 85.05" />
-          <geom name="LeftFront_baseTilt" fromto="0.008974750000000002 0.0 0.0 -0.06397390444821396 0.0 0.0" size="0.0505"/>
-          <body name="LeftFront_elbow" pos="-0.021999873741076377 -0.011221080362917498 1.804366651565914E-6">
-            <joint name="LeftFront_elbow"  pos="0.038890872965260115 -0.03889087296526011 0.0" axis="0.7071067811865475 -0.7071067811865475 0.0" range="-85.05 85.05" />
-            <geom name="LeftFront_elbow" fromto="0.012978781299366282 0.0 0.0 -0.05697852878151904 0.0 0.0" size="0.04243740126743317"/>
-          </body>
-        </body>
-      </body>
-      <body name="RightRear_basePan" pos="-0.01675 0.004625000000000003 0.0015">
-        <joint name="RightRear_basePan"  pos="-0.0775 -0.04675 0.12" axis="0.0 0.0 -1.0" range="-37.8 85.05" />
-        <geom name="RightRear_basePan" fromto="0.006474375 0.0 0.0 -0.039974375 0.0 0.0" size="0.05125"/>
-        <body name="RightRear_baseTilt" pos="-0.02749957722410698 0.00525 3.552713678800501E-18">
-          <joint name="RightRear_baseTilt"  pos="0.031 0.0 0.005" axis="1.0 0.0 0.0" range="-85.05 85.05" />
-          <geom name="RightRear_baseTilt" fromto="0.008974750000000002 0.0 0.0 -0.06397390444821396 0.0 0.0" size="0.0505"/>
-          <body name="RightRear_elbow" pos="-0.021999873741076377 -0.011221080362917498 3.552713678800501E-18">
-            <joint name="RightRear_elbow"  pos="0.038890872965260115 -0.03889087296526011 0.0" axis="0.7071067811865475 -0.7071067811865476 0.0" range="-85.05 85.05" />
-            <geom name="RightRear_elbow" fromto="0.012978781299366282 0.0 0.0 -0.05697852878151904 0.0 0.0" size="0.04243740126743317"/>
-          </body>
-        </body>
-      </body>
-      <body name="LeftRear_basePan" pos="-0.01674999993383267 0.004999998605267862 0.0015">
-        <joint name="LeftRear_basePan"  pos="-0.0775 0.04675 0.12" axis="0.0 0.0 -1.0" range="-84.10499999999999 31.185" />
-        <geom name="LeftRear_basePan" fromto="0.006474745813961923 0.0 0.0 -0.03997474568162726 0.0 0.0" size="0.050508372076158804"/>
-        <body name="LeftRear_baseTilt" pos="-0.02749957722410698 0.00525 2.7273185395415568E-8">
-          <joint name="LeftRear_baseTilt"  pos="0.030999999527843002 5.410520653713441E-6 0.005" axis="1.0 0.0 0.0" range="-85.05 85.05" />
-          <geom name="LeftRear_baseTilt" fromto="0.008974750000000002 0.0 0.0 -0.06397390444821396 0.0 0.0" size="0.0505"/>
-          <body name="LeftRear_elbow" pos="-0.021999873741076377 -0.011221080362917498 1.804366651565914E-6">
-            <joint name="LeftRear_elbow"  pos="0.038890872965260115 -0.03889087296526011 0.0" axis="0.7071067811865475 -0.7071067811865475 0.0" range="-85.05 85.05" />
-            <geom name="LeftRear_elbow" fromto="0.012978781299366282 0.0 0.0 -0.05697852878151904 0.0 0.0" size="0.04243740126743317"/>
-          </body>
-        </body>
-      </body>
-      <body name="DummyLeftRear_basePan" pos="-0.02641249989471662 -0.005643865290534222 0.0015">
-        <joint name="DummyLeftRear_basePan"  pos="-0.085 0.04025 0.137" axis="0.0 0.0 -1.0" range="-84.10499999999999 85.05" />
-        <geom name="DummyLeftRear_basePan" fromto="0.006473356134709467 0.0 0.0 -0.059298355924142704 0.0 0.0" size="0.05328773058106844"/>
-      </body>
-      <body name="DummyRightFront_basePan" pos="-0.02641249989471662 0.005643863944577763 -0.0015">
-        <joint name="DummyRightFront_basePan"  pos="0.085 -0.04025 0.137" axis="0.0 0.0 -1.0" range="-85.05 84.10499999999999" />
-        <geom name="DummyRightFront_basePan" fromto="0.006473356136055423 0.0 0.0 -0.059298355925488655 0.0 0.0" size="0.05328772788915553"/>
-      </body>
-      <body name="DummyLeftFront_basePan" pos="-0.02641249989471662 0.010643863944577763 -0.0015">
-        <joint name="DummyLeftFront_basePan"  pos="0.085 0.04025 0.137" axis="0.0 0.0 -1.0" range="-85.05 85.05" />
-        <geom name="DummyLeftFront_basePan" fromto="0.006478356136055425 0.0 0.0 -0.05930335592548866 0.0 0.0" size="0.043287727889155525"/>
-      </body>
-      <body name="DummyRightRear_basePan" pos="-0.026412500000000002 -0.010641756534576417 0.0015">
-        <joint name="DummyRightRear_basePan"  pos="-0.085 -0.04025 0.137" axis="0.0 0.0 -1.0" range="-85.05 85.05" />
-        <geom name="DummyRightRear_basePan" fromto="0.006478358243465424 0.0 0.0 -0.05930335824346542 0.0 0.0" size="0.04328351306915283"/>
-      </body>
-      <body name="Head_tilt" pos="0.0 0.0 -0.004094785690307618">
-        <joint name="Head_tilt"  pos="0.085 0.0 0.137" axis="1.0 0.0 0.0" range="-85.05 85.05" />
-        <geom name="Head_tilt" fromto="0.005988897537231446 0.0 0.0 -0.005988897537231446 0.0 0.0" size="0.02412085723876953"/>
-        <body name="Head_pan" pos="0.04213004375497949 0.0 0.012421456548968252">
-          <joint name="Head_pan"  pos="0.0 0.0 0.0" axis="1.0 0.0 0.0" range="-70.875 63.315" />
-          <geom name="Head_pan" fromto="0.09803275601658129 0.0 0.0 -0.013772668506622315 0.0 0.0" size="0.0694262466430664"/>
-        </body>
-      </body>
-      <body name="Tail_basePan" pos="0.0 0.0 -0.004094785690307618">
-        <joint name="Tail_basePan"  pos="-0.085 0.0 0.137" axis="-1.0 0.0 0.0" range="-85.05 85.05" />
-        <geom name="Tail_basePan" fromto="0.005988897537231446 0.0 0.0 -0.005988897537231446 0.0 0.0" size="0.02412085723876953"/>
-        <body name="Tail_baseTilt" pos="0.07153342161178589 0.0 0.006053571319580076">
-          <joint name="Tail_baseTilt"  pos="0.0 0.0 0.0" axis="1.0 0.0 0.0" range="-85.05 85.05" />
-          <geom name="Tail_baseTilt" fromto="0.15686041748237609 0.0 0.0 -0.013793574258804321 0.0 0.0" size="0.027614742279052733"/>
-        </body>
-      </body>
+      <geom name="Marcos_base_2" pos="0.07749500000000001 0.046744999999999995 0.119995" size="0.01"/>
+      <geom name="Marcos_base_3" pos="-0.07750499999999999 -0.046755000000000005 0.119995" size="0.01"/>
+      <geom name="Marcos_base_4" pos="-0.07750499999999999 0.046744999999999995 0.119995" size="0.01"/>
+      <geom name="Marcos_base_5" pos="0.084995 -5.0E-6 0.136995" size="0.01"/>
+      <geom name="Marcos_base_6" pos="-0.085005 -5.0E-6 0.136995" size="0.01"/>
     </body>
 
   </worldbody>
+    <actuator>
+      <motor name="basePan_RightFront"       gear="120"  joint="basePan_RightFront"/>
+      <motor name="elbow_RightFront"       gear="120"  joint="elbow_RightFront"/>
+      <motor name="baseTilt_RightFront"       gear="120"  joint="baseTilt_RightFront"/>
+    </actuator>
+
 </mujoco>
