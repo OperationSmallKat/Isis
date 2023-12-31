@@ -33,28 +33,106 @@
         <geom name="basePan_RightFront_A" pos="0.030994999527843004 4.105206537133909E-7 0.004995" size="0.01"/>
         <geom name="basePan_RightFront_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
         <body name="baseTilt_RightFront" pos="0.030999999527843002 5.410520653713441E-6 0.005"  quat="0.7072918743815211 -0.7069216341423136 -6.16905505034108E-5 6.172286005948052E-5">
-          <joint name="baseTilt_RightFront"  pos="0.0 0.0 0.0" axis="0 0 1" range="-85.05 85.05" />
+          <joint name="baseTilt_RightFront"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-85.05 85.05" />
           <geom name="baseTilt_RightFront_A" pos="0.03888587296526011 -0.03889587296526012 -5.0E-6" size="0.01"/>
           <geom name="baseTilt_RightFront_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
           <body name="elbow_RightFront" pos="0.038890872965260115 -0.03889087296526011 0.0"  quat="0.9238795289934143 8.062369856820899E-5 -3.339542939563245E-5 -0.3826834309079392">
-            <joint name="elbow_RightFront"  pos="0.0 0.0 0.0" axis="0 0 1" range="-85.05 85.05" />
+            <joint name="elbow_RightFront"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-85.05 85.05" />
             <geom name="elbow_RightFront_A" pos="-4.999999999997336E-6 0.047994999999999996 -5.0E-6" size="0.01"/>
             <geom name="elbow_RightFront_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
           </body>
         </body>
       </body>
       <geom name="Marcos_base_2" pos="0.07749500000000001 0.046744999999999995 0.119995" size="0.01"/>
+      <body name="basePan_LeftFront" pos="0.0775 0.04675 0.12"  quat="6.17120920876324E-5 -0.7071684825084507 6.170132223555764E-5 0.7070450690947923">
+        <joint name="basePan_LeftFront"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-85.05 35.91" />
+        <geom name="basePan_LeftFront_A" pos="0.030994999527843004 4.105206537133909E-7 0.004995" size="0.01"/>
+        <geom name="basePan_LeftFront_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+        <body name="baseTilt_LeftFront" pos="0.030999999527843002 5.410520653713441E-6 0.005"  quat="0.7072918743815211 -0.7069216341423136 -6.16905505034108E-5 6.172286005948052E-5">
+          <joint name="baseTilt_LeftFront"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-85.05 85.05" />
+          <geom name="baseTilt_LeftFront_A" pos="0.03888587296526011 -0.03889587296526012 -5.0E-6" size="0.01"/>
+          <geom name="baseTilt_LeftFront_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+          <body name="elbow_LeftFront" pos="0.038890872965260115 -0.03889087296526011 0.0"  quat="0.9238795289934143 8.062369856820899E-5 -3.339542939563245E-5 -0.3826834309079392">
+            <joint name="elbow_LeftFront"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-85.05 85.05" />
+            <geom name="elbow_LeftFront_A" pos="-4.999999999997336E-6 0.047994999999999996 -5.0E-6" size="0.01"/>
+            <geom name="elbow_LeftFront_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+          </body>
+        </body>
+      </body>
       <geom name="Marcos_base_3" pos="-0.07750499999999999 -0.046755000000000005 0.119995" size="0.01"/>
+      <body name="basePan_RightRear" pos="-0.0775 -0.04675 0.12"  quat="-6.171209208705922E-5 -0.7071684825084507 -6.170132223498458E-5 0.7070450690947923">
+        <joint name="basePan_RightRear"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-37.8 85.05" />
+        <geom name="basePan_RightRear_A" pos="0.030995 -5.0E-6 0.004995" size="0.01"/>
+        <geom name="basePan_RightRear_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+        <body name="baseTilt_RightRear" pos="0.031 0.0 0.005"  quat="0.7071067811865476 -0.7071067811865475 -0.0 -0.0">
+          <joint name="baseTilt_RightRear"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-85.05 85.05" />
+          <geom name="baseTilt_RightRear_A" pos="0.03888587296526011 -0.03889587296526011 -5.0E-6" size="0.01"/>
+          <geom name="baseTilt_RightRear_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+          <body name="elbow_RightRear" pos="0.038890872965260115 -0.03889087296526011 0.0"  quat="0.9238795325112867 -0.0 -0.0 -0.3826834323650898">
+            <joint name="elbow_RightRear"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-85.05 85.05" />
+            <geom name="elbow_RightRear_A" pos="-4.999999999997336E-6 0.047994999999999996 -5.0E-6" size="0.01"/>
+            <geom name="elbow_RightRear_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+          </body>
+        </body>
+      </body>
       <geom name="Marcos_base_4" pos="-0.07750499999999999 0.046744999999999995 0.119995" size="0.01"/>
+      <body name="basePan_LeftRear" pos="-0.0775 0.04675 0.12"  quat="6.171209208705922E-5 -0.7071684825084507 6.170132223498458E-5 0.7070450690947923">
+        <joint name="basePan_LeftRear"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-84.10499999999999 31.185" />
+        <geom name="basePan_LeftRear_A" pos="0.030994999527843004 4.105206537133909E-7 0.004995" size="0.01"/>
+        <geom name="basePan_LeftRear_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+        <body name="baseTilt_LeftRear" pos="0.030999999527843002 5.410520653713441E-6 0.005"  quat="0.7072918743815211 -0.7069216341423136 -6.16905505034108E-5 6.172286005948052E-5">
+          <joint name="baseTilt_LeftRear"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-85.05 85.05" />
+          <geom name="baseTilt_LeftRear_A" pos="0.03888587296526011 -0.03889587296526012 -5.0E-6" size="0.01"/>
+          <geom name="baseTilt_LeftRear_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+          <body name="elbow_LeftRear" pos="0.038890872965260115 -0.03889087296526011 0.0"  quat="0.9238795289934143 8.062369856820899E-5 -3.339542939563245E-5 -0.3826834309079392">
+            <joint name="elbow_LeftRear"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-85.05 85.05" />
+            <geom name="elbow_LeftRear_A" pos="-4.999999999997336E-6 0.047994999999999996 -5.0E-6" size="0.01"/>
+            <geom name="elbow_LeftRear_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+          </body>
+        </body>
+      </body>
       <geom name="Marcos_base_5" pos="0.084995 -5.0E-6 0.136995" size="0.01"/>
+      <body name="tilt_Head" pos="0.085 0.0 0.137"  quat="0.7071067811865476 -0.7071067811865475 -0.0 -0.0">
+        <joint name="tilt_Head"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-85.05 85.05" />
+        <geom name="tilt_Head_A" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+        <geom name="tilt_Head_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+        <body name="pan_Head" pos="0.0 0.0 0.0"  quat="0.7071067811865476 0.7071067811865475 -0.0 -0.0">
+          <joint name="pan_Head"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-70.875 63.315" />
+          <geom name="pan_Head_A" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+          <geom name="pan_Head_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+        </body>
+      </body>
       <geom name="Marcos_base_6" pos="-0.085005 -5.0E-6 0.136995" size="0.01"/>
+      <body name="basePan_Tail" pos="-0.085 0.0 0.137"  quat="6.170670739598364E-5 -6.170670739598361E-5 -0.7071067784940844 0.7071067784940845">
+        <joint name="basePan_Tail"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-85.05 85.05" />
+        <geom name="basePan_Tail_A" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+        <geom name="basePan_Tail_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+        <body name="baseTilt_Tail" pos="0.0 0.0 0.0"  quat="0.7071067811865476 0.7071067811865475 -0.0 -0.0">
+          <joint name="baseTilt_Tail"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-85.05 85.05" />
+          <geom name="baseTilt_Tail_A" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+          <geom name="baseTilt_Tail_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
+        </body>
+      </body>
     </body>
 
   </worldbody>
     <actuator>
-      <motor name="basePan_RightFront"       gear="120"  joint="basePan_RightFront"/>
+      <motor name="elbow_LeftFront"       gear="120"  joint="elbow_LeftFront"/>
+      <motor name="baseTilt_RightRear"       gear="120"  joint="baseTilt_RightRear"/>
+      <motor name="basePan_RightRear"       gear="120"  joint="basePan_RightRear"/>
+      <motor name="basePan_LeftFront"       gear="120"  joint="basePan_LeftFront"/>
+      <motor name="elbow_LeftRear"       gear="120"  joint="elbow_LeftRear"/>
       <motor name="elbow_RightFront"       gear="120"  joint="elbow_RightFront"/>
+      <motor name="basePan_LeftRear"       gear="120"  joint="basePan_LeftRear"/>
       <motor name="baseTilt_RightFront"       gear="120"  joint="baseTilt_RightFront"/>
+      <motor name="elbow_RightRear"       gear="120"  joint="elbow_RightRear"/>
+      <motor name="tilt_Head"       gear="120"  joint="tilt_Head"/>
+      <motor name="basePan_RightFront"       gear="120"  joint="basePan_RightFront"/>
+      <motor name="pan_Head"       gear="120"  joint="pan_Head"/>
+      <motor name="baseTilt_Tail"       gear="120"  joint="baseTilt_Tail"/>
+      <motor name="baseTilt_LeftRear"       gear="120"  joint="baseTilt_LeftRear"/>
+      <motor name="baseTilt_LeftFront"       gear="120"  joint="baseTilt_LeftFront"/>
+      <motor name="basePan_Tail"       gear="120"  joint="basePan_Tail"/>
     </actuator>
 
 </mujoco>

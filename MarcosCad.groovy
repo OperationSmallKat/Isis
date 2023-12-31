@@ -1240,6 +1240,17 @@ class cadGenMarcos implements ICadGenerator{
 		if(bom==null)
 			bom=new VitaminBomManager(mb.getGitSelfSource()[0]);
 	}
+	TransformNR transformToTipOfLink(DHParameterKinematics d, int linkIndex){
+		TransformNR linkTip;
+		try {
+			linkTip = d.getLinkTip(linkIndex);
+			if(linkTip==null)
+				throw new RuntimeException();
+		}catch(Exception e) {
+			linkTip=d.getChain().getChain(d.getCurrentJointSpaceVector()).get(linkIndex);
+		}
+		return linkTip
+	}
 	@Override
 	public ArrayList<CSG> generateBody(MobileBase arg0) {
 		boolean makeCalibration =true;
@@ -1402,7 +1413,7 @@ class cadGenMarcos implements ICadGenerator{
 		CSG spars
 		if(calibrationJigFile.exists()) {
 			println "Calibration Jig Exists "+calibrationJigFile.getAbsolutePath()
-			makeCalibration=false
+			//makeCalibration=false
 			spars  = Vitamins.get(calibrationJigFile);
 		}
 		if(makeCalibration) {
@@ -1421,8 +1432,11 @@ class cadGenMarcos implements ICadGenerator{
 			Transform tipLeftRear = TransformFactory.nrToCSG(getByName(arg0,"LeftRear").calcHome())
 			Transform tipRightRear = TransformFactory.nrToCSG(getByName(arg0,"RightRear").calcHome())
 
-			Transform neck =TransformFactory.nrToCSG(getByName(arg0,"Head").calcHome())
-			Transform butt =TransformFactory.nrToCSG(getByName(arg0,"Tail").calcHome())
+			DHParameterKinematics h = getByName(arg0,"Head")
+			DHParameterKinematics t = getByName(arg0,"Tail")
+
+			Transform neck =TransformFactory.nrToCSG(transformToTipOfLink(h,1))
+			Transform butt =TransformFactory.nrToCSG(transformToTipOfLink(t,1))
 
 			CSG neckBit = getNeckLink().transformed(neck)
 			CSG buttBit = getNeckLink().transformed(butt)
