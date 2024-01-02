@@ -20,7 +20,7 @@
       <!-- geoms -->
       <geom type="sphere" condim="1" friction=".7" solimp=".9 .99 .003" solref=".015 1" material="body" group="1"/>
 <!-- joints -->
-      <joint type="hinge" damping="7.5" stiffness="20" armature=".01" limited="true" solimplimit="0 .99 .01"/>
+      <joint type="hinge" damping="7.5" stiffness="5" armature=".01" limited="true" solimplimit="0 .99 .01"/>
     </default>
   </default>
   <worldbody>
@@ -102,7 +102,7 @@
           <geom name="pan_Head_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
           <body name="tip_Head" pos="0.0 0.0 0.0"  quat="1.0 -0.0 -0.0 -0.0">
             <joint name="tip_Head"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-70.875 63.315" />
-            <geom name="tip_Head_A" pos="0.199995 -5.0E-6 -5.0E-6" size="0.01"/>
+            <geom name="tip_Head_A" pos="0.084995 -5.0E-6 -5.0E-6" size="0.01"/>
             <geom name="tip_Head_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
           </body>
         </body>
@@ -118,7 +118,7 @@
           <geom name="baseTilt_Tail_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
           <body name="tip_Tail" pos="0.0 0.0 0.0"  quat="1.0 -0.0 -0.0 -0.0">
             <joint name="tip_Tail"  pos="0.0 0.0 0.0" axis="0.0 0.0 1.0" range="-85.05 85.05" />
-            <geom name="tip_Tail_A" pos="0.199995 -5.0E-6 -5.0E-6" size="0.01"/>
+            <geom name="tip_Tail_A" pos="0.14999500000000002 -5.0E-6 0.024995" size="0.01"/>
             <geom name="tip_Tail_B" pos="-5.0E-6 -5.0E-6 -5.0E-6" size="0.01"/>
           </body>
         </body>
