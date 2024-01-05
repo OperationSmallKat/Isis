@@ -141,6 +141,11 @@ class BodyController{
 									.times(new TransformNR(0,0,0,new RotationNR(180,0,0)))
 									.times(new TransformNR(0,0,0,new RotationNR(0,90,0)))
 					})
+					source.getImu().addvirtualListeners({update ->
+						// clear the hardware listeners if this is running in simuldation
+						source.getImu().clearhardwareListeners()
+						
+					})
 					measuredPose=new TransformNR();
 					// Search for the head and tail limbs
 					for(DHParameterKinematics d:source.getAllDHChains()) {
@@ -237,7 +242,7 @@ class BodyController{
 			if(Math.abs(tiltAngle)<10)
 				vect[1]+=tiltAngle*2;
 			else {
-				vect[1]+=tiltAngle>0?10:-10;
+				vect[1]+=tiltAngle>0?20:-20;
 			}
 			tail.setDesiredJointSpaceVector(vect, 0)
 			vect[1]*=-1
