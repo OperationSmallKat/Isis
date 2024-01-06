@@ -8,66 +8,64 @@ import com.neuronrobotics.sdk.common.DeviceManager
 import com.neuronrobotics.sdk.common.Log
 
 IDriveEngine engine = new IDriveEngine () {
-	/**
-	* Driving kinematics should be implemented in here
-	*
-	*
-	* This method should not block You will get that called every 0.1 to 0.01 seconds
-	* by the jog widget with a small displacement transform. If the last command
-	* finishes before a new one comes in, reset the driving device.
-	* if a new command comes in then keep moving. Assume that the most important
-	* thing here is time synchronicity.you may get it called with a large transform,
-	* larger than you can take in one step,a nd you may get a transform with a step size so
-	* small it would never move. You will need to warp and stretch the transform coming in
-	* to make sure there are an integer number of steps, with at least some minimum step length.
-	*
-	* Be sure to have any threads you create timeout and die, don't wait for disconnect, as you
-	* are developing that will be a pain in the ass
-	*
-	* Essentially, this command defines a velocity (transform/second)and you need to maintain
-	* that velocity, descretized into steps, and stop as soon as the last velocity term times out
-	* also, do not assume it will ever be pure rotation nor pure translation, assume all
-	* commands are a combo of both.
-	*
-	* @param source the source
-	* @param newPose the new pose that should be achived.
-	* @param seconds how many seconds it should take
-	*/
+			/**
+	 * Driving kinematics should be implemented in here
+	 *
+	 *
+	 * This method should not block You will get that called every 0.1 to 0.01 seconds
+	 * by the jog widget with a small displacement transform. If the last command
+	 * finishes before a new one comes in, reset the driving device.
+	 * if a new command comes in then keep moving. Assume that the most important
+	 * thing here is time synchronicity.you may get it called with a large transform,
+	 * larger than you can take in one step,a nd you may get a transform with a step size so
+	 * small it would never move. You will need to warp and stretch the transform coming in
+	 * to make sure there are an integer number of steps, with at least some minimum step length.
+	 *
+	 * Be sure to have any threads you create timeout and die, don't wait for disconnect, as you
+	 * are developing that will be a pain in the ass
+	 *
+	 * Essentially, this command defines a velocity (transform/second)and you need to maintain
+	 * that velocity, descretized into steps, and stop as soon as the last velocity term times out
+	 * also, do not assume it will ever be pure rotation nor pure translation, assume all
+	 * commands are a combo of both.
+	 *
+	 * @param source the source
+	 * @param newPose the new pose that should be achived.
+	 * @param seconds how many seconds it should take
+	 */
 
-	boolean firstRun=true
-	double zoffsetOfFeetHome = -18
-	double xOffsetOfFeetHome = 2.5
-	double ySplayOut = 5
-	double stepOverHeight = 10
-	public void DriveArc(MobileBase source,TransformNR newPose,double seconds) {
-		try {
-			
-			// Load the gear-wrist kinematics with default values when controller starts (headless mode nessissary)
-			ScriptingEngine.gitScriptRun("https://github.com/OperationSmallKat/Marcos.git", "GearWristKinematics.groovy")
-			def con = DeviceManager.getSpecificDevice("BodyController-"+source.getScriptingName(),{
-				BodyController bc= new BodyController()
-				bc.connect();
-				source.setHomeProvider({limb->
-					return limb.calcHome()
-								.translateZ(zoffsetOfFeetHome)// move the starting point down
-								.translateX(xOffsetOfFeetHome) // move the starting point forward
-								.translateY(limb.getRobotToFiducialTransform().getY()>0?
+			boolean firstRun=true
+			double zoffsetOfFeetHome = -18
+			double xOffsetOfFeetHome = 2.5
+			double ySplayOut = 5
+			double stepOverHeight = 10
+			public void DriveArc(MobileBase source,TransformNR newPose,double seconds) {
+				try {
+
+					// Load the gear-wrist kinematics with default values when controller starts (headless mode nessissary)
+					ScriptingEngine.gitScriptRun("https://github.com/OperationSmallKat/Marcos.git", "GearWristKinematics.groovy")
+					def con = DeviceManager.getSpecificDevice("BodyController-"+source.getScriptingName(),{
+						BodyController bc= new BodyController()
+						bc.connect();
+						source.setHomeProvider({limb->
+							return limb.calcHome()
+									.translateZ(zoffsetOfFeetHome)// move the starting point down
+									.translateX(xOffsetOfFeetHome) // move the starting point forward
+									.translateY(limb.getRobotToFiducialTransform().getY()>0?
 									ySplayOut:-ySplayOut) // move the starting point forward
-								
-				})
-				return bc;
-			})
-			con.stepOverHeight=stepOverHeight
-			con.source=source
-			con.incomingPose=newPose
-			con.incomingSeconds=seconds
-			con.timeOfMostRecentCommand=System.currentTimeMillis()
-			
-		}catch(Throwable t) {
-			t.printStackTrace()
+						})
+						return bc;
+					})
+					con.stepOverHeight=stepOverHeight
+					con.source=source
+					con.incomingPose=newPose
+					con.incomingSeconds=seconds
+					con.timeOfMostRecentCommand=System.currentTimeMillis()
+				}catch(Throwable t) {
+					t.printStackTrace()
+				}
+			}
 		}
-	}
-}
 
 return engine
 
@@ -86,7 +84,7 @@ class BodyController{
 	double unitScale =1.0/(numPointsInLoop/2.0)
 	Thread bodyLoop = null;
 	boolean availible=true;
-	
+
 	int coriolisIndex = 0
 	// ms of the tail loop
 	double timeOfTailLoop = 350
@@ -95,7 +93,7 @@ class BodyController{
 	double coriolisDivisions = timeOfTailLoop/coriolisTimeBase
 	double coriolisDivisionsScale = 360.0/coriolisDivisions
 	double coriolisGain=2
-	
+
 	double cycleTime = numMsOfLoop*numPointsInLoop*(numberOfInterpolationPoints+1)+(numMsOfLoop*1)
 	int numberOfInterpolatedPointsInALoop = numPointsInLoop*(numberOfInterpolationPoints+1)
 	MobileBase source=null;
@@ -114,37 +112,43 @@ class BodyController{
 	HashMap<DHParameterKinematics,ArrayList<TransformNR>> legTipMap=null;
 	long timeOfStartOfCycle = System.currentTimeMillis()
 	double tailDefaultLift=0;
-	
+	boolean isVirtualMode = false;
 	private void loop() {
-		
+
 		double timeElapsedSinceLastCommand = ((double)(System.currentTimeMillis()-timeOfMostRecentCommand))/1000.0
 		switch(state) {
 			case CycleState.waiting:
 				if(source==null) {
-//					if(lastSource!=null && measuredPose!=null) {
-//						lastSource.setGlobalToFiducialTransform(measuredPose)
-//					}
+					//					if(lastSource!=null && measuredPose!=null) {
+					//						lastSource.setGlobalToFiducialTransform(measuredPose)
+					//					}
 					break;
 				}else {
-				
+
 					if(lastSource!=null) {
 						// remove old hardware listeners
 						lastSource.setGlobalToFiducialTransform(new TransformNR())
 						lastSource.getImu().clearhardwareListeners()
 					}
 					lastSource=source;
-					// Add the IMU listener
-					source.getImu().addhardwareListeners({update ->
-						// read the IMU and transform it to match the hardware
-						measuredPose=new TransformNR(0,0,0,new RotationNR(	-update.getxAcceleration(),
-								update.getyAcceleration()-90,	update.getzAcceleration()	))
+					if(!isVirtualMode) {
+						// Add the IMU listener
+						source.getImu().addhardwareListeners({update ->
+							// read the IMU and transform it to match the hardware
+							measuredPose=new TransformNR(0,0,0,new RotationNR(	-update.getxAcceleration(),
+									update.getyAcceleration()-90,	update.getzAcceleration()	))
 									.times(new TransformNR(0,0,0,new RotationNR(180,0,0)))
 									.times(new TransformNR(0,0,0,new RotationNR(0,90,0)))
-					})
+						})
+					}
 					source.getImu().addvirtualListeners({update ->
-						// clear the hardware listeners if this is running in simuldation
-						source.getImu().clearhardwareListeners()
-						
+						if(!isVirtualMode) {
+							isVirtualMode=true;
+							// clear the hardware listeners if this is running in simulation
+							source.getImu().clearhardwareListeners()
+						}
+						measuredPose=new TransformNR(0,0,0,new RotationNR(	update.getxAcceleration(),
+								update.getyAcceleration(),	update.getzAcceleration()	))
 					})
 					measuredPose=new TransformNR();
 					// Search for the head and tail limbs
@@ -167,10 +171,10 @@ class BodyController{
 					tailDefaultLift = tail.getAbstractLink(0).getMinEngineeringUnits()
 				}
 				state=CycleState.cycleStart;
-				
+
 			//no break
 			case CycleState.cycleStart:
-				//println "Walk cycle starting "+cycleTime + " last Took "+(System.currentTimeMillis()-timeOfStartOfCycle);
+			//println "Walk cycle starting "+cycleTime + " last Took "+(System.currentTimeMillis()-timeOfStartOfCycle);
 				timeOfStartOfCycle = System.currentTimeMillis()
 				pontsIndex=0;
 				newPose=incomingPose
@@ -187,7 +191,7 @@ class BodyController{
 				}else {
 					state=CycleState.checkForContinue
 				}
-				//no break
+			//no break
 			case CycleState.checkForContinue:
 				if((timeElapsedSinceLastCommand)<seconds/2) {
 					state=CycleState.cycleStart
@@ -196,11 +200,11 @@ class BodyController{
 				}else {
 					state=CycleState.cycleFinish
 				}
-				// no break
+			// no break
 			case CycleState.cycleFinish:
 				doFinishingMove()
 				state=CycleState.waiting
-				//println "Finising move"
+			//println "Finising move"
 				source=null
 				clearLegTips()
 				break;
@@ -221,7 +225,7 @@ class BodyController{
 				abs=min
 			}
 			def coriolisIndexCoriolisDivisionsScale = coriolisIndex*coriolisDivisionsScale
-			
+
 			def coriolisIndexCoriolisDivisionsScaleTiltAngle = coriolisIndexCoriolisDivisionsScale+tiltAngle
 			//println "Measured tilt = "+tiltAngle+" target = "+coriolisIndexCoriolisDivisionsScaleTiltAngle
 			double sinCop = Math.sin(Math.toRadians(coriolisIndexCoriolisDivisionsScaleTiltAngle))
@@ -235,7 +239,7 @@ class BodyController{
 				coriolisIndex--;
 				coriolisIndex=(coriolisIndex<0?coriolisDivisions-1:coriolisIndex)
 			}
-	
+
 			double[] vect =tail.getCurrentJointSpaceVector()
 			vect[0]=computedTilt
 			vect[1]=computedPan//+tiltAngle
@@ -268,9 +272,9 @@ class BodyController{
 		if(legRoot.getX()<=0&&legRoot.getY()<0 ){
 			return true
 		}else
-		if(legRoot.getX()>=0&&legRoot.getY()>=0 ){
-			return true
-		}
+			if(legRoot.getX()>=0&&legRoot.getY()>=0 ){
+				return true
+			}
 		return false
 	}
 	/**
@@ -284,9 +288,9 @@ class BodyController{
 		if(legRoot.getX()>0&&legRoot.getY()<0 ){
 			return true
 		}else
-		if(legRoot.getX()<0&&legRoot.getY()>=0 ){
-			return true
-		}
+			if(legRoot.getX()<0&&legRoot.getY()>=0 ){
+				return true
+			}
 		return false
 	}
 
@@ -304,7 +308,7 @@ class BodyController{
 			if(isBgroup( leg)) {
 				index=pontsIndex+numberOfInterpolatedPointsInALoop/2
 			}
-			
+
 			if(index>=numberOfInterpolatedPointsInALoop)
 				index -=numberOfInterpolatedPointsInALoop
 			//println "Leg "+leg.getScriptingName()+" index "+index
@@ -370,7 +374,7 @@ class BodyController{
 					// run body controller until disconnected
 					while(availible) {
 						long start = System.currentTimeMillis();
-						
+
 						// update the gait generation
 						loop();
 						// update the dynamics controller
@@ -567,6 +571,4 @@ class BodyController{
 		}
 		return legTipMap
 	}
-
-
 }
