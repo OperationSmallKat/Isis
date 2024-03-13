@@ -1185,10 +1185,10 @@ class cadGenMarcos implements ICadGenerator{
 				.rotz(angle)
 				.movex(-linkLen)
 
-		CSG foot  = Vitamins.get(ScriptingEngine.fileFromGit(
-				"https://github.com/OperationSmallKat/Marcos.git",
-				"Foot.stl"))
-				.rotx(180)
+//		CSG foot  = Vitamins.get(ScriptingEngine.fileFromGit(
+//				"https://github.com/OperationSmallKat/Marcos.git",
+//				"Foot.stl"))
+//				.rotx(180)
 		double c3 = Math.sin(Math.toRadians(angle))*linklen
 		double c1 = Math.cos(Math.toRadians(angle))*linklen
 		double c2= linkLen-c1;
