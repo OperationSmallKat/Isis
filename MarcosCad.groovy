@@ -1567,7 +1567,7 @@ class cadGenMarcos implements ICadGenerator{
 		spars.setColor(Color.DARKRED)
 		back.add(spars)
 		spars.getStorage().set("no-physics", true);
-
+		motherboard.getStorage().set("no-physics", true);
 		back.addAll([
 			battery,
 			batteryInterface,

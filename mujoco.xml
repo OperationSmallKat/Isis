@@ -25,7 +25,7 @@
   </default>
   <worldbody>
     <geom name="floor" size="0 0 .05" type="plane" material="grid" condim="3"/>
-    <body name="Marcos_base" pos="0.0 0.0 0.13843452850341798" childclass="body">
+    <body name="Marcos_base" pos="0.0 0.0 0.14144048515319824" childclass="body">
       <freejoint name="root"/>
       <geom name="Marcos_base_1" pos="0.07749500000000001 -0.046755000000000005 0.119995" size="0.01"/>
       <body name="basePan_RightFront" pos="0.0775 -0.04675 0.12"  quat="6.171209208705922E-5 -0.7071684825084507 6.170132223498458E-5 0.7070450690947923">
