@@ -8,3 +8,4 @@
 /Calibration*.stl
 /bin/
 *.~lock.*
+/physics/
