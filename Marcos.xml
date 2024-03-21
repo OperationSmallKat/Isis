@@ -1269,8 +1269,8 @@
 
 	</vitamins>
 	<passive>false</passive>
-	<mass>0.01</mass>
-	<centerOfMassFromCentroid>	<x>0.0</x>
+	<mass>0.1</mass>
+	<centerOfMassFromCentroid>	<x>0.025</x>
 	<y>0.0</y>
 	<z>0.0</z>
 	<rotw>1.0</rotw>
