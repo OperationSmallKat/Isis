@@ -896,10 +896,10 @@
 	<x>-85.0</x>
 	<y>40.25</y>
 	<z>137.0</z>
-	<rotw>-0.4999999999993643</rotw>
-	<rotx>-0.5000000000006358</rotx>
-	<roty>-0.49999999999936434</roty>
-	<rotz>0.5000000000006358</rotz>
+	<rotw>-0.4999999999993642</rotw>
+	<rotx>-0.5000000000006357</rotx>
+	<roty>-0.49999999999936423</roty>
+	<rotz>0.5000000000006357</rotz>
 </baseToZframe>
 
 </appendage>
@@ -1270,7 +1270,7 @@
 	</vitamins>
 	<passive>false</passive>
 	<mass>0.1</mass>
-	<centerOfMassFromCentroid>	<x>0.025</x>
+	<centerOfMassFromCentroid>	<x>0.4</x>
 	<y>0.0</y>
 	<z>0.0</z>
 	<rotw>1.0</rotw>
