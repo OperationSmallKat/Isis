@@ -4,6 +4,7 @@ import com.neuronrobotics.sdk.addons.kinematics.IDriveEngine
 import com.neuronrobotics.sdk.addons.kinematics.MobileBase
 import com.neuronrobotics.sdk.addons.kinematics.math.RotationNR
 import com.neuronrobotics.sdk.addons.kinematics.math.TransformNR
+import com.neuronrobotics.sdk.addons.kinematics.time.TimeKeeper
 import com.neuronrobotics.sdk.common.DeviceManager
 import com.neuronrobotics.sdk.common.Log
 
@@ -56,11 +57,18 @@ IDriveEngine engine = new IDriveEngine () {
 						})
 						return bc;
 					})
+					if(Math.abs(con.tiltAngleGlobal)>5) {
+						println "Tilting Recovery "+con.tiltAngleGlobal
+						newPose=newPose.translateY(con.tiltAngleGlobal)
+					}else {
+						println "Safe "+con.tiltAngleGlobal
+					}
+					con.time = source
 					con.stepOverHeight=stepOverHeight
 					con.source=source
 					con.incomingPose=newPose
 					con.incomingSeconds=seconds
-					con.timeOfMostRecentCommand=System.currentTimeMillis()
+					con.timeOfMostRecentCommand=source.currentTimeMillis()
 				}catch(Throwable t) {
 					t.printStackTrace()
 				}
@@ -98,6 +106,7 @@ class BodyController{
 	int numberOfInterpolatedPointsInALoop = numPointsInLoop*(numberOfInterpolationPoints+1)
 	MobileBase source=null;
 	MobileBase lastSource=null
+	TimeKeeper time;
 	TransformNR newPose=null;
 	TransformNR incomingPose=null;
 	double incomingSeconds=0;
@@ -113,9 +122,15 @@ class BodyController{
 	long timeOfStartOfCycle = System.currentTimeMillis()
 	double tailDefaultLift=0;
 	boolean isVirtualMode = false;
+	double tiltAngleGlobal = 0;
 	private void loop() {
 
-		double timeElapsedSinceLastCommand = ((double)(System.currentTimeMillis()-timeOfMostRecentCommand))/1000.0
+		long now ;
+		if(time!=null)
+			now= time.currentTimeMillis()
+		else
+			now=System.currentTimeMillis()
+		double timeElapsedSinceLastCommand = ((double)(now-timeOfMostRecentCommand))/1000.0
 		switch(state) {
 			case CycleState.waiting:
 				if(source==null) {
@@ -175,8 +190,9 @@ class BodyController{
 			//no break
 			case CycleState.cycleStart:
 			//println "Walk cycle starting "+cycleTime + " last Took "+(System.currentTimeMillis()-timeOfStartOfCycle);
-				timeOfStartOfCycle = System.currentTimeMillis()
+				timeOfStartOfCycle = now
 				pontsIndex=0;
+
 				newPose=incomingPose
 				seconds=incomingSeconds
 				setupCycle()
@@ -210,7 +226,12 @@ class BodyController{
 				break;
 		}
 	}
-
+	private void forceSteps() {
+		incomingPose=new TransformNR(0,tiltAngleGlobal,0)
+		incomingSeconds=seconds
+		timeOfMostRecentCommand=time.currentTimeMillis()
+		println "Forcing steps"
+	}
 	private void runDynamics() {
 		if(measuredPose!=null) {
 			double tiltAngle = Math.toDegrees(measuredPose.getRotation().getRotationTilt())
@@ -230,7 +251,11 @@ class BodyController{
 					tiltAngle=max
 				else
 					tiltAngle=-max
+				if(state == CycleState.waiting) {
+					forceSteps();
+				}
 			}
+			tiltAngleGlobal=tiltAngle
 			def coriolisIndexCoriolisDivisionsScale = coriolisIndex*coriolisDivisionsScale
 
 			def coriolisIndexCoriolisDivisionsScaleTiltAngle = coriolisIndexCoriolisDivisionsScale+tiltAngle
@@ -250,7 +275,7 @@ class BodyController{
 			double[] vect =tail.getCurrentJointSpaceVector()
 			vect[0]=computedTilt
 			vect[1]=computedPan//+tiltAngle
-			if(Math.abs(tiltAngle)<10)
+			if(Math.abs(tiltAngle)<6)
 				vect[1]+=tiltAngle*2;
 			else {
 				vect[1]+=tiltAngle>0?20:-20;
@@ -380,23 +405,35 @@ class BodyController{
 					// initialize real-time initial conditions
 					// run body controller until disconnected
 					while(availible) {
-						long start = System.currentTimeMillis();
-
+						long start;
+						if (time!=null)
+							start = time.currentTimeMillis();
+						else
+							start = System.currentTimeMillis();
 						// update the gait generation
 						loop();
 						// update the dynamics controller
 						runDynamics();
 						// compute the real-time condition
-						long elapsed =  System.currentTimeMillis()-(start )
+						long end;
+						if (time!=null)
+							end = time.currentTimeMillis();
+						else
+							end = System.currentTimeMillis();
+						long elapsed =  end-(start )
 						def numMsOfLoopElapsed = numMsOfLoop-elapsed
 						// check for real-time overrun
+						if(source==null) {
+							Thread.sleep(16);
+							continue;
+						}
 						if(numMsOfLoopElapsed<0) {
 							println "Real time in Body Controller broken! Loop took:"+elapsed+" sleep time "+numMsOfLoopElapsed
 							// this controller must run slower than the UI thread
-							Thread.sleep(16);
+							source.sleep(16);
 						}else {
 							// sleep for the computed amount of time to keep the start of loop consistant
-							Thread.sleep(numMsOfLoopElapsed);
+							source.sleep(numMsOfLoopElapsed);
 						}
 						// update the real-time index
 					}
