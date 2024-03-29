@@ -37,7 +37,7 @@ IDriveEngine engine = new IDriveEngine () {
 
 			boolean firstRun=true
 			double zoffsetOfFeetHome = -18
-			double xOffsetOfFeetHome = 2.5
+			double xOffsetOfFeetHome = 7
 			double ySplayOut = 5
 			double stepOverHeight = 10
 			public void DriveArc(MobileBase source,TransformNR newPose,double seconds) {
@@ -57,9 +57,9 @@ IDriveEngine engine = new IDriveEngine () {
 						})
 						return bc;
 					})
-					if(Math.abs(con.tiltAngleGlobal)>5) {
+					if(Math.abs(con.tiltAngleGlobal)>4) {
 						println "Tilting Recovery "+con.tiltAngleGlobal
-						newPose=newPose.translateY(con.tiltAngleGlobal)
+						newPose=newPose.translateY(con.tiltAngleGlobal/10.0)
 					}else {
 						println "Safe "+con.tiltAngleGlobal
 					}
@@ -230,7 +230,8 @@ class BodyController{
 		incomingPose=new TransformNR(0,tiltAngleGlobal,0)
 		incomingSeconds=seconds
 		timeOfMostRecentCommand=time.currentTimeMillis()
-		println "Forcing steps"
+		source=lastSource
+		//println "Forcing steps"
 	}
 	private void runDynamics() {
 		if(measuredPose!=null) {
@@ -251,9 +252,6 @@ class BodyController{
 					tiltAngle=max
 				else
 					tiltAngle=-max
-				if(state == CycleState.waiting) {
-					forceSteps();
-				}
 			}
 			tiltAngleGlobal=tiltAngle
 			def coriolisIndexCoriolisDivisionsScale = coriolisIndex*coriolisDivisionsScale
@@ -278,6 +276,9 @@ class BodyController{
 			if(Math.abs(tiltAngle)<6)
 				vect[1]+=tiltAngle*2;
 			else {
+				if(state == CycleState.waiting) {
+					forceSteps();
+				}
 				vect[1]+=tiltAngle>0?20:-20;
 			}
 			tail.setDesiredJointSpaceVector(vect, 0)
