@@ -782,13 +782,13 @@ class cadGenMarcos implements ICadGenerator{
 		}
 		//reorent the horn for resin printing
 		myServoHorn.setManufacturing({incoming ->
-			return reverseDHValues(incoming, d, linkIndex).roty(linkIndex==0?(front?180:0):(left?180:0)).toZMin()
+			return null;//reverseDHValues(incoming, d, linkIndex).roty(linkIndex==0?(front?180:0):(left?180:0)).toZMin()
 			//.roty(45)
 			//.movez(5)
 		})
-		myServoHorn.getStorage().set("bedType", "resin")
-		myServoHorn.setPrintBedNumber(4)
-		myServoHorn.setName("Resin Horn "+linkIndex+" "+d.getScriptingName())
+		//myServoHorn.getStorage().set("bedType", "resin")
+		//myServoHorn.setPrintBedNumber(4)
+		//myServoHorn.setName("Resin Horn "+linkIndex+" "+d.getScriptingName())
 		// attach this links manipulator
 		myServoHorn.setManipulator(dGetLinkObjectManipulator)
 		back.add(myServoHorn)
@@ -1185,10 +1185,10 @@ class cadGenMarcos implements ICadGenerator{
 				.rotz(angle)
 				.movex(-linkLen)
 
-		CSG foot  = Vitamins.get(ScriptingEngine.fileFromGit(
-				"https://github.com/OperationSmallKat/Marcos.git",
-				"Foot.stl"))
-				.rotx(180)
+//		CSG foot  = Vitamins.get(ScriptingEngine.fileFromGit(
+//				"https://github.com/OperationSmallKat/Marcos.git",
+//				"Foot.stl"))
+//				.rotx(180)
 		double c3 = Math.sin(Math.toRadians(angle))*linklen
 		double c1 = Math.cos(Math.toRadians(angle))*linklen
 		double c2= linkLen-c1;
@@ -1301,17 +1301,20 @@ class cadGenMarcos implements ICadGenerator{
 
 		CSG body  = Vitamins.get(ScriptingEngine.fileFromGit(
 				"https://github.com/OperationSmallKat/Marcos.git",
-				"Body.stl")).movez(zCenterLine);
+				"BodyRib.stl")).movez(zCenterLine);
 		CSG bodyCOver  = Vitamins.get(ScriptingEngine.fileFromGit(
 				"https://github.com/OperationSmallKat/Marcos.git",
-				"BodyCover.stl")).movez(zCenterLine);
+				"CoverHinged.stl")).movez(zCenterLine);
+		CSG bodyLatch  = Vitamins.get(ScriptingEngine.fileFromGit(
+				"https://github.com/OperationSmallKat/Marcos.git",
+				"Latch.stl")).movez(zCenterLine);
 		CSG topCOver  = Vitamins.get(ScriptingEngine.fileFromGit(
 				"https://github.com/OperationSmallKat/Marcos.git",
 				"BodyServoCoverTop.stl")).movez(zCenterLine);
 		CSG BottomCover  = Vitamins.get(ScriptingEngine.fileFromGit(
 				"https://github.com/OperationSmallKat/Marcos.git",
 				"BodyCoverBottom.stl")).movez(zCenterLine);
-		ArrayList<CSG> back =[body, bodyCOver]
+		ArrayList<CSG> back =[body, bodyCOver,bodyLatch]
 		for(CSG c:back) {
 			c.getStorage().set("bedType", "ff-One")
 			c.setPrintBedNumber(5)
@@ -1395,6 +1398,10 @@ class cadGenMarcos implements ICadGenerator{
 		bodyCOver.setName("BodyCover")
 		bodyCOver.addAssemblyStep(6, new Transform().movez(80))
 		body.setName("Body")
+		bodyLatch.setName("Latch")
+		bodyLatch.setManufacturing({ incoming ->
+			return incoming.toZMin().toXMin().toYMin()
+		})
 		body.setManufacturing({ incoming ->
 			return incoming.rotx(180).toZMin().toXMin().toYMin()
 		})
@@ -1560,7 +1567,7 @@ class cadGenMarcos implements ICadGenerator{
 		spars.setColor(Color.DARKRED)
 		back.add(spars)
 		spars.getStorage().set("no-physics", true);
-
+		motherboard.getStorage().set("no-physics", true);
 		back.addAll([
 			battery,
 			batteryInterface,
