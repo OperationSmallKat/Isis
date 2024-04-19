@@ -10,8 +10,9 @@ import com.google.gson.reflect.TypeToken
 import com.neuronrobotics.bowlerstudio.creature.ICadGenerator
 import com.neuronrobotics.bowlerstudio.creature.IgenerateBed
 import com.neuronrobotics.bowlerstudio.scripting.ScriptingEngine
-import com.neuronrobotics.bowlerstudio.vitamins.VitaminBomManager
+//import com.neuronrobotics.bowlerstudio.vitamins.VitaminBomManager
 import com.neuronrobotics.bowlerstudio.vitamins.Vitamins
+import com.neuronrobotics.sdk.addons.kinematics.AbstractLink
 import com.neuronrobotics.sdk.addons.kinematics.DHLink
 import com.neuronrobotics.sdk.addons.kinematics.DHParameterKinematics
 import com.neuronrobotics.sdk.addons.kinematics.LinkConfiguration
@@ -46,8 +47,10 @@ import com.google.gson.GsonBuilder
 import com.neuronrobotics.bowlerstudio.creature.MobileBaseCadManager
 import com.neuronrobotics.bowlerstudio.physics.TransformFactory
 import com.neuronrobotics.sdk.common.DeviceManager
-
+import com.neuronrobotics.sdk.addons.kinematics.VitaminLocation;
 import javafx.application.Platform
+
+
 CSG ChamferedCylinder(double r, double h, double chamferHeight) {
 	CSG cube1 = new Cylinder(r - chamferHeight,r - chamferHeight, h,40).toCSG();
 	CSG cube2 = new Cylinder(r,r, h - chamferHeight * 2,40).toCSG().movez(chamferHeight);
@@ -157,7 +160,7 @@ class cadGenMarcos implements ICadGenerator{
 	double endOfPassiveLinkToBolt = 4.5
 	double hornDiam;
 	Gson gson = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
-	VitaminBomManager bom;
+	//VitaminBomManager bom;
 	CSG cachedGearLink =null;
 
 	public cadGenMarcos(CSG res,HashMap<String,Double> n,double h) {
@@ -166,6 +169,7 @@ class cadGenMarcos implements ICadGenerator{
 		hornDiam=h
 	}
 	ArrayList<CSG> cache = new ArrayList<CSG>()
+	private MobileBase mb;
 	CSG moveDHValues(CSG incoming,DHParameterKinematics d, int linkIndex ){
 		TransformNR step = new TransformNR(d.getChain().getLinks().get(linkIndex).DhStep(0)).inverse()
 		Transform move = com.neuronrobotics.bowlerstudio.physics.TransformFactory.nrToCSG(step)
@@ -649,6 +653,7 @@ class cadGenMarcos implements ICadGenerator{
 		if(d.getScriptingName().startsWith("Head")||d.getScriptingName().startsWith("Tail")) {
 			return generateCadHeadTail(d, linkIndex)
 		}
+		AbstractLink link =d.getAbstractLink(linkIndex)
 		// chaeck to see if this is the left side
 		boolean left=false;
 		boolean front=false;
@@ -713,29 +718,29 @@ class cadGenMarcos implements ICadGenerator{
 		String rightmotorDoorScrewKey = "RightMotorDoorScrew"+d.getScriptingName()+":"+linkIndex
 
 
-		bom.set(motorKey,conf.getElectroMechanicalType(),conf.getElectroMechanicalSize(),new TransformNR())
+		new VitaminLocation(motorKey,conf.getElectroMechanicalType(),conf.getElectroMechanicalSize(),new TransformNR(),link)
 
-		bom.set(leftMotorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR())
-		bom.set(rightMotorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR())
-
-
-
-		bom.set(leftLinkNutKey,"squareNut","M3",new TransformNR())
-		bom.set(rightLinkNutKey,"squareNut","M3",new TransformNR())
-
-		bom.set(leftCalibrationNutKey,"squareNut","M3",new TransformNR())
-		bom.set(rightCalibrationNutKey,"squareNut","M3",new TransformNR())
+		new VitaminLocation(leftMotorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR(),link)
+		new VitaminLocation(rightMotorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR(),link)
 
 
-		bom.set(leftCalibrationScrewKey,"conePointSetScrew","M3x8",new TransformNR())
-		bom.set(rightCalibrationScrewKey,"conePointSetScrew","M3x8",new TransformNR())
+
+		new VitaminLocation(leftLinkNutKey,"squareNut","M3",new TransformNR(),link)
+		new VitaminLocation(rightLinkNutKey,"squareNut","M3",new TransformNR(),link)
+
+		new VitaminLocation(leftCalibrationNutKey,"squareNut","M3",new TransformNR(),link)
+		new VitaminLocation(rightCalibrationNutKey,"squareNut","M3",new TransformNR(),link)
+
+
+		new VitaminLocation(leftCalibrationScrewKey,"conePointSetScrew","M3x8",new TransformNR(),link)
+		new VitaminLocation(rightCalibrationScrewKey,"conePointSetScrew","M3x8",new TransformNR(),link)
 		LengthParameter facets		= new LengthParameter("Bolt Hole Facet Count",10,[40, 10])
 		facets.setMM(30)
 		offset.setMM(numbers.LooseTolerance)
 		if(linkIndex==0) {
 
-			bom.set(leftmotorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR())
-			bom.set(rightmotorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR())
+			new VitaminLocation(leftmotorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR(),link)
+			new VitaminLocation(rightmotorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR(),link)
 
 			motor=motor.rotz(left?180:0)
 			motor=motor.roty(front?180:0)
@@ -745,7 +750,7 @@ class cadGenMarcos implements ICadGenerator{
 			motor.addAssemblyStep(4, new Transform().movex(isDummyGearWrist?-30:MototRetractDist))
 			motor.addAssemblyStep(3, new Transform().movey(isDummyGearWrist?-30:left?-MototRetractDist*4:MototRetractDist*4))
 		}else {
-			bom.set(motorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR())
+			new VitaminLocation(motorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR(),link)
 			motor=motor.roty(left?180:0)
 			motor=motor.rotz(linkIndex==2?90:90+link1Rotz)
 			if(linkIndex==1) {
@@ -915,10 +920,10 @@ class cadGenMarcos implements ICadGenerator{
 			}
 
 
-			bom.set(leftLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(parametric))
-			bom.set(rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(parametric))
-			CSG boltlStart = bom.get(leftLinkScrewKey)
-			CSG boltrStart = bom.get(rightLinkScrewKey)
+			VitaminLocation vLLS=new VitaminLocation(leftLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(parametric),link)
+			VitaminLocation vRLS=new VitaminLocation(rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(parametric),link)
+			CSG boltlStart = MobileBaseCadManager.get(link).getVitamin(vLLS)
+			CSG boltrStart = MobileBaseCadManager.get(link).getVitamin(vRLS)
 
 
 			CSG boltl= moveDHValues(boltlStart
@@ -974,14 +979,14 @@ class cadGenMarcos implements ICadGenerator{
 			double calculated = kinematicsLen-staticOffset
 
 			double xrot=0
-			CSG link = passiveLink(parametric,boltrStart)
+			CSG linkCSG = passiveLink(parametric,boltrStart)
 					.movez(distanceToMotorTop)
 			xrot+=linkIndex==0&&(!front)?180:0
 			xrot+=linkIndex!=0&&(!left)?180:0
-			link=link.rotx(xrot)
+			linkCSG=linkCSG.rotx(xrot)
 
-			link=link.rotz(zrotVal)
-			CSG wrist= moveDHValues(link, d, linkIndex)
+			linkCSG=linkCSG.rotz(zrotVal)
+			CSG wrist= moveDHValues(linkCSG, d, linkIndex)
 			if(linkIndex!=0) {
 				double dist = 25;
 				boltr.addAssemblyStep(10, new Transform().movez(dist))
@@ -1005,13 +1010,14 @@ class cadGenMarcos implements ICadGenerator{
 		cache.addAll(back)
 		return back;
 	}
-	CSG getNeckLink() {
+	CSG getNeckLink(AbstractLink link) {
 		double neckLenFudge = 4.5
 		double parametric = numbers.LinkLength-endOfPassiveLinkToBolt
 		String rightLinkScrewKey="RightLinkScrewTail:1"
 		double length =parametric+neckLenFudge-0.75
-		bom.set(rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(length))
-		CSG boltl = bom.get(rightLinkScrewKey)
+		
+		VitaminLocation v= new VitaminLocation(rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(length),link)
+		CSG boltl = MobileBaseCadManager.get(link).getVitamin(v)
 		return passiveLink(length,boltl)
 				.rotx(180)
 				.movez(-15.1)
@@ -1055,16 +1061,16 @@ class cadGenMarcos implements ICadGenerator{
 			wrist.getStorage().set("bedType", "ff-One")
 			wrist.setPrintBedNumber(1)
 			back.add(wrist)
-			bom.set(MountScrewKey,"capScrew","M3x16",new TransformNR())
-			bom.set(MountNutKey,"squareNut","M3",new TransformNR())
+			new VitaminLocation(MountScrewKey,"capScrew","M3x16",new TransformNR())
+			new VitaminLocation(MountNutKey,"squareNut","M3",new TransformNR())
 		}
 		if(linkIndex==1) {
-			bom.set(leftLinkScrewKey,"chamferedScrew","M3x16",new TransformNR())
-			bom.set(leftLinkNutKey,"squareNut","M3",new TransformNR())
-			bom.set(rightLinkNutKey,"squareNut","M3",new TransformNR())
+			new VitaminLocation(leftLinkScrewKey,"chamferedScrew","M3x16",new TransformNR())
+			new VitaminLocation(leftLinkNutKey,"squareNut","M3",new TransformNR())
+			new VitaminLocation(rightLinkNutKey,"squareNut","M3",new TransformNR())
 
 			String name= d.getScriptingName();
-			CSG link = getNeckLink()
+			CSG link = getNeckLink(d.getAbstractLink(1))
 
 			link.addAssemblyStep(4, new Transform().movez(30))
 			link.addAssemblyStep(2, new Transform().movez(-30))
@@ -1237,8 +1243,11 @@ class cadGenMarcos implements ICadGenerator{
 		return null;
 	}
 	public void setMobileBase(MobileBase mb) {
-		if(bom==null)
-			bom=new VitaminBomManager(mb.getGitSelfSource()[0]);
+		this.mb = mb;
+		
+		
+//		if(bom==null)
+//			bom=new VitaminBomManager(mb.getGitSelfSource()[0]);
 	}
 	TransformNR transformToTipOfLink(DHParameterKinematics d, int linkIndex){
 		TransformNR linkTip;
@@ -1252,11 +1261,11 @@ class cadGenMarcos implements ICadGenerator{
 		return linkTip
 	}
 	@Override
-	public ArrayList<CSG> generateBody(MobileBase arg0) {
+	public ArrayList<CSG> generateBody(MobileBase base) {
 		boolean makeCalibration =true;
 		cache.clear()
-		setMobileBase(arg0)
-		DHParameterKinematics dh = arg0.getLegs().get(0);
+		setMobileBase(base)
+		DHParameterKinematics dh = base.getLegs().get(0);
 		double zCenterLine = dh.getRobotToFiducialTransform().getZ()+numbers.ServoThickness/2.0;
 
 		TransformNR batteryLocation =new TransformNR()
@@ -1272,30 +1281,31 @@ class cadGenMarcos implements ICadGenerator{
 
 		batteryLocation.translateZ(7)
 		batteryLocation.translateX(-3)
-		bom.set("MotherboardScrew1","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR())
-		bom.set("MotherboardScrew2","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR())
-		bom.set("MotherboardScrew3","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR())
-		bom.set("MotherboardScrew4","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR())
-		bom.set("BatteryScrew5","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR())
-		bom.set("BatteryScrew6","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR())
+		
+		new VitaminLocation("MotherboardScrew1","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR(),base)
+		new VitaminLocation("MotherboardScrew2","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR(),base)
+		new VitaminLocation("MotherboardScrew3","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR(),base)
+		new VitaminLocation("MotherboardScrew4","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR(),base)
+		new VitaminLocation("BatteryScrew5","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR(),base)
+		new VitaminLocation("BatteryScrew6","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR(),base)
 
-		bom.set("battery","smallKatElectronics","dji-mavic-pro-battery",batteryLocation)
-		bom.set("batteryInterface","smallKatElectronics","batteryInterface",batteryInterfaceLocation)
-		bom.set("motherboard","smallKatElectronics","motherboard",motherboardLocation)
-
-
-		bom.set("CoverScrew1","chamferedScrew","M3x16",new TransformNR())
-		bom.set("CoverScrew2","chamferedScrew","M3x16",new TransformNR())
-		bom.set("CoverScrew3","chamferedScrew","M3x16",new TransformNR())
-		bom.set("CoverScrew4","chamferedScrew","M3x16",new TransformNR())
+		VitaminLocation battv = new VitaminLocation("battery","smallKatElectronics","dji-mavic-pro-battery",batteryLocation,base)
+		VitaminLocation intf= new VitaminLocation("batteryInterface","smallKatElectronics","batteryInterface",batteryInterfaceLocation,base)
+		VitaminLocation mobo = new VitaminLocation("motherboard","smallKatElectronics","motherboard",motherboardLocation,base)
 
 
+		new VitaminLocation("CoverScrew1","chamferedScrew","M3x16",new TransformNR(),base)
+		new VitaminLocation("CoverScrew2","chamferedScrew","M3x16",new TransformNR(),base)
+		new VitaminLocation("CoverScrew3","chamferedScrew","M3x16",new TransformNR(),base)
+		new VitaminLocation("CoverScrew4","chamferedScrew","M3x16",new TransformNR(),base)
 
-		CSG battery = bom.get("battery")
+
+
+		CSG battery = MobileBaseCadManager.get(base).getVitamin(battv)
 				.addAssemblyStep(13, new Transform().movez(-40))
-		CSG batteryInterface = bom.get("batteryInterface")
+		CSG batteryInterface =  MobileBaseCadManager.get(base).getVitamin(intf)
 				.addAssemblyStep(5, new Transform().movez(-40))
-		CSG motherboard = bom.get("motherboard")
+		CSG motherboard = MobileBaseCadManager.get(base).getVitamin(mobo)
 				.addAssemblyStep(5, new Transform().movez(40))
 
 
@@ -1319,7 +1329,7 @@ class cadGenMarcos implements ICadGenerator{
 			c.getStorage().set("bedType", "ff-One")
 			c.setPrintBedNumber(5)
 		}
-		for(DHParameterKinematics k:arg0.getLegs()) {
+		for(DHParameterKinematics k:base.getLegs()) {
 			boolean left=false;
 			boolean front=false;
 			if(k.getRobotToFiducialTransform().getY()>0) {
@@ -1362,7 +1372,7 @@ class cadGenMarcos implements ICadGenerator{
 			println "ServoCover's for "+(left?"Left":"Right")+(front?"Front":"Back")
 		}
 		// Set the location of the limbs based on the CSV in the body loader
-		for(DHParameterKinematics d:arg0.getAllDHChains()) {
+		for(DHParameterKinematics d:base.getAllDHChains()) {
 			boolean left=false;
 			boolean front=false;
 			boolean isDummyGearWrist = false;
@@ -1381,7 +1391,7 @@ class cadGenMarcos implements ICadGenerator{
 
 			double xval=(numbers.BodyServoCenterLength/2.0+legTOSHoulderX)*(front?1.0:-1.0)
 			if(!isDummyGearWrist) {
-				if(arg0.getLegs().contains(d)) {
+				if(base.getLegs().contains(d)) {
 					dGetRobotToFiducialTransform.setY(numbers.BodyServoCenterWidth/2.0*(left?1.0:-1.0))
 					dGetRobotToFiducialTransform.setX(numbers.BodyServoCenterLength/2.0*(front?1.0:-1.0))
 				}
@@ -1408,11 +1418,11 @@ class cadGenMarcos implements ICadGenerator{
 		bodyCOver.setManufacturing({ incoming ->
 			return incoming.toZMin().toXMin().toYMin().movey(body.getTotalY()+1)
 		})
-		File workDir = ScriptingEngine.getRepositoryCloneDirectory(arg0.getGitSelfSource()[0]);
+		File workDir = ScriptingEngine.getRepositoryCloneDirectory(base.getGitSelfSource()[0]);
 		GitVersionCalculator jgitver = GitVersionCalculator.location(workDir).setMavenLike(true)
 
 		String semver = jgitver.getVersion()
-		String configHash = arg0.getXml().hashCode()+"-"+semver;
+		String configHash = base.getXml().hashCode()+"-"+semver;
 		Font font = new Font("Arial",  6);
 
 		File calibrationJigFile = new File(workDir.getAbsolutePath()+"/CalibrationJig-"+configHash+".stl")
@@ -1434,29 +1444,29 @@ class cadGenMarcos implements ICadGenerator{
 					.moveToCenterY()
 
 
-			Transform tipLeftFront = TransformFactory.nrToCSG(getByName(arg0,"LeftFront").calcHome())
-			Transform tipRightFront = TransformFactory.nrToCSG(getByName(arg0,"RightFront").calcHome())
-			Transform tipLeftRear = TransformFactory.nrToCSG(getByName(arg0,"LeftRear").calcHome())
-			Transform tipRightRear = TransformFactory.nrToCSG(getByName(arg0,"RightRear").calcHome())
+			Transform tipLeftFront = TransformFactory.nrToCSG(getByName(base,"LeftFront").calcHome())
+			Transform tipRightFront = TransformFactory.nrToCSG(getByName(base,"RightFront").calcHome())
+			Transform tipLeftRear = TransformFactory.nrToCSG(getByName(base,"LeftRear").calcHome())
+			Transform tipRightRear = TransformFactory.nrToCSG(getByName(base,"RightRear").calcHome())
 
-			DHParameterKinematics h = getByName(arg0,"Head")
-			DHParameterKinematics t = getByName(arg0,"Tail")
+			DHParameterKinematics h = getByName(base,"Head")
+			DHParameterKinematics t = getByName(base,"Tail")
 
 			Transform neck =TransformFactory.nrToCSG(transformToTipOfLink(h,1))
 			Transform butt =TransformFactory.nrToCSG(transformToTipOfLink(t,1))
 
-			CSG neckBit = getNeckLink().transformed(neck)
-			CSG buttBit = getNeckLink().transformed(butt)
+			CSG neckBit = getNeckLink(h.getAbstractLink(1)).transformed(neck)
+			CSG buttBit = getNeckLink(t.getAbstractLink(1)).transformed(butt)
 			
 			CSG calBlock = new ChamferedCube(blockDepth,25,blockHeight,numbers.Chamfer2).toCSG()
 					.toZMin()
 					.movez(scoochUpDistance)
 			
 			//.movez(5)
-			CSG footLeftFront=getFoot(getByName(arg0,"LeftFront").getDH_R(2)).transformed(tipLeftFront)
-			CSG footRightFront=getFoot(getByName(arg0,"RightFront").getDH_R(2)).transformed(tipRightFront)
-			CSG footLeftRear=getFoot(getByName(arg0,"LeftRear").getDH_R(2)).transformed(tipLeftRear)
-			CSG footRightRear=getFoot(getByName(arg0,"RightRear").getDH_R(2)).transformed(tipRightRear)
+			CSG footLeftFront=getFoot(getByName(base,"LeftFront").getDH_R(2)).transformed(tipLeftFront)
+			CSG footRightFront=getFoot(getByName(base,"RightFront").getDH_R(2)).transformed(tipRightFront)
+			CSG footLeftRear=getFoot(getByName(base,"LeftRear").getDH_R(2)).transformed(tipLeftRear)
+			CSG footRightRear=getFoot(getByName(base,"RightRear").getDH_R(2)).transformed(tipRightRear)
 
 			CSG fCenter=calBlock.toXMax().move(tipLeftFront.x, 0, tipLeftFront.z)
 
@@ -1504,10 +1514,10 @@ class cadGenMarcos implements ICadGenerator{
 			label=label.movex(tipLeftFront.x-5)
 					.movez(Center.getMaxZ())
 			CSG gearAllignment = null;
-			def gearLimbs = [getByName(arg0,"DummyRightFront"),
-				getByName(arg0,"DummyLeftFront"),
-				getByName(arg0,"DummyRightRear"),
-				getByName(arg0,"DummyLeftRear")
+			def gearLimbs = [getByName(base,"DummyRightFront"),
+				getByName(base,"DummyLeftFront"),
+				getByName(base,"DummyRightRear"),
+				getByName(base,"DummyLeftRear")
 				]
 			CSG gearCutout = getGearLinkKeepaway()
 			CSG gearRest = new  ChamferedCube(gearCutout.getTotalX(),gearCutout.getTotalY(),gearCutout.getTotalZ(),
@@ -1574,7 +1584,7 @@ class cadGenMarcos implements ICadGenerator{
 			motherboard
 		])
 		for(CSG c:back) {
-			c.setManipulator(arg0.getRootListener())
+			c.setManipulator(base.getRootListener())
 		}
 		//		for(DHParameterKinematics kin:arg0.getAllDHChains()) {
 		//			CSG limbRoot =new Cube(1).toCSG()
