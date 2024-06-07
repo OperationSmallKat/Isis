@@ -36,10 +36,10 @@ IDriveEngine engine = new IDriveEngine () {
 	 */
 
 			boolean firstRun=true
-			double zoffsetOfFeetHome = -18
+			double zoffsetOfFeetHome = -21
 			double xOffsetOfFeetHome = 7
 			double ySplayOut = 5
-			double stepOverHeight = 10
+			double stepOverHeight = 15
 			public void DriveArc(MobileBase source,TransformNR newPose,double seconds) {
 				try {
 
@@ -95,14 +95,14 @@ class BodyController{
 
 	int coriolisIndex = 0
 	// ms of the tail loop
-	double timeOfTailLoop = 350
+	double timeOfTailLoop = 200
 	double coriolisTimeBase =numMsOfLoop
 	// degrees per time slice
 	double coriolisDivisions = timeOfTailLoop/coriolisTimeBase
 	double coriolisDivisionsScale = 360.0/coriolisDivisions
 	double coriolisGain=2
 
-	double cycleTime = numMsOfLoop*numPointsInLoop*(numberOfInterpolationPoints+1)+(numMsOfLoop*1)
+	double cycleTime = 300;//numMsOfLoop*numPointsInLoop*(numberOfInterpolationPoints+1)+(numMsOfLoop*1)
 	int numberOfInterpolatedPointsInALoop = numPointsInLoop*(numberOfInterpolationPoints+1)
 	MobileBase source=null;
 	MobileBase lastSource=null
@@ -399,6 +399,7 @@ class BodyController{
 	boolean connect() {
 		println "Connecting Body Controller"
 		availible=true;
+		println "Walking controller cycle time: "+cycleTime
 		if(bodyLoop==null) {
 			// Create a thread to run the body controller
 			bodyLoop=new Thread({
