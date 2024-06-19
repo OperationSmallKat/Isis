@@ -36,8 +36,8 @@ IDriveEngine engine = new IDriveEngine () {
 	 */
 
 			boolean firstRun=true
-			double zoffsetOfFeetHome = -21
-			double xOffsetOfFeetHome = 7
+			double zoffsetOfFeetHome = -18
+			double xOffsetOfFeetHome = 0
 			double ySplayOut = 5
 			double stepOverHeight = 15
 			public void DriveArc(MobileBase source,TransformNR newPose,double seconds) {
