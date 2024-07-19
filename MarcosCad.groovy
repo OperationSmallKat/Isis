@@ -718,29 +718,29 @@ class cadGenMarcos implements ICadGenerator{
 		String rightmotorDoorScrewKey = "RightMotorDoorScrew"+d.getScriptingName()+":"+linkIndex
 
 
-		new VitaminLocation(motorKey,conf.getElectroMechanicalType(),conf.getElectroMechanicalSize(),new TransformNR(),link)
+		new VitaminLocation(false,motorKey,conf.getElectroMechanicalType(),conf.getElectroMechanicalSize(),new TransformNR(),link)
 
-		new VitaminLocation(leftMotorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR(),link)
-		new VitaminLocation(rightMotorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR(),link)
-
-
-
-		new VitaminLocation(leftLinkNutKey,"squareNut","M3",new TransformNR(),link)
-		new VitaminLocation(rightLinkNutKey,"squareNut","M3",new TransformNR(),link)
-
-		new VitaminLocation(leftCalibrationNutKey,"squareNut","M3",new TransformNR(),link)
-		new VitaminLocation(rightCalibrationNutKey,"squareNut","M3",new TransformNR(),link)
+		new VitaminLocation(false,leftMotorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR(),link)
+		new VitaminLocation(false,rightMotorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR(),link)
 
 
-		new VitaminLocation(leftCalibrationScrewKey,"conePointSetScrew","M3x8",new TransformNR(),link)
-		new VitaminLocation(rightCalibrationScrewKey,"conePointSetScrew","M3x8",new TransformNR(),link)
+
+		new VitaminLocation(false,leftLinkNutKey,"squareNut","M3",new TransformNR(),link)
+		new VitaminLocation(false,rightLinkNutKey,"squareNut","M3",new TransformNR(),link)
+
+		new VitaminLocation(false,leftCalibrationNutKey,"squareNut","M3",new TransformNR(),link)
+		new VitaminLocation(false,rightCalibrationNutKey,"squareNut","M3",new TransformNR(),link)
+
+
+		new VitaminLocation(false,leftCalibrationScrewKey,"conePointSetScrew","M3x8",new TransformNR(),link)
+		new VitaminLocation(false,rightCalibrationScrewKey,"conePointSetScrew","M3x8",new TransformNR(),link)
 		LengthParameter facets		= new LengthParameter("Bolt Hole Facet Count",10,[40, 10])
 		facets.setMM(30)
 		offset.setMM(numbers.LooseTolerance)
 		if(linkIndex==0) {
 
-			new VitaminLocation(leftmotorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR(),link)
-			new VitaminLocation(rightmotorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR(),link)
+			new VitaminLocation(false,leftmotorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR(),link)
+			new VitaminLocation(false,rightmotorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR(),link)
 
 			motor=motor.rotz(left?180:0)
 			motor=motor.roty(front?180:0)
@@ -750,7 +750,7 @@ class cadGenMarcos implements ICadGenerator{
 			motor.addAssemblyStep(4, new Transform().movex(isDummyGearWrist?-30:MototRetractDist))
 			motor.addAssemblyStep(3, new Transform().movey(isDummyGearWrist?-30:left?-MototRetractDist*4:MototRetractDist*4))
 		}else {
-			new VitaminLocation(motorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR(),link)
+			new VitaminLocation(false,motorDoorScrewKey,"PhillipsRoundedHeadThreadFormingScrews","M2x8",new TransformNR(),link)
 			motor=motor.roty(left?180:0)
 			motor=motor.rotz(linkIndex==2?90:90+link1Rotz)
 			if(linkIndex==1) {
@@ -920,8 +920,8 @@ class cadGenMarcos implements ICadGenerator{
 			}
 
 
-			VitaminLocation vLLS=new VitaminLocation(leftLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(parametric),link)
-			VitaminLocation vRLS=new VitaminLocation(rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(parametric),link)
+			VitaminLocation vLLS=new VitaminLocation(false,leftLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(parametric),link)
+			VitaminLocation vRLS=new VitaminLocation(false,rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(parametric),link)
 			CSG boltlStart = MobileBaseCadManager.get(link).getVitamin(vLLS)
 			CSG boltrStart = MobileBaseCadManager.get(link).getVitamin(vRLS)
 
@@ -1016,7 +1016,7 @@ class cadGenMarcos implements ICadGenerator{
 		String rightLinkScrewKey="RightLinkScrewTail:1"
 		double length =parametric+neckLenFudge-0.75
 		
-		VitaminLocation v= new VitaminLocation(rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(length),link)
+		VitaminLocation v= new VitaminLocation(false,rightLinkScrewKey,"chamferedScrew","M3x16",new TransformNR().translateX(length),link)
 		CSG boltl = MobileBaseCadManager.get(link).getVitamin(v)
 		return passiveLink(length,boltl)
 				.rotx(180)
@@ -1061,13 +1061,13 @@ class cadGenMarcos implements ICadGenerator{
 			wrist.getStorage().set("bedType", "ff-One")
 			wrist.setPrintBedNumber(1)
 			back.add(wrist)
-			new VitaminLocation(MountScrewKey,"capScrew","M3x16",new TransformNR())
-			new VitaminLocation(MountNutKey,"squareNut","M3",new TransformNR())
+			new VitaminLocation(false,MountScrewKey,"capScrew","M3x16",new TransformNR())
+			new VitaminLocation(false,MountNutKey,"squareNut","M3",new TransformNR())
 		}
 		if(linkIndex==1) {
-			new VitaminLocation(leftLinkScrewKey,"chamferedScrew","M3x16",new TransformNR())
-			new VitaminLocation(leftLinkNutKey,"squareNut","M3",new TransformNR())
-			new VitaminLocation(rightLinkNutKey,"squareNut","M3",new TransformNR())
+			new VitaminLocation(false,leftLinkScrewKey,"chamferedScrew","M3x16",new TransformNR())
+			new VitaminLocation(false,leftLinkNutKey,"squareNut","M3",new TransformNR())
+			new VitaminLocation(false,rightLinkNutKey,"squareNut","M3",new TransformNR())
 
 			String name= d.getScriptingName();
 			CSG link = getNeckLink(d.getAbstractLink(1))
@@ -1282,22 +1282,22 @@ class cadGenMarcos implements ICadGenerator{
 		batteryLocation.translateZ(7)
 		batteryLocation.translateX(-3)
 		
-		new VitaminLocation("MotherboardScrew1","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR(),base)
-		new VitaminLocation("MotherboardScrew2","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR(),base)
-		new VitaminLocation("MotherboardScrew3","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR(),base)
-		new VitaminLocation("MotherboardScrew4","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR(),base)
-		new VitaminLocation("BatteryScrew5","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR(),base)
-		new VitaminLocation("BatteryScrew6","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR(),base)
+		new VitaminLocation(false,"MotherboardScrew1","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR(),base)
+		new VitaminLocation(false,"MotherboardScrew2","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR(),base)
+		new VitaminLocation(false,"MotherboardScrew3","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR(),base)
+		new VitaminLocation(false,"MotherboardScrew4","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR(),base)
+		new VitaminLocation(false,"BatteryScrew5","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR(),base)
+		new VitaminLocation(false,"BatteryScrew6","PhillipsRoundedHeadThreadFormingScrews","M3x6",new TransformNR(),base)
 
-		VitaminLocation battv = new VitaminLocation("battery","smallKatElectronics","dji-mavic-pro-battery",batteryLocation,base)
-		VitaminLocation intf= new VitaminLocation("batteryInterface","smallKatElectronics","batteryInterface",batteryInterfaceLocation,base)
-		VitaminLocation mobo = new VitaminLocation("motherboard","smallKatElectronics","motherboard",motherboardLocation,base)
+		VitaminLocation battv = new VitaminLocation(false,"battery","smallKatElectronics","dji-mavic-pro-battery",batteryLocation,base)
+		VitaminLocation intf= new VitaminLocation(false,"batteryInterface","smallKatElectronics","batteryInterface",batteryInterfaceLocation,base)
+		VitaminLocation mobo = new VitaminLocation(false,"motherboard","smallKatElectronics","motherboard",motherboardLocation,base)
 
 
-		new VitaminLocation("CoverScrew1","chamferedScrew","M3x16",new TransformNR(),base)
-		new VitaminLocation("CoverScrew2","chamferedScrew","M3x16",new TransformNR(),base)
-		new VitaminLocation("CoverScrew3","chamferedScrew","M3x16",new TransformNR(),base)
-		new VitaminLocation("CoverScrew4","chamferedScrew","M3x16",new TransformNR(),base)
+		new VitaminLocation(false,"CoverScrew1","chamferedScrew","M3x16",new TransformNR(),base)
+		new VitaminLocation(false,"CoverScrew2","chamferedScrew","M3x16",new TransformNR(),base)
+		new VitaminLocation(false,"CoverScrew3","chamferedScrew","M3x16",new TransformNR(),base)
+		new VitaminLocation(false,"CoverScrew4","chamferedScrew","M3x16",new TransformNR(),base)
 
 
 
